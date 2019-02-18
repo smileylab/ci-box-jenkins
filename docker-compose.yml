@@ -8,12 +8,12 @@ services:
       context: ./
       args:
         version: lts
-        extra_packages: "net-tools"
         admin_username: "admin"
         admin_password: "password"
         http_port: 8083
         slave_port: 8084
-        plugins: ""
+        extra_packages: "build-essential gcc g++"
+        plugins: "git mailer git-parameter build-timeout"
     restart: always
     ports:
       - "8083:8083"    # http port
