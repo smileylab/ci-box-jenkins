@@ -9,6 +9,8 @@ services:
       args:
         version: lts
         extra_packages: "net-tools"
+        admin_username: "admin"
+        admin_password: "password"
         http_port: 8083
         slave_port: 8084
         plugins: ""
