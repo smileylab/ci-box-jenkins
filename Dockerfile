@@ -23,8 +23,8 @@ USER jenkins
 # For automated password setup
 COPY scripts/security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy
 
-ARG slave_port=50000
-ENV JENKINS_SLAVE_AGENT_PORT ${slave_port}
+ARG agent_port=50000
+ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 
 ARG http_port=8080
 ENV JENKINS_OPTS --httpPort=${http_port}

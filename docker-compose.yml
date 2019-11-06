@@ -4,6 +4,7 @@ services:
   jenkins:
     container_name: jenkins
     hostname: jenkins
+    image: tn/jenkins
     build:
       context: ./
       args:
@@ -11,9 +12,29 @@ services:
         admin_username: "admin"
         admin_password: "password"
         http_port: 8083
-        slave_port: 8084
-        extra_packages: "build-essential gcc g++"
-        plugins: "git mailer git-parameter build-timeout"
+        agent_port: 8084
+        extra_packages: "repo"
+        plugins: "ace-editor ant antisamy-markup-formatter apache-httpcomponents-client-4-api authentication-tokens \
+bouncycastle-api branch-api build-timeout cloudbees-folder cloud-stats command-launcher copyartifact credentials credentials-binding \
+display-url-api docker-commons docker-workflow durable-task \
+email-ext external-monitor-job ftppublisher \
+git git-changelog git-client git-parameter github github-api github-branch-source git-server \
+gradle handlebars icon-shim jackson2-api javadoc jdk-tool jquery-detached jsch junit ldap locale \
+mailer mapdb-api matrix-auth matrix-project momentjs multiple-scms pam-auth \
+pipeline-build-step pipeline-github-lib pipeline-graph-analysis pipeline-input-step \
+pipeline-milestone-step pipeline-model-api pipeline-model-declarative-agent pipeline-model-definition \
+pipeline-model-extensions pipeline-rest-api pipeline-stage-step pipeline-stage-tags-metadata pipeline-stage-view \
+plain-credentials publish-over publish-over-ftp publish-over-ssh \
+repo resource-disposer scm-api script-security ssh-credentials ssh-slaves structs \
+subversion timestamper token-macro windows-slaves \
+workflow-aggregator workflow-api workflow-basic-steps workflow-cps workflow-cps-global-lib \
+workflow-durable-task-step workflow-job workflow-multibranch workflow-scm-step workflow-step-api \
+workflow-support ws-cleanup yet-another-docker-plugin"
     restart: always
     ports:
       - "8083:8083"    # http port
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true"
+      TZ: "Asia/Taipei"
+    volumes:
+      - ./overlays/jenkins_home/:/var/jenkins_home/
