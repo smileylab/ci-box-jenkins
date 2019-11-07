@@ -6,11 +6,9 @@ services:
     hostname: jenkins
     image: tn/jenkins
     build:
-      context: ./
+      context: .
       args:
         version: lts
-        admin_username: "admin"
-        admin_password: "password"
         http_port: 8083
         agent_port: 8084
         extra_packages: "repo"
