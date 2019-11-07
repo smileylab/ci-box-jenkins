@@ -3,9 +3,12 @@ FROM jenkins/jenkins:${version}
 
 USER root
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 ARG extra_packages=""
-RUN apt -q update && DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get -q -y install ${extra_packages}
+RUN apt -q update && apt-get -q -y upgrade
+RUN case ${extra_packages} in *repo*) apt-get -q -y install curl && curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo && chmod a+x /usr/bin/repo;; esac
+RUN case ${extra_packages} in *repo*) apt-get -q -y install $(echo ${extra_packages} | sed 's,repo\s*,,g');; *) apt-get -q -y install ${extra_packages};; esac
 
 ARG plugins=""
 RUN if [ ! -z "${plugins}" ]; then /usr/local/bin/install-plugins.sh ${plugins}; fi
