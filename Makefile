@@ -1,6 +1,9 @@
 build:
 	docker-compose build
 
+install:
+	systemctl enable jenkins-docker.service
+
 run: build
 	docker-compose up
 
@@ -20,4 +23,4 @@ restart:
 clean:
 	docker-compose down
 
-.PHONY: run start stop status restart clean
+.PHONY: install run start stop status restart clean
