@@ -1,0 +1,118 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>build the 32bits rescue root file system - update installer/rescue scripts only</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>180</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <artifactDaysToKeep>30</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/buildroot-edm.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/2017.05.x-edm</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/buildroot</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>github_tn-kernel-4.9.88</project>
+      <filter>modules.tar</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+SOURCE32DIR=/home/jenkins/data/src/rescue32
+TGTDIR=/home/jenkins/build/rootfs-rescue32
+
+# set the 32bits build env
+. buildenv.sh
+
+# fetch rescue scripts from internal git server
+rm -f $SOURCE32DIR/tn_rescue-*
+git clone ssh://rdsw@10.20.30.20:/volume1/internal_git/tools/installer_files.git installer
+cd installer; git checkout -b rescue-loader origin/rescue-loader
+git archive --format=tar.gz -o $SOURCE32DIR/tn_rescue-rel_rescue_v2018.06.30.2.tar.gz --prefix=tn_rescue-rel_rescue_v2018.06.30.2/ rescue-loader
+cd ${WORKSPACE}
+rm -r -f installer
+
+# rebuild the tn_rescue
+ln -s $SOURCE32DIR ./dl
+#make O=$TGTDIR tn-rescue_defconfig
+make O=$TGTDIR tn_rescue-dirclean
+make O=$TGTDIR tn_rescue-rebuild
+
+# install kernel modules into 32bits rootfs.cpio.xz
+[ -d $TGTDIR/target/lib/modules ] &amp;&amp; rm -rf $TGTDIR/target/lib/modules
+tar xvf modules.tar
+cp -f -R ./modules/lib/modules $TGTDIR/target/lib/
+
+# build the rescue32 root file system
+make O=$TGTDIR
+
+# copy off the rootfs.cpio.xz
+[ -d rescue32/images ] &amp;&amp; rm -r -f rescue32/images/* || mkdir -p rescue32/images
+cp -R -f $TGTDIR/images/* ./rescue32/images/
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>rescue32/images/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/edm-yocto-bsp.git</url>
+        <credentialsId>tn-jenkins</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/jethro_4.1.15-1.1.0_next</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/yocto</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+RELEASENOTE=yocto_jethro_release_note.txt
+GITSERVER=&quot;10.20.30.20&quot;
+
+mkdir -p ~/.ssh; chmod 0700 ~/.ssh
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+sshpass -p &apos;123456&apos; git clone ssh://jenkins@${GITSERVER}:/volume1/internal_git/document/tn-document.git
+cd tn-document &amp;&amp; git checkout -b tn-imx_4.1.15_2.0.0_ga origin/tn-imx_4.1.15_2.0.0_ga
+libreoffice --headless --convert-to pdf *.odt
+cd -
+
+if ( ! grep -q $(date +&quot;%Y%m%d&quot;) ${HOME}/data/${RELEASENOTE} ); then
+
+# -------------- new release note --------------
+cat &lt;&lt;EOM &gt;newnote
+$(date +&quot;%Y%m%d&quot;):
+
+Yocto 2.0 jethro
+u-boot:
+	$(cat ${HOME}/build/uboot/changelog)
+kernel:
+	$(cat ${HOME}/build/kernel/changelog)
+EOM
+# ----------------------------------------------
+
+sed -i &apos;2r newnote&apos; ${HOME}/data/${RELEASENOTE}
+fi
+
+sed -i &apos;/\r/! s/$/\r/&apos; ${HOME}/data/${RELEASENOTE}
+
+mkdir -p ${WORKSPACE}/docs
+cp ${HOME}/data/Win32DiskImager*.zip ${WORKSPACE}/docs
+cp ./tn-document/PreBuilt_OS_Image_Installation_Guide.pdf ${WORKSPACE}/docs
+cp ./tn-document/Yocto_2.1_PreBuilt_Image_User_Guide.pdf ${WORKSPACE}/docs
+cp ${HOME}/data/how_to_build_this_image.txt ${WORKSPACE}/docs
+cp ${HOME}/data/${RELEASENOTE} ${WORKSPACE}/docs/release_note.txt
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b jethro_4.1.15-1.1.0_next
+${HOME}/bin/repo sync -j8
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; setup-environment
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+cp ${HOME}/data/bcm_firmware/* sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/files
+cp sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/files/firmware-bcmdhd_1.0.1.bak sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/firmware-bcmdhd_1.0.1.bb
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+CFGFILE=${HOME}/data/yocto_jethro.conf
+RDNAS=&quot;10.20.30.20&quot;
+DATETIME=$(date +&quot;%Y%m%d&quot;)
+
+while read line
+do
+	[ &quot;${line:0:1}&quot; == &quot;#&quot; ] &amp;&amp; continue
+	CFG=($line)
+	MACHINE=${CFG[0]}
+	BASEBOARD=${CFG[1]}
+	GRAPHIC=${CFG[2]}
+	DISPLAY=${CFG[3]}
+	TARGET=${CFG[4]}
+	MACHINE2=${CFG[0]}
+	FN_BOARD=${CFG[5]}
+	FN_DISP=${CFG[6]}
+	BUILDDIR=build-${GRAPHIC}-${BASEBOARD}
+
+	source edm-setup-release.sh -b ${BUILDDIR} -e ${GRAPHIC}
+	if [ -n &quot;$(echo ${MACHINE2} | grep -v &apos;imx6ul\|imx7&apos;)&quot; ]; then
+		echo &quot;CORE_IMAGE_EXTRA_INSTALL += \&quot;chromium libexif\&quot;&quot; &gt;&gt; conf/local.conf
+		echo &quot;LICENSE_FLAGS_WHITELIST=\&quot;commercial\&quot;&quot; &gt;&gt; conf/local.conf
+	fi
+	bitbake ${TARGET}
+	mkdir -p ${HOME}/build/yocto
+	UI=$(echo ${TARGET} | cut -d &apos;-&apos; -f3)
+	[ &quot;${UI}&quot; != &quot;qt5&quot; -a &quot;${GRAPHIC}&quot; != &quot;x11&quot; ] &amp;&amp; UI=&quot;${UI}-${GRAPHIC}&quot;
+
+	FILENAME=${FN_BOARD}_yocto-2.0_${UI}_sdcard_${FN_DISP}_${DATETIME}
+	mkdir -p ${WORKSPACE}/${FILENAME}
+	cp ./tmp/deploy/images/${MACHINE2}/${TARGET}-${MACHINE2}.sdcard ${WORKSPACE}/${FILENAME}/${FILENAME}.img
+	bitbake -c clean ${TARGET}
+	cp ${WORKSPACE}/docs/* ${WORKSPACE}/${FILENAME}/
+	cd ${WORKSPACE}
+	zip ${HOME}/build/yocto/${FILENAME}.zip ${FILENAME}/*
+	sync
+	
+	SOM2=$(echo ${MACHINE2/edm1/edm} | sed -r &apos;s/imx7/imx7d/g&apos; | sed -r &apos;s/-no-console//g&apos;)
+	URL=ftp://jenkins:123456@${RDNAS}/rdnas/Products/Freescale/Images/generic_installer/linux_4.1.15/${SOM2}/
+	[[ `wget --spider ${URL} 2&gt;&amp;1 | grep &apos;LIST&apos;` ]] &amp;&amp; wget --no-remove-listing ${URL} &gt; /dev/null 2&gt;&amp;1
+	if [ -f .listing ]; then
+		if [ ${GRAPHIC} == &quot;lvds10&quot; -o ${GRAPHIC} == &quot;lvds15&quot; ]; then
+			MACHINE=${MACHINE2/tek/tep5}
+		elif [[ ${SOM2} == &quot;tek-&quot;* ]]; then
+			MACHINE=${SOM2/tek/tek3}
+		elif [[ ${SOM2} == &quot;edm-&quot;* ]]; then
+			MACHINE=${SOM2/edm/edm1}
+		else
+			MACHINE=${MACHINE2}
+		fi
+		INSTALLER=$(grep ${MACHINE} .listing | grep ${FN_DISP} | awk &apos;{print $9}&apos; | tr -d &apos;\r&apos;)
+	fi
+
+	if [ -n &quot;${INSTALLER}&quot; ]; then
+		INSTALLER_NAME=$(echo ${INSTALLER} | sed -e &apos;s/.zip//g&apos;)
+		if [ ! -e ${INSTALLER} ]; then
+			wget ${URL}/${INSTALLER} &gt; /dev/null 2&gt;&amp;1
+			unzip ${WORKSPACE}/${INSTALLER} ${INSTALLER_NAME}/${INSTALLER_NAME}.img
+			mv ${INSTALLER_NAME}/*.img ./
+			rm -rf ${INSTALLER_NAME}
+		fi
+		cd ${WORKSPACE}/${FILENAME}
+#		xz -9 ${FILENAME}.img
+		xz ${FILENAME}.img
+
+		cp ${WORKSPACE}/${INSTALLER_NAME}.img ./tmp.img
+
+		NODEs=($(echo jenkins | sudo -S kpartx -av tmp.img | grep -o loop[0-9]))
+		NODE=${NODEs[0]}
+		echo jenkins | sudo -S mount /dev/mapper/${NODE}p1 /mnt
+		echo jenkins | sudo -S mv ${FILENAME}.img.xz /mnt/image
+		echo jenkins | sudo -S umount /dev/mapper/${NODE}p1
+		echo jenkins | sudo -S umount /dev/mapper/${NODE}p2
+		echo jenkins | sudo -S kpartx -d /dev/${NODE}
+		echo jenkins | sudo -S losetup -d /dev/${NODE}
+		sync
+
+		FILENAME2=${FN_BOARD}_yocto-2.0_${UI}_installer_${FN_DISP}_${DATETIME}
+		mv ./tmp.img ./${FILENAME2}.img
+		cd ${WORKSPACE}
+		mv ${FILENAME} ${FILENAME2}
+		zip ${HOME}/build/yocto/${FILENAME2}.zip ${FILENAME2}/*
+		sync
+		rm -rf ${WORKSPACE}/${FILENAME2}
+	fi
+
+	[ -d ${WORKSPACE}/${FILENAME} ] &amp;&amp; rm -rf ${WORKSPACE}/${FILENAME}
+	cd ${WORKSPACE}
+	sync
+
+done &lt; ${CFGFILE}
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

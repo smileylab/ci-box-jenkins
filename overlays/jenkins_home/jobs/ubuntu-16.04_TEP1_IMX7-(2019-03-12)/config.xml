@@ -1,0 +1,185 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+JHOME=/home/jenkins
+RELEASENOTE=ubuntu_16.04_release_note.txt
+
+if ( ! grep -q $(date +&quot;%Y%m%d&quot;) ${JHOME}/data/${RELEASENOTE} ); then
+
+# -------------- new release note --------------
+cat &lt;&lt;EOM &gt;newnote
+$(date +&quot;%Y%m%d&quot;):
+
+Ubuntu 16.04
+u-boot:
+	$(cat ${JHOME}/build/uboot/changelog)
+kernel:
+	$(cat ${JHOME}/build/kernel/changelog)
+EOM
+# ----------------------------------------------
+
+sed -i &apos;2r newnote&apos; ${JHOME}/data/${RELEASENOTE}
+fi
+
+sed -i &apos;/\r/! s/$/\r/&apos; ${JHOME}/data/${RELEASENOTE}
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+GPU=&quot;gpu&quot;
+
+JHOME=/home/jenkins
+CFGFILE=${JHOME}/data/ubuntu_${GPU}.conf
+GITSERVER=&quot;10.20.30.20&quot;
+DATETIME=$(date +&quot;%Y%m%d&quot;)
+
+mkdir -p ~/.ssh; chmod 0700 ~/.ssh
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+sshpass -p &apos;123456&apos; git clone ssh://jenkins@${GITSERVER}:/volume1/internal_git/document/tn-document.git
+cd tn-document &amp;&amp; git checkout -b tn-imx_4.9.88_2.0.0_ga-test origin/tn-imx_4.9.88_2.0.0_ga-test
+libreoffice --headless --convert-to pdf *.odt
+cd -
+
+mkdir preview installer
+mkdir -p ${JHOME}/build/ubuntu
+
+cp ${JHOME}/data/Win32DiskImager*.zip ./installer
+cp ./tn-document/PreBuilt_OS_Image_Installation_Guide.pdf ./installer
+cp ./tn-document/General_Installer_User_Guide.pdf ./installer
+cp ${JHOME}/data/ubuntu_16.04_release_note.txt ./installer/release_note.txt
+
+cp ${JHOME}/data/Win32DiskImager*.zip ./preview
+cp ./tn-document/PreBuilt_OS_Image_Installation_Guide.pdf ./preview
+cp ./tn-document/Ubuntu_16.04_PreBuilt_Image_User_Guide.pdf ./preview
+cp ${JHOME}/data/ubuntu_16.04_release_note.txt ./preview/release_note.txt
+
+while read line
+do
+	[ &quot;${line:0:1}&quot; == &quot;#&quot; ] &amp;&amp; continue
+	CFG=($line)
+	SOM=${CFG[0]}
+	BOARD=${CFG[1]}
+	DISP=${CFG[2]}
+	BOARDNAME=${CFG[3]}
+
+	cp ${JHOME}/data/ubuntu_16.04_${GPU}.img ./
+	NODEs=($(kpartx -av ./ubuntu_16.04_${GPU}.img | grep -o loop[0-9]))
+	NODE=${NODEs[0]}
+	sync
+
+	dd if=${JHOME}/build/uboot/${SOM}/SPL of=/dev/${NODE} seek=1 bs=1k conv=notrunc
+	sync
+
+	mount /dev/mapper/${NODE}p1 /mnt
+	cp ${JHOME}/build/uboot/${SOM}/u-boot.img /mnt
+	cp ${JHOME}/build/kernel/zImage /mnt
+	
+	if ( echo ${SOM} | grep -q imx6ul ); then
+		cp ${JHOME}/build/kernel/imx6ul*${BOARD}.dtb /mnt
+	elif ( echo ${SOM} | grep -q imx7 ); then
+		cp ${JHOME}/build/kernel/imx7d*${BOARD}.dtb /mnt
+	else
+		cp ${JHOME}/build/kernel/imx6[dq]*${BOARD}.dtb /mnt
+	fi
+	cp ${JHOME}/build/uboot/uEnv.txt /mnt
+	echo &quot;baseboard=${BOARD}&quot; &gt;&gt; /mnt/uEnv.txt
+	case &quot;${DISP}&quot; in
+	&quot;hdmi&quot;)
+		sed -i &apos;s/lcd,800x480/hdmi,1280x720M/g&apos; /mnt/uEnv.txt
+		;;
+	&quot;lvds-1024x600&quot;)
+		sed -i &apos;s/lcd,800x480/ldb,1024x600/g&apos; /mnt/uEnv.txt
+		;;
+	&quot;lvds-1280x800&quot;)
+		sed -i &apos;s/lcd,800x480/ldb,1280x800/g&apos; /mnt/uEnv.txt
+		;;
+	&quot;vga&quot;)
+		sed -i &apos;s/lcd,800x480//g&apos; /mnt/uEnv.txt
+		;;
+	esac
+	umount /mnt
+	sync
+
+	mount /dev/mapper/${NODE}p2 /mnt
+	cp -r ${JHOME}/build/kernel/modules/lib /mnt
+	umount /mnt
+	sync
+	
+	kpartx -dv /dev/${NODE}
+	losetup -d /dev/${NODE}
+	sync
+
+	FILENAME=${BOARDNAME}_ubuntu-16.04_sdcard-preview_${DISP}_${DATETIME}
+	mv ubuntu_16.04_${GPU}.img ${FILENAME}.img
+	zip ${JHOME}/build/ubuntu/${FILENAME}.zip ${FILENAME}.img
+	cd ./preview
+	zip ${JHOME}/build/ubuntu/${FILENAME}.zip *
+	cd -
+	sync
+
+	SOM2=$(echo ${SOM/som/} | sed -r &apos;s/_spl//g&apos;)
+	URL=ftp://jenkins:123456@${GITSERVER}/rdnas/Products/Freescale/Images/generic_installer/linux_4.1.15/${SOM2}/
+	[[ `wget --spider ${URL} 2&gt;&amp;1 | grep &apos;LIST&apos;` ]] &amp;&amp; wget --no-remove-listing ${URL} &gt; /dev/null 2&gt;&amp;1
+	if [ -f .listing ]; then
+		INSTALLER=$(grep ${SOM2} .listing | grep ${DISP} | awk &apos;{print $9}&apos; | tr -d &apos;\r&apos;)
+		[ -z &quot;${INSTALLER}&quot; ] &amp;&amp; {
+			[[ &quot;${SOM2}&quot; == *&quot;7d&quot; ]] &amp;&amp; INSTALLER=$(grep ${SOM2/7d/7} .listing | grep ${DISP} | awk &apos;{print $9}&apos; | tr -d &apos;\r&apos;)
+			[[ &quot;${SOM2}&quot; == &quot;edm-cf-&quot;* ]] &amp;&amp; INSTALLER=$(grep ${SOM2/edm/edm1} .listing | grep ${DISP} | awk &apos;{print $9}&apos; | tr -d &apos;\r&apos;)
+		}
+	fi
+
+	if [ -n &quot;${INSTALLER}&quot; ]; then
+#		xz -9 ${FILENAME}.img
+		xz ${FILENAME}.img
+
+		if [ ! -e ${INSTALLER} ]; then
+			wget ${URL}/${INSTALLER} &gt; /dev/null 2&gt;&amp;1
+		fi
+		unzip -p ${INSTALLER} *.img &gt; ./installer/tmp.img
+		NODEs=($(kpartx -av ./installer/tmp.img | grep -o loop[0-9]))
+		NODE=${NODEs[0]}
+		sync
+
+		mount /dev/mapper/${NODE}p1 /mnt
+		cp ${FILENAME}.img.xz /mnt/image
+		umount /mnt
+		sync
+	
+		kpartx -dv /dev/${NODE}
+		losetup -d /dev/${NODE}
+		sync
+
+		FILENAME=${BOARDNAME}_ubuntu-16.04_installer_${DISP}_${DATETIME}
+		cd ./installer
+		mv ./tmp.img ./${FILENAME}.img
+		zip ${JHOME}/build/ubuntu/${FILENAME}.zip *
+		sync
+		rm *.img
+		cd -
+	fi
+
+	[ -f ${FILENAME}.img ] &amp;&amp; rm ./${FILENAME}.img
+	sync
+
+done &lt; ${CFGFILE}</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

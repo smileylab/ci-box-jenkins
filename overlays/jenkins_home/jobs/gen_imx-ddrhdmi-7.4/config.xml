@@ -1,0 +1,66 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+set -e
+
+FSL_MIRROR=&quot;https://www.nxp.com/lgfiles/NMG/MAD/YOCTO&quot;
+DDR_FW_VER=&quot;7.4&quot;
+
+OUTDIR=/home/jenkins/build/
+[ -d ${OUTDIR}/firmware-imx-${DDR_FW_VER} ] &amp;&amp; rm -fr ${OUTDIR}/firmware-imx-${DDR_FW_VER}
+
+wget ${FSL_MIRROR}/firmware-imx-${DDR_FW_VER}.bin
+chmod +x firmware-imx-${DDR_FW_VER}.bin
+./firmware-imx-${DDR_FW_VER}.bin --auto-accept --force
+if [ -d firmware-imx-${DDR_FW_VER} ] ; then
+    cp -fr firmware-imx-${DDR_FW_VER} ${OUTDIR}
+    rm -f ./firmware-imx-${DDR_FW_VER}.bin
+else
+    echo &quot;No DDR firmware&quot;
+    exit 1
+fi
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>firmware-imx-*/**</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

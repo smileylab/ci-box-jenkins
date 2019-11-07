@@ -1,0 +1,128 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build the new 4.14.98 kernel for arm64 bit environments&#xd;
+configurations: pico-imx8mq / pico-imx8mm</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/linux/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/linux.git</url>
+        <credentialsId>tn-jenkins</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tn-imx_4.14.98_2.0.0_ga-wip</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <noTags>false</noTags>
+        <reference></reference>
+        <timeout>60</timeout>
+        <depth>1</depth>
+        <honorRefspec>false</honorRefspec>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
+  </scm>
+  <assignedNode>docker-slave/kernel</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H 21 * * 5</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+CHANGELOG=changelog-kernel
+OUT_PATH64=/home/jenkins/build/kernel64
+
+# setup the target directories
+[ -d ./modules ] &amp;&amp; rm -fr ./modules/* || mkdir -p ./modules
+[ -d ${OUT_PATH64} ] &amp;&amp; rm -fr ${OUT_PATH64}/* || mkdir -p ${OUT_PATH64}
+
+# change log
+if [ &quot;${GIT_COMMIT}&quot; == &quot;${GIT_PREVIOUS_COMMIT}&quot; ]; then
+  git log --oneline -1 &gt; ./${CHANGELOG}
+else
+  if git cat-file -e ${GIT_PREVIOUS_COMMIT} 2&gt; /dev/null ; then
+    git log --oneline ${GIT_PREVIOUS_COMMIT}..${GIT_COMMIT} &gt; ./${CHANGELOG}
+  else
+    git log --oneline ${GIT_COMMIT} &gt; ./${CHANGELOG}
+  fi
+fi
+cp ./${CHANGELOG} ${OUT_PATH64}/
+
+# patch imx8mq-pico.dtsi/imx8mq-edm.dtsi for 1G RAM (suppose to be for 1G RAM, but for the sack of uniformity, all dts are affected)
+sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x10000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
+sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x10000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+cat ./arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
+cat ./arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+
+# build 64bit imx8 soc
+. buildenv.sh 64
+make distclean
+make tn_imx8_defconfig
+make -j10 Image dtbs modules
+make modules_install INSTALL_MOD_PATH=./modules
+tar cvf modules.tar ./modules
+
+cp ./arch/arm64/boot/Image ${OUT_PATH64}/
+cp ./arch/arm64/boot/dts/freescale/*{imx8m,pico,wand}*.dtb ${OUT_PATH64}/ || :
+cp modules.tar ${OUT_PATH64}/
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*pico*.dtb,arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*flex*.dtb,arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*edm*.dtb,arch/arm64/boot/dts/freescale/*wand*.dtb,modules.tar,changelog*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

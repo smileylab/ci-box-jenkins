@@ -1,0 +1,117 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build the new 4.14.98 kernel for arm32 bit environments&#xd;
+configurations: imx6/7 pico/edm/tep/tek</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/linux/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/linux.git</url>
+        <credentialsId>tn-jenkins</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tn-imx_4.14.98_2.0.0_ga-wip</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <noTags>false</noTags>
+        <reference></reference>
+        <timeout>60</timeout>
+        <depth>1</depth>
+        <honorRefspec>false</honorRefspec>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
+  </scm>
+  <assignedNode>docker-slave/kernel</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H 21 * * 5</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+CHANGELOG=changelog-kernel
+OUT_PATH=/home/jenkins/build/kernel
+
+# setup the target directories
+[ -d ./modules ] &amp;&amp; rm -fr ./modules/* || mkdir -p ./modules
+[ -d ${OUT_PATH} ] &amp;&amp; rm -fr ${OUT_PATH}/* || mkdir -p ${OUT_PATH}
+
+# change log
+if [ &quot;${GIT_COMMIT}&quot; == &quot;${GIT_PREVIOUS_COMMIT}&quot; ]; then
+  git log --oneline -1 &gt; ./${CHANGELOG}
+else
+  if git cat-file -e ${GIT_PREVIOUS_COMMIT} 2&gt; /dev/null ; then
+    git log --oneline ${GIT_PREVIOUS_COMMIT}..${GIT_COMMIT} &gt; ./${CHANGELOG}
+  else
+    git log --oneline ${GIT_COMMIT} &gt; ./${CHANGELOG}
+  fi
+fi
+cp ./${CHANGELOG} ${OUT_PATH}/
+
+# build 32bit imx6/7 soc
+. buildenv.sh 32
+make distclean
+make tn_imx_defconfig
+make -j10 zImage dtbs modules
+make modules_install INSTALL_MOD_PATH=./modules
+tar cvf modules.tar ./modules
+
+cp ./arch/arm/boot/Image ${OUT_PATH}/
+cp ./arch/arm/boot/dts/*{imx6,imx7}*{pico,edm1,tep,tek}*.dtb ${OUT_PATH}/ || :
+cp ./modules.tar ${OUT_PATH}/
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>arch/arm/boot/zImage,arch/arm/boot/dts/*pico*.dtb,arch/arm/boot/dts/*edm*.dtb,arch/arm/boot/dts/*tep*.dtb,arch/arm/boot/dts/*tek*.dtb,arch/arm/boot/dts/*wand*.dtb,modules.tar,changelog*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

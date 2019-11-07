@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/edm-yocto-bsp.git</url>
+        <credentialsId>tn-jenkins</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/krogoth_4.1.y_GA</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/yocto</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b krogoth_4.1.y_GA
+${HOME}/bin/repo sync -j8
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; setup-environment
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+cp ${HOME}/data/bcm_firmware/* sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/files
+cp sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/files/firmware-bcmdhd_1.0.1.bak sources/meta-edm-bsp-release/recipes-bsp/firmware-bcmdhd/firmware-bcmdhd_1.0.1.bb</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+CFGFILE=${HOME}/data/yocto_krogoth_imx7d.conf
+
+while read line
+do
+	CFG=($line)
+    MACHINE=${CFG[0]}
+    BASEBOARD=${CFG[1]}
+    GRAPHIC=${CFG[2]}
+    DISPLAY=${CFG[3]}
+    TARGET=${CFG[4]}
+    MACHINE2=${CFG[0]}
+    FN_BOARD=${CFG[5]}
+    FN_DISP=${CFG[6]}
+    BUILDDIR=build-${GRAPHIC}-${BASEBOARD}
+
+    source edm-setup-release.sh -b ${BUILDDIR} -e ${GRAPHIC}
+    if [ -n &quot;$(echo ${MACHINE2} | grep -v &apos;imx6ul\|imx7&apos;)&quot; ]; then
+    	echo &quot;CORE_IMAGE_EXTRA_INSTALL += \&quot;chromium libexif\&quot;&quot; &gt;&gt; conf/local.conf
+        echo &quot;LICENSE_FLAGS_WHITELIST=\&quot;commercial\&quot;&quot; &gt;&gt; conf/local.conf
+    fi
+    bitbake ${TARGET}
+    mkdir -p ${HOME}/build/yocto
+    UI=$(echo ${TARGET} | cut -d &apos;-&apos; -f3)
+    [ &quot;${UI}&quot; != &quot;qt5&quot; -o &quot;${GRAPHIC}&quot; != &quot;x11&quot; ] &amp;&amp; UI=&quot;${UI}-${GRAPHIC}&quot;
+    FILENAME=${FN_BOARD}_yocto-2.1_${UI}_${FN_DISP}_$(date +&quot;%Y%m%d&quot;)
+    cp ./tmp/deploy/images/${MACHINE2}/${TARGET}-${MACHINE2}.sdcard ${HOME}/build/yocto/${FILENAME}.img
+    sync
+    
+    bitbake -c clean ${TARGET}
+    cd ${WORKSPACE}
+done &lt; ${CFGFILE}</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

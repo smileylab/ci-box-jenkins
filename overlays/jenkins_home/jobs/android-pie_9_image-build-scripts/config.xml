@@ -1,0 +1,222 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>4</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-9</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>android-pie_9_imx,android-pie_9_nfc</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+cd ${WORKSPACE}
+cp /home/jenkins/output/release/*.zip .
+
+for ZIPFILE in *.zip
+do
+    OUTPUT_FILE=$(echo &quot;${ZIPFILE%%.zip}&quot;.img)
+    TARGET_FOLDER=$(echo &quot;${ZIPFILE%%.zip}&quot;)
+    
+	if [ $(echo $ZIPFILE | grep &quot;imx8mm&quot;) ];then
+		PLATFORM=&quot;imx8mm&quot;
+    	CARD_SIZE=7
+    elif [ $(echo $ZIPFILE | grep &quot;imx8m&quot;) ];then
+    	PLATFORM=&quot;imx8mq&quot;
+    	CARD_SIZE=7
+    elif [ $(echo $ZIPFILE | grep &quot;imx7&quot;) ];then
+    	PLATFORM=&quot;imx7d&quot;
+    	CARD_SIZE=3
+    elif [ $(echo $ZIPFILE | grep &quot;imx6&quot;) ];then
+    	PLATFORM=&quot;imx6&quot;
+    	CARD_SIZE=3
+    	OUTPUT_DL_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/imx6/imx6dl/g&apos;)
+    	OUTPUT_Q_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/imx6/imx6q/g&apos;)
+    fi
+
+	echo &quot;zipfile is $ZIPFILE&quot;
+	cd ${WORKSPACE}
+
+	unzip &quot;$ZIPFILE&quot;
+	sync
+
+	if [[ &quot;$PLATFORM&quot; == &quot;imx6&quot; || &quot;$PLATFORM&quot; == &quot;imx7d&quot; ]];then
+		ZIP_TEMP=&quot;zip_temp&quot;
+		mkdir -p &quot;$ZIP_TEMP&quot;
+		cp -rv &quot;${WORKSPACE}/${TARGET_FOLDER}/&quot;README.txt &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+		cp -rv &quot;${WORKSPACE}/${TARGET_FOLDER}/&quot;Android-Pie_Release-Note_*.pdf &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+		cp -rv &quot;${WORKSPACE}/${TARGET_FOLDER}/&quot;Android-Pie_User-Manual_*.pdf &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+		cp -rv &quot;${WORKSPACE}/${TARGET_FOLDER}/&quot;PreBuilt_OS_Image_Installation_Guide_*.pdf &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+		cp -rv &quot;${WORKSPACE}/${TARGET_FOLDER}/&quot;Win32DiskImager-0.9.5-binary.zip &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+	fi
+
+	echo &quot;${WORKSPACE}/${TARGET_FOLDER}&quot;
+	cd &quot;${WORKSPACE}/${TARGET_FOLDER}&quot;
+
+	if [[ &quot;$PLATFORM&quot; == &quot;imx6&quot; ]];then
+
+    	PLATFORM=&quot;imx6dl&quot;
+	    dd if=/dev/zero of=&quot;$OUTPUT_DL_FILE&quot; bs=1M count=3400
+	    LOOPDEV=$(losetup --find --show --partscan &quot;$OUTPUT_DL_FILE&quot;)
+	    sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	    losetup -d &quot;$LOOPDEV&quot;
+	    sync
+	    LOOPDEV=$(losetup --find --show --partscan &quot;$OUTPUT_DL_FILE&quot;)
+	    MAPPER_DEV=$(echo &quot;$LOOPDEV&quot; | awk -F/ &apos;{print $3}&apos;)
+	    PARTITIONS=$(lsblk -x MAJ:MIN --raw --output &quot;MAJ:MIN&quot; --noheadings ${LOOPDEV} | tail -n +2)
+	    COUNTER=1
+	    for i in $PARTITIONS; do
+				MAJ=$(echo $i | cut -d: -f1)
+				MIN=$(echo $i | cut -d: -f2)
+				mknod /dev/mapper/${MAPPER_DEV}p${COUNTER} b $MAJ $MIN
+				COUNTER=$((COUNTER + 1))
+	    done
+	    sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	    sync
+	    sleep 2
+	    sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	    sync
+	    sudo ./gpt_partition_move -d ${LOOPDEV} -s 4096
+	    SPL_IMAGE=$(ls u-boot-*.SPL)
+	    UBOOT_RAW_IMAGE=$(ls u-boot-*.img)
+	    sudo dd if=${SPL_IMAGE} of=${LOOPDEV} bs=1k seek=1 conv=sync
+	    sudo dd if=${UBOOT_RAW_IMAGE} of=${LOOPDEV} bs=512 seek=92 oflag=dsync
+	    losetup -d &quot;$LOOPDEV&quot;
+	    rm -rf /dev/mapper/${MAPPER_DEV}p*
+	    cd -
+	    mv &quot;$TARGET_FOLDER&quot;/&quot;$OUTPUT_DL_FILE&quot; .
+	    rm -rf &quot;$TARGET_FOLDER&quot;
+	    CHECKSUM=$(md5sum &quot;$OUTPUT_DL_FILE&quot; | awk -F &quot;\ &quot; &apos;{print $1}&apos;)
+	    echo $CHECKSUM &gt; &quot;$OUTPUT_DL_FILE&quot;.txt
+	    cp -rv &quot;$OUTPUT_DL_FILE&quot; &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+	    sync
+	    xz -9 &quot;$OUTPUT_DL_FILE&quot;
+    	sync
+    	PLATFORM=&quot;imx6q&quot;
+	    OUTPUT_FILE=$OUTPUT_Q_FILE
+    	unzip &quot;$ZIPFILE&quot;
+    	sync
+    	cd &quot;$TARGET_FOLDER&quot;
+	    dd if=/dev/zero of=&quot;$OUTPUT_FILE&quot; bs=1M count=3400
+	elif [[ &quot;$PLATFORM&quot; == &quot;imx7d&quot; ]];then
+	    dd if=/dev/zero of=&quot;$OUTPUT_FILE&quot; bs=1M count=3400
+	else
+	    dd if=/dev/zero of=&quot;$OUTPUT_FILE&quot; bs=7M count=1024
+	fi
+	sync
+
+	LOOPDEV=$(losetup --find --show --partscan &quot;$OUTPUT_FILE&quot;)
+	sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	losetup -d &quot;$LOOPDEV&quot;
+	sync
+
+	LOOPDEV=$(losetup --find --show --partscan &quot;$OUTPUT_FILE&quot;)
+	MAPPER_DEV=$(echo &quot;$LOOPDEV&quot; | awk -F/ &apos;{print $3}&apos;)
+	PARTITIONS=$(lsblk -x MAJ:MIN --raw --output &quot;MAJ:MIN&quot; --noheadings ${LOOPDEV} | tail -n +2)
+	COUNTER=1
+
+	for i in $PARTITIONS; do
+		MAJ=$(echo $i | cut -d: -f1)
+		MIN=$(echo $i | cut -d: -f2)
+		mknod /dev/mapper/${MAPPER_DEV}p${COUNTER} b $MAJ $MIN
+		COUNTER=$((COUNTER + 1))
+	done
+
+	sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	sync
+	sleep 2
+	sudo ./fsl-sdcard-partition-virtual-image.sh -f &quot;$PLATFORM&quot; -c &quot;$CARD_SIZE&quot; &quot;$LOOPDEV&quot;
+	sync   
+   
+	if [[ &quot;$PLATFORM&quot; == &quot;imx6q&quot; ]];then
+    	sudo ./gpt_partition_move -d ${LOOPDEV} -s 4096
+		SPL_IMAGE=$(ls u-boot-*.SPL)
+		UBOOT_RAW_IMAGE=$(ls u-boot-*.img)
+		sudo dd if=${SPL_IMAGE} of=${LOOPDEV} bs=1k seek=1 conv=sync
+		sudo dd if=${UBOOT_RAW_IMAGE} of=${LOOPDEV} bs=512 seek=92 oflag=dsync
+	elif [[ &quot;$PLATFORM&quot; == &quot;imx7d&quot; ]];then
+    	sudo ./gpt_partition_move -d ${LOOPDEV} -s 4096
+		SPL_IMAGE=$(ls u-boot-*.SPL)
+		UBOOT_RAW_IMAGE=$(ls u-boot-*.img)
+		sudo dd if=${SPL_IMAGE} of=${LOOPDEV} bs=1k seek=1 conv=sync
+		sudo dd if=${UBOOT_RAW_IMAGE} of=${LOOPDEV} bs=512 seek=120 oflag=dsync    
+	fi
+
+	losetup -d &quot;$LOOPDEV&quot;
+	rm -rf /dev/mapper/${MAPPER_DEV}p*
+	cd -
+	mv &quot;$TARGET_FOLDER&quot;/&quot;$OUTPUT_FILE&quot; .
+	rm -rf &quot;$TARGET_FOLDER&quot;
+	CHECKSUM=$(md5sum &quot;$OUTPUT_FILE&quot; | awk -F &quot;\ &quot; &apos;{print $1}&apos;)
+	echo $CHECKSUM &gt; &quot;$OUTPUT_FILE&quot;.txt
+	rm &quot;$ZIPFILE&quot;
+	if [[ &quot;$PLATFORM&quot; == &quot;imx6q&quot; || &quot;$PLATFORM&quot; == &quot;imx7d&quot; ]];then
+		cp -rv &quot;$OUTPUT_FILE&quot; &quot;${WORKSPACE}/${ZIP_TEMP}&quot;
+		sync
+		mv &quot;${WORKSPACE}/${ZIP_TEMP}&quot; &quot;${WORKSPACE}/${TARGET_FOLDER}&quot;
+		zip -r &quot;${TARGET_FOLDER}.zip&quot; &quot;${TARGET_FOLDER}&quot;
+		sync
+		rm -rf &quot;$TARGET_FOLDER&quot;
+		CHECKSUM=$(md5sum &quot;${TARGET_FOLDER}.zip&quot; | awk -F &quot;\ &quot; &apos;{print $1}&apos;)
+		echo $CHECKSUM &gt; &quot;${TARGET_FOLDER}.zip&quot;.txt
+	fi
+	sync
+	xz -9 &quot;$OUTPUT_FILE&quot;
+	sync
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*.xz, *.txt, *.zip</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>wig.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

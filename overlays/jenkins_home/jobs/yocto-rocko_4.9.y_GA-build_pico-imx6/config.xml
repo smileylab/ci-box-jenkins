@@ -1,0 +1,243 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build IMX6 Yocto Rocko</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * 6</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>data/${JOB_NAME}</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+GITSERVER=10.20.30.20
+MANUSCRIPT=imx-4.9.88-2.0.0_ga.xml
+
+chmod 0600 ~/.ssh/id_rsa
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+
+# initialize technexion github yocto repository
+echo &quot;===== Repo init yocto from TechNexion github =====&quot;
+${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+#${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+echo &quot;===== Repo sync yocto from TechNexion github =====&quot;
+${HOME}/bin/repo sync -j16 -f
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo &quot;===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====&quot;
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+# copy new EULA
+echo &quot;===== Copy EULA =====&quot;
+cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+cat &gt; site.conf &lt;&lt;EOF
+# u-boot-edm.bb
+#SRCSERVER_pn-u-boot-edm = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCBRANCH_pn-u-boot-edm = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-u-boot-edm = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-u-boot-edm = &quot;080a178dd478f6b590d1a5b73b687238ac93b859&quot;
+#SRC_URI_pn-u-boot-edm = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# u-boot-script.bb
+#SRCSERVER_pn-u-boot-script = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
+
+# linux-firmware-brcm-tn.bb
+SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
+SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-brcm-tn = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-firmware-qca-tn.bb
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-tn-imx.bb
+#SRCSERVER_pn-linux-tn-imx = &quot;git://10.20.30.20:/volume1/internal_git/edm/tn-kernel.git&quot;
+#SRCBRANCH_pn-linux-tn-imx = &quot;tn-imx_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-linux-tn-imx = &quot;c50aa9ea7ed19d1509921c00aeb4150c6cacb774&quot;
+#SRC_URI_pn-linux-tn-imx = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+EOF
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+DLDIR=/home/jenkins/data/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
+
+SOMs=(&quot;pico-imx6&quot;) # &quot;edm-imx6&quot; &quot;pico-imx7&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;pico-imx8m&quot;) # &quot;pico-imx8m&quot;
+DISTROs=(&quot;fb&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
+TGTIMGTYPEs=(&quot;core-image-base&quot;) # &quot;core-image-minimal&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot; &quot;fsl-image-validation-imx&quot; &quot;fsl-image-qt5-validation-imx&quot;
+
+#WIFI_FIRMWARE=y WIFI_MODULE=brcm DISTRO=fsl-imx-fb MACHINE=pico-imx6 BASEBOARD=nymph source edm-setup-release.sh -b build-pico-imx6
+
+# setup environment variables for building
+# BASEBOARDs=(&quot;pi&quot; &quot;nymph&quot; &quot;dwarf&quot; &quot;hobbit&quot;)
+# DISPLAYs=(&quot;lvds7&quot; &quot;hdmi720p&quot; &quot;hdmi1080p&quot; &quot;lcd&quot; &quot;lvds7_hdmi720p&quot;)
+# WLANs=(&quot;qca&quot; &quot;brcm&quot; &quot;ath-pci&quot;)
+setup_env_vars () {
+  case $1 in
+    pico-imx8m)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    pico-imx6)
+      board=&quot;nymph&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;brcm&quot;
+      ;;
+    pico-imx7)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    pico-imx6ul)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    edm-imx6)
+      board=&quot;fairy&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    edm-imx7)
+      board=&quot;gnome&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    tep1-imx7)
+      wlan=&quot;ath-pci&quot;
+      ;;
+    tep1-imx6ul)
+      ;;
+    tek-imx6)
+      disp=&quot;lvds10&quot;
+      wlan=&quot;ath-pci&quot;
+      ;;
+    tek3-imx6ul)
+      ;;
+  	*)
+      ;;
+  esac
+}
+
+# Loop each som distro image_type and configs
+for som in ${SOMs[*]}; do
+    for distro in ${DISTROs[*]}; do
+
+        # go to workspace for next build
+        cd ${WORKSPACE}
+
+        # Set up the build environment variables
+        setup_env_vars $som
+
+        # setup yocto build environment
+        MACHINE=$som DISTRO=fsl-imx-$distro WIFI_FIRMWARE=y WIFI_MODULE=$wlan DISPLAY=$disp BASEBOARD=$board source edm-setup-release.sh -b build-$som
+
+        # get current build dir and check if local.conf exists
+        BUILD_DIR=.
+        if [ ! -e $BUILD_DIR/conf/local.conf ]; then
+            echo -e &quot;\n ERROR - No build directory is set yet. Run the &apos;setup-environment&apos; script before running this script to create &quot; $BUILD_DIR
+            echo -e &quot;\n&quot;
+            return 1
+        else
+            # set the download directory
+            [ -d ${DLDIR} ] || mkdir -p ${DLDIR}
+            [ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
+            # setup conf/local.conf
+            echo &quot;BB_NUMBER_THREADS ?= \&quot;12\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+            if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+		      sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
+            else
+		      echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+            fi
+            if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+		      sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
+	        else
+		      echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+	        fi
+            cat $BUILD_DIR/conf/local.conf
+            cat $BUILD_DIR/conf/bblayers.conf
+        fi
+        
+        cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
+        cat $BUILD_DIR/conf/site.conf
+
+        for target in ${TGTIMGTYPEs[*]}; do
+			# building the yocto with preset config params
+            echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
+
+            # Compile using bitbake
+            bitbake $target
+        done
+    done
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-*/tmp/deploy/images/*/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

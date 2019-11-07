@@ -1,0 +1,171 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build GITHUB uboot-edm-imx 4.1.15&#xd;
+branch tn-imx_v2016.03_4.1.15_2.0.0_ga</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/u-boot-edm/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/u-boot-edm.git</url>
+        <credentialsId>tn-jenkins</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tn-imx_v2016.03_4.1.15_2.0.0_ga</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <noTags>false</noTags>
+        <reference></reference>
+        <depth>1</depth>
+        <honorRefspec>false</honorRefspec>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
+  </scm>
+  <assignedNode>docker-slave/kernel</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+CHANGELOG=changelog-uboot
+OUT_PATH=/home/jenkins/build/uboot-${JOB_NAME}
+
+CONFIGS=(&quot;edm1-cf-imx6sx&quot; &quot;edm1-imx6ul-nand&quot; &quot;edm1-imx7d_spl&quot; &quot;edm-cf-imx6&quot; &quot;edm-cf-imx6-no-console&quot; &quot;pico-imx6&quot; &quot;pico-imx6ul-nand&quot; &quot;pico-imx7d_spl&quot; &quot;picosom-imx6ul_spl&quot; &quot;tek3-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx6ul&quot; &quot;tep1-imx7d_spl&quot;)
+
+get_board_dir() {
+  case &quot;$1&quot; in
+    *pico-imx8mq*)
+      BRDDIR=&quot;pico-imx8mq&quot;
+      ;;
+    *pico-imx8mm*)
+      BRDDIR=&quot;pico-imx8mm&quot;
+      ;;
+    *pico-imx6ul*)
+      BRDDIR=&quot;pico-imx6ul&quot;
+      ;;
+    *pico-imx6*)
+      BRDDIR=&quot;pico-imx6&quot;
+      ;;
+    *pico-imx7d*)
+      BRDDIR=&quot;pico-imx7d&quot;
+      ;;
+    *edm-imx6*)
+      BRDDIR=&quot;edm-imx6&quot;
+      ;;
+    *edm1-cf-imx6*)
+      BRDDIR=&quot;edm1-cf-imx6sx&quot;
+      ;;
+    *edm1-imx6ul*)
+      BRDDIR=&quot;edm1-imx6ul-nand&quot;
+      ;;
+    *edm1-imx7d*)
+      BRDDIR=&quot;edm1-imx7d&quot;
+      ;;
+    *tek3-imx6ul*)
+      BRDDIR=&quot;tek3-imx6ul&quot;
+      ;;
+    *tek-imx6*)
+      BRDDIR=&quot;tek-imx6&quot;
+      ;;
+    *tep1-imx6ul*)
+      BRDDIR=&quot;tep1-imx6ul&quot;
+      ;;
+    *tep1-imx7d*)
+      BRDDIR=&quot;tep1-imx7d&quot;
+      ;;
+    *)
+      BRDDIR=&quot;$1&quot;
+  esac
+}
+
+build_uboot() {
+  # create appropriate output directory
+  mkdir -p ${OUT_PATH}/$1
+
+  # build
+  make O=$1 clean
+  make O=$1 distclean
+  make O=$1 $1_defconfig
+  make O=$1 -j10
+
+  # copy artifacts
+  if [[ &quot;$1&quot; == *&quot;spl&quot;* ]]; then
+    cp ./$1/SPL ${OUT_PATH}/$1/
+    cp ./$1/spl/u-boot-spl.bin ${OUT_PATH}/$1/
+    cp ./$1/u-boot.img ${OUT_PATH}/$1/
+  else
+    cp ./$1/u-boot.bin ${OUT_PATH}/$1/
+    cp ./$1/board/technexion/${BRD}/*.cfg.cfgtmp ${OUT_PATH}/$1/
+  fi
+  cp ./$1/u-boot-nodtb.bin ${OUT_PATH}/$1/ || :
+  cp ./$1/arch/arm/dts/*.dtb ${OUT_PATH}/$1/ || :
+  get_board_dir $1
+  cp ./board/technexion/${BRDDIR}/*.its ${OUT_PATH}/$1/ || :
+}
+
+# clear previous files
+[ -d ${OUT_PATH}/ ] &amp;&amp; rm -fr ${OUT_PATH}/* || mkdir -p ${OUT_PATH}
+
+# change log
+if [ &quot;${GIT_COMMIT}&quot; == &quot;${GIT_PREVIOUS_COMMIT}&quot; ]; then
+  git log --oneline -1 &gt; ./${CHANGELOG}
+else
+  if git cat-file -e ${GIT_PREVIOUS_COMMIT} 2&gt; /dev/null ; then
+    git log --oneline ${GIT_PREVIOUS_COMMIT}..${GIT_COMMIT} &gt; ./${CHANGELOG}
+  else
+    git log --oneline ${GIT_COMMIT} &gt; ./${CHANGELOG}
+  fi
+fi
+cp ./${CHANGELOG} ${OUT_PATH}/
+
+# export variables for arm 32 bits environment
+. buildenv.sh
+for CONF in ${CONFIGS[@]}; do
+  build_uboot $CONF
+done
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>SPL,u-boot.img</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

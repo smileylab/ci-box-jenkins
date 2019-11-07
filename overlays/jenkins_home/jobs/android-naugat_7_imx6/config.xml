@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-7</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd ${HOME}
+tar -zxf /home/jenkins/data/technexion-imx6_android-7.1.1_fullsource_20171027.tar.gz
+cd technexion-imx6_android-7.1.1_fullsource_20171027
+
+prebuilts/misc/linux-x86/ccache/ccache -M 75G
+
+source cookers/env.bash.imx6.edm1cf-nand-pmic.fairy.hdmi
+cook -j4
+
+mkdir -p /home/jenkins/build/android/edm1cf_pmic_6dq
+rsync -av --progress out/target/product/edm1cf_pmic_6dq/ /home/jenkins/build/android/edm1cf_pmic_6dq -f &quot;- */&quot; --exclude system.img</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

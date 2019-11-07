@@ -1,0 +1,322 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build IMX8MQ Yocto SUMO with 4.14.98 kernel</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * 6</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>data/${JOB_NAME}</customWorkspace>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>gen_qca_firmware</project>
+      <filter>linux-firmware-qca-tn.bb,bdwlan30.bin,otp30.bin,qwlan30.bin,utf30.bin,wlan/cfg.dat,wlan/qcom_cfg.ini,CadenceLicense.txt,Notice.txt,qca/nvm_tlv_3.2.bin,qca/rampatch_tlv_3.2.tlv</filter>
+      <target>qca_firmware/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+#MANUSCRIPT=imx-4.14.98-2.0.0_ga.xml
+MANUSCRIPT=imx-4.14.98-2.0.1_patch.xml
+GITSERVER=&quot;10.20.30.20&quot;
+#chmod 0600 ~/.ssh/id_rsa
+#ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+
+# initialize technexion github yocto repository
+echo ===== Repo init yocto from TechNexion github =====
+#${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b sumo_4.14.y_GA -m $MANUSCRIPT
+#sshpass -p &apos;123456&apos; ${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
+${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
+echo ===== Repo sync yocto from TechNexion github =====
+rm -fR sources/meta-edm-bsp-release
+${HOME}/bin/repo sync -j16 -f --force-sync
+
+# copy QCA RF firmware files from prebuilt archives
+echo ===== Copy QCA RF Firmware =====
+mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
+[ -f qca_firmware/linux-firmware-qca-tn.bb ] &amp;&amp; cp qca_firmware/linux-firmware-qca-tn.bb sources/meta-edm-bsp-release/recipes-kernel/linux-firmware
+[ -f qca_firmware/CadenceLicense.txt ] &amp;&amp; cp qca_firmware/CadenceLicense.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/Notice.txt ] &amp;&amp; cp qca_firmware/Notice.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/bdwlan30.bin ] &amp;&amp; cp qca_firmware/bdwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/otp30.bin ] &amp;&amp; cp qca_firmware/otp30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/qwlan30.bin ] &amp;&amp; cp qca_firmware/qwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/utf30.bin ] &amp;&amp; cp qca_firmware/utf30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/wlan/cfg.dat ] &amp;&amp; cp qca_firmware/wlan/cfg.dat sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+[ -f qca_firmware/wlan/qcom_cfg.ini ] &amp;&amp; cp qca_firmware/wlan/qcom_cfg.ini sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+[ -f qca_firmware/qca/nvm_tlv_3.2.bin ] &amp;&amp; cp qca_firmware/qca/nvm_tlv_3.2.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
+[ -f qca_firmware/qca/rampatch_tlv_3.2.tlv ] &amp;&amp; cp qca_firmware/qca/rampatch_tlv_3.2.tlv sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+# Patch recipes to fix bugs
+#echo ===== Patch Recipes =====
+#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-bsp/imx-mkimage/imx-boot_0.2.bb &lt; sources/meta-edm-bsp-release/patches/0001-imx-boot-pass-dtb-name-to-imx-mkimage-when-making-fl.patch
+#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-security/optee-imx/optee-os-imx_git.bb &lt; sources/meta-edm-bsp-release/patches/0002-optee-os-imx-fix-build-failure-when-the-board-isn-t-.patch
+#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/classes/image_types_fsl.bbclass &lt; sources/meta-edm-bsp-release/patches/0003-image_types_fsl.bbclass-change-to-put-u-boot.img-int.patch
+#cp sources/meta-edm-bsp-release/patches/0001-add-no-sandbox-as-argument-by-default.patch sources/meta-browser/recipes-browser/chromium/files
+#patch -Np1 -r - sources/meta-browser/recipes-browser/chromium/chromium-gn.inc &lt; sources/meta-edm-bsp-release/patches/0004-chromium-add-no-sandbox-as-default-argument.patch
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; setup-environment
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+# copy new EULA
+#echo ===== Copy EULA =====
+#cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+#set -e
+
+source sources/meta-fsl-bsp-release/imx/tools/setup-utils.sh
+
+DATE=$(date +%Y%m%d)
+OUTDIR=/home/jenkins/build/yocto2.5-images
+CACHEDIR=/home/jenkins/data/src/yocto2.5/ccache
+DLDIR=/home/jenkins/data/src/yocto2.5/download
+SSTATEDIR=/home/jenkins/data/src/yocto2.5/sstat
+
+# the following settings has to be build.
+MACHINEs=(&quot;pico-imx8mq&quot;) # &quot;pico-imx7&quot; &quot;pico-imx6&quot;)
+DISTROs=(&quot;fsl-imx-xwayland&quot;) # &quot;fsl-imx-wayland&quot; &quot;fsl-imx-wayland&quot; &quot;fsl-imx-x11&quot; &quot;fsl-imx-fb&quot;)
+WLANs=(&quot;qca&quot;) # &quot;brcm&quot; &quot;all&quot;)
+TGTIMGTYPEs=(&quot;fsl-image-qt5-validation-imx&quot;) # &quot;fsl-image-validation-imx&quot; &quot;core-image-minimal&quot; &quot;core-image-base&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot;
+
+# the followings are uEnv.txt settings
+BASEBOARD=(&quot;pi&quot;) # &quot;nymph&quot; &quot;dwarf&quot; &quot;hobbit&quot;
+DISPLAY=(&quot;mipi5&quot;) # &quot;lvds7&quot; &quot;hdmi720p&quot; &quot;hdmi1080p&quot; &quot;lcd&quot; &quot;lvds7_hdmi720p&quot; &quot;custom&quot; &quot;mipi5&quot; &quot;hdmi&quot;
+
+# Sets the META_FSL_BSP_RELEASE folder
+META_FSL_BSP_RELEASE=&quot;${WORKSPACE}/sources/meta-fsl-bsp-release/imx/meta-bsp&quot;
+
+# clear output directory
+[ -d ${OUTDIR} ] || mkdir -p ${OUTDIR}
+
+# clear and make download/sstate-cache/build folder on external volume
+[ -d ${DLDIR} ] || mkdir -p ${DLDIR}
+[ -d ${CACHEDIR} ] || mkdir -p ${CACHEDIR}
+[ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
+
+# update ./conf/local.conf setting
+setup_local_conf () {
+	CURDIR=.
+	# On the first script run, backup the conf/local.conf file
+	# Consecutive runs, it restores the backup and changes are appended on this one.
+#	if [ ! -e $CURDIR/conf/local.conf.org ]; then
+#		cp $CURDIR/conf/local.conf $CURDIR/conf/local.conf.org
+#	else
+#		cp $CURDIR/conf/local.conf.org $CURDIR/conf/local.conf
+#	fi
+
+	if grep &quot;^BB_NUMBER_THREADS.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+    	sed -e &apos;s|^BB_NUMBER_THREADS.*|BB_NUMBER_THREADS ?= &quot;16&quot;|g&apos; -i $CURDIR/conf/local.conf
+	else
+		echo &quot;BB_NUMBER_THREADS ?= \&quot;16\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^DL_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+		sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+		echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^SSTATE_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+		sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+	else
+		echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+	fi
+    if grep &quot;INHERIT.*ccache.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+    	echo
+    else
+		echo &quot;INHERIT += \&quot;ccache\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^CCACHE_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+    	sed -e &apos;s|%CCACHE_DIR.*|CACHE_DIR = &quot;&apos;$CACHEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+    	echo &quot;CCACHE_DIR = \&quot;$CACHEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    
+    echo &quot;CORE_IMAGE_EXTRA_INSTALL += \&quot;chromium-ozone-wayland\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+
+#	if [ &quot;$1&quot; == &apos;qca&apos; ]; then
+#		echo &quot;LICENSE_FLAGS_WHITELIST = \&quot;commercial_qca\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo &quot;IMAGE_INSTALL_append = \&quot; linux-firmware-qca-tn\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo Selected wifi firmware: &quot;qca&quot;
+#	elif [ &quot;$1&quot; == &apos;brcm&apos; ]; then
+#		echo &quot;LICENSE_FLAGS_WHITELIST = \&quot;commercial_brcm\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo &quot;IMAGE_INSTALL_append = \&quot; linux-firmware-brcm-tn\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo Selected wifi firmware: &quot;brcm&quot;
+#	elif [ &quot;$1&quot; == &quot;all&quot; ]; then
+#		echo &quot;LICENSE_FLAGS_WHITELIST = \&quot;commercial_qca commercial_brcm\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo &quot;IMAGE_INSTALL_append ?= \&quot; linux-firmware-qca-tn linux-firmware-brcm-tn\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+#		echo Selected wifi firmware: &quot;qca brcm&quot;
+#	fi
+
+	echo ===== ./conf/local.conf =====
+	cat $CURDIR/conf/local.conf
+	unset CURDIR
+}
+
+# update ./conf/bblayer.conf setting
+setup_bblayer_conf () {
+	CURDIR=.
+	# On the first script run, backup the conf/bblayers.conf file
+#	if [ ! -e $CURDIR/conf/bblayers.conf.org ]; then
+#		cp $CURDIR/conf/bblayers.conf $CURDIR/conf/bblayers.conf.org
+#	else
+#		cp $CURDIR/conf/bblayers.conf.org $CURDIR/conf/bblayers.conf
+#	fi
+#
+#	echo &quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;# i.MX Yocto Project Release layers&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-edm-bsp-release \&quot;&quot; &gt;&gt; ${CURDIR}/conf/bblayers.conf
+#	hook_in_layer meta-fsl-bsp-release/imx/meta-bsp
+#	hook_in_layer meta-fsl-bsp-release/imx/meta-sdk
+#	echo &quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-browser \&quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-openembedded/meta-gnome \&quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-openembedded/meta-networking \&quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-openembedded/meta-python \&quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-openembedded/meta-filesystems \&quot;&quot; &gt;&gt; $CURDIR/conf/bblayers.conf
+#	echo &quot;BBLAYERS += \&quot; \${BSPDIR}/sources/meta-qt5 \&quot;&quot; &gt;&gt; ${CURDIR}/conf/bblayers.conf
+
+	# Support integrating community meta-freescale instead of meta-fsl-arm
+	if [ -d ../sources/meta-freescale ]; then
+		echo meta-freescale directory found
+		# Change settings according to environment
+		sed -e &quot;s,meta-fsl-arm\s,meta-freescale ,g&quot; -i $CURDIR/conf/bblayers.conf
+		sed -e &quot;s,\$.BSPDIR./sources/meta-fsl-arm-extra\s,,g&quot; -i $CURDIR/conf/bblayers.conf
+	fi
+	echo ===== ./conf/bblayers.conf =====
+	cat $CURDIR/conf/bblayers.conf
+	unset CURDIR
+}
+
+# build the yocto image
+build_yocto () {
+	# building the yocto with preset config params
+	echo ===== Building SOM:$1 DISTRO:$2 TARGET:$3 WIFI:$4 =====
+
+	# go to workspace for next build
+	cd ${WORKSPACE}
+
+	# Set up the basic yocto environment
+	# NOTE: setup-environment shell script change build directory to
+    # /home/jenkins/build/src/build/pico-imx8m/fsl-imx-$distro/fsl-image-validation-imx/wifi-y
+	MACHINE=$1 DISTRO=$2 source ./setup-environment build-$1_$2_$3_wifi-$4
+
+	# setup ./conf/local.conf
+	if [ ! -e ./conf/local.conf ]; then
+		echo -e &quot;\n ERROR - No local.conf, Run the &apos;setup-environment&apos; script again\n&quot;
+		return 1
+    else
+		setup_local_conf $4
+	fi
+
+	# setup ./conf/bblayers.conf
+    if [ ! -e ./conf/bblayers.conf ]; then
+		echo -e &quot;\n ERROR - No bblayers.conf, Run the &apos;setup-environment&apos; script again\n&quot;
+		return 1
+    else
+    	setup_bblayer_conf
+    fi
+
+    # setup uEnv.txt parameters
+    export BASE_BOARD=$BASEBOARD
+    export RF_FIRMWARES=$4
+    export DISPLAY_INFO=$DISPLAY
+    export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE BASE_BOARD DISPLAY_INFO RF_FIRMWARES&quot;
+    echo &quot;$(pwd)&quot;
+
+	# Build using bitbake
+	bitbake $3
+
+	ls -al ./tmp/deploy/images/$1
+	# archive target image
+	if [ -f ./tmp/deploy/images/$1/$3-$1.sdcard.bz2 ]; then
+    	echo Archive yocto disk image
+        rm -rf $WORKSPACE/*sdcard.bz2
+		cp ./tmp/deploy/images/$1/$3-$1.sdcard.bz2 $OUTDIR/$1_${BASEBOARD}_yocto-2.5_$4_$DISPLAY-$DATE.sdcard.bz2
+        cp ./tmp/deploy/images/$1/$3-$1.sdcard.bz2 $WORKSPACE/$1_${BASEBOARD}_yocto-2.5_$4_$DISPLAY-$DATE.sdcard.bz2
+	fi
+}
+
+# loop wifis
+loop_wifis () {
+   	for wifi in ${WLANs[*]}; do
+		build_yocto $1 $2 $3 $wifi
+	done
+}
+
+# loop targets
+loop_targets () {
+	for target in ${TGTIMGTYPEs[*]}; do
+    	loop_wifis $1 $2 $target
+    done
+}
+
+# loop distros
+loop_distros () {
+	for distro in ${DISTROs[*]}; do
+    	loop_targets $1 $distro
+    done
+}
+
+# build loops to build all necessary combinations
+for som in ${MACHINEs[*]}; do
+	loop_distros $som
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*sdcard.bz2</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,131 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-8</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd ${HOME}
+mkdir -p test
+cd test
+repo init -u https://github.com/technexion-android/manifest -b tn-o8.0.0_1.0.0-ga
+repo sync --force-sync -j12
+
+# pico_7d PI/DWARF/HOBBIT/NYMPH
+source cookers/env.bash.imx7.pico.pi.lcd
+# Get NXP Proprietary
+merge_restricted_extras
+
+## WIFI ENABLED
+cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/pico_7d/wifi-firmware/
+sed -i &apos;s/BOARD_HAS_QCA9377_WLAN_FIRMWARE := false/BOARD_HAS_QCA9377_WLAN_FIRMWARE := true/&apos; device/fsl/imx7/pico_7d.mk
+
+rm -rf qca9377-3_firmware_20180927.zip
+
+# Start build pico_7d PI/DWARF/HOBBIT/NYMPH
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+
+# pico_6dq PI/DWARF/HOBBIT/NYMPH
+source cookers/env.bash.imx6.pico.pi.lcd
+
+## WIFI ENABLED
+cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/pico_6dq/wifi-firmware/
+# sed -i &apos;s/BOARD_HAS_QCA9377_WLAN_FIRMWARE := false/BOARD_HAS_QCA9377_WLAN_FIRMWARE := true/&apos; device/fsl/imx6/pico_6dq.mk
+
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv /home/jenkins/output/nvm_tlv_3.2.bin device/fsl/pico_6dq/bluetooth/
+cp -rv /home/jenkins/output/rampatch_tlv_3.2.tlv device/fsl/pico_6dq/bluetooth/
+
+
+# Start build pico_6dq PI/DWARF/HOBBIT/NYMPH
+cook -j8
+
+gen_mp_images
+
+# edm1cf_pmic_6dq FAIRY/TC0700/TC1000
+source cookers/env.bash.imx6.edm1cf-pmic.fairy.hdmi
+
+## WIFI ENABLED
+cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/edm1cf_pmic_6dq/wifi-firmware/
+sed -i &apos;s/BOARD_HAS_QCA9377_WLAN_FIRMWARE := false/BOARD_HAS_QCA9377_WLAN_FIRMWARE := true/&apos; device/fsl/imx6/edm1cf_pmic_6dq.mk
+
+rm -rf qca9377-3_firmware_20180927.zip
+
+# Start build edm1cf_pmic_6dq FAIRY/TC0700/TC1000
+cook -j8
+
+gen_mp_images
+
+# tep1_7d
+source cookers/env.bash.imx7.tep1.tep1.lcd
+
+# Start build tep1_7d
+cook -j8
+
+gen_mp_images
+
+# wandboard
+source cookers/env.bash.imx6.edm1cf-pmic.wandboard.hdmi
+
+# Start build wandboard
+cook -j8
+
+gen_mp_images
+
+zip -r android-8.0.0_QCA9377_&quot;$release_date&quot;.zip auto_test
+mv android-8.0.0_QCA9377_&quot;$release_date&quot;.zip /home/jenkins/output/
+
+rm -rf auto_test
+
+#source cookers/env.bash.imx8.pico-8m.pi.lcd
+#cook -j4
+
+#gen_mp_images
+#zip -r &quot;$release_date&quot;_auto_images_lcd.zip auto_test
+#mv &quot;$release_date&quot;_auto_images_lcd.zip /home/jenkins/output/
+#rm -rf auto_test
+
+#dd if=/dev/zero of=&quot;$release_date&quot;_emmc_16G_lcd.img bs=13M count=1024
+#kpartx -av &quot;$release_date&quot;_emmc_16G_lcd.img
+
+#loop_dev=$(losetup | grep &quot;emmc_16G_lcd.img&quot; | awk  &apos;{print $1}&apos;)
+
+#echo &quot;mounted ${loop_dev}&quot;
+
+#(echo n; echo p; echo 1; echo; echo; echo w;) | fdisk ${loop_dev}
+#sync
+#flashcard ${loop_dev}
+#sync
+#kpartx -d ${loop_dev}
+#losetup -d ${loop_dev}
+#sync
+#mv &quot;$release_date&quot;_emmc_16G_lcd.img /home/jenkins/output/
+#sync
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

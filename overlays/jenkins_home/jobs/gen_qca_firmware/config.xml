@@ -1,0 +1,160 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>qca_firmware from internal git server</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/qca_firmware.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/caf-wlan/CNSS.LEA.NRT_3.0</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/kernel</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+BDWLAN30=bdwlan30.bin
+OTP30=otp30.bin
+QWLAN30=qwlan30.bin
+UTF30=utf30.bin
+CFGDAT=wlan/cfg.dat
+CFGINI=wlan/qcom_cfg.ini
+LICENSE=CadenceLicense.txt
+LICENSE_MD5=$(md5sum $LICENSE | awk &apos;//{print $1}&apos;)
+NOTICE=Notice.txt
+QCANOTICE=qca/notice.txt
+NVMTLV=qca/nvm_tlv_3.2.bin
+RAMPATCH=qca/rampatch_tlv_3.2.tlv
+
+# setup target directory
+OUTDIR=/home/jenkins/build/qca_firmware
+[ -d ${OUTDIR} ] &amp;&amp; rm -fr ${OUTDIR}/* || mkdir -p ${OUTDIR}
+
+# setup the linux-firmware-qca-tn.bb for yocto rocko build
+if [ -f $BDWLAN30 ] &amp;&amp; [ -f $OTP30 ] &amp;&amp; [ -f $QWLAN30 ] &amp;&amp; [ -f $UTF30 ] &amp;&amp; [ -f $CFGDAT ] &amp;&amp; [ -f $CFGINI ] &amp;&amp; [ -f $LICENSE ] &amp;&amp; [ -f $NOTICE ] &amp;&amp; [ -f $NVMTLV ] &amp;&amp; [ -f $RAMPATCH ] ; then
+	cat &lt;&lt;EOF &gt; ./linux-firmware-qca-tn.bb
+SUMMARY = &quot;WiFi/BT firmware files for TechNexion QCA module&quot;
+SECTION = &quot;kernel&quot;
+LICENSE = &quot;Proprietary&quot;
+LICENSE_FLAGS = &quot;commercial_qca&quot;
+
+LIC_FILES_CHKSUM = &quot;\\
+    file://$LICENSE;md5=$LICENSE_MD5 \\
+&quot;
+
+SRC_URI += &quot; \\
+    file://$LICENSE \\
+    file://$NOTICE \\
+    file://$BDWLAN30 \\
+    file://$OTP30 \\
+    file://$QWLAN30 \\
+    file://$UTF30 \\
+    file://$CFGDAT \\
+    file://$CFGINI \\
+    file://$QCANOTICE \\
+    file://$NVMTLV \\
+    file://$RAMPATCH \\
+&quot;
+
+S = &quot;\${WORKDIR}&quot;
+
+do_install() {
+	install -d \${D}/lib/firmware
+    install -m 0644 $LICENSE \${D}/lib/firmware
+    install -m 0644 $NOTICE \${D}/lib/firmware
+    install -m 0755 $BDWLAN30 \${D}/lib/firmware
+    install -m 0755 $OTP30 \${D}/lib/firmware
+    install -m 0755 $QWLAN30 \${D}/lib/firmware
+    install -m 0755 $UTF30 \${D}/lib/firmware
+    install -d \${D}/lib/firmware/wlan
+    install -m 0755 $CFGDAT \${D}/lib/firmware/wlan
+	install -m 0755 $CFGINI \${D}/lib/firmware/wlan
+    install -d \${D}/lib/firmware/qca
+    install -m 0755 $NVMTLV \${D}/lib/firmware/qca
+    install -m 0755 $RAMPATCH \${D}/lib/firmware/qca
+}
+
+FILES_\${PN}-dbg += &quot;/lib/firmware/.debug&quot;
+FILES_\${PN} += &quot;/lib/firmware/&quot;
+
+COMPATIBLE_MACHINE = &quot;(mx6|mx6ul|mx7|mx8)&quot;
+EOF
+
+	# archive
+	cp ./linux-firmware-qca-tn.bb $OUTDIR
+    cp $LICENSE $OUTDIR
+    cp $NOTICE $OUTDIR
+    cp $BDWLAN30 $OUTDIR
+    cp $OTP30 $OUTDIR
+    cp $QWLAN30 $OUTDIR
+    cp $UTF30 $OUTDIR
+    cp $CFGDAT $OUTDIR
+    cp $CFGINI $OUTDIR
+    cp $QCANOTICE $OUTDIR
+    cp $NVMTLV $OUTDIR
+    cp $RAMPATCH $OUTDIR
+else
+	echo &quot;Error copying qca firmware files&quot;
+    exit 1
+fi
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>linux-firmware-qca-tn.bb,bdwlan30.bin,otp30.bin,qwlan30.bin,utf30.bin,wlan/cfg.dat,wlan/qcom_cfg.ini,CadenceLicense.txt,Notice.txt,qca/nvm_tlv_3.2.bin,qca/rampatch_tlv_3.2.tlv,qca/notice.txt</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

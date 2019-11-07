@@ -1,0 +1,138 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>android-pie_9_image-build-scripts</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>android-pie_9_image-build-scripts</project>
+      <filter>*.xz,*.txt</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#/bin/bash -e
+
+for f in *.xz; do
+  COUNT=$(echo ${f} | awk -F&quot;_&quot; &apos;{print NF}&apos;)
+  SOM=$(echo ${f} | awk -F&quot;_&quot; &apos;{print $1}&apos;)
+  BOARD=$(echo ${f} | awk -F&quot;_&quot; &apos;{print $2}&apos; | awk -F&quot;-&quot; &apos;{print $2}&apos;)
+  OS=$(echo ${f} | awk -F&quot;_&quot; &apos;{print $3}&apos; | awk -F&quot;-&quot; &apos;{print $1&quot;-&quot;$2}&apos;)
+  DISP=$(echo ${f} | awk -F&quot;_&quot; &apos;{print $5}&apos;)
+  OPT=$(echo ${f} | awk -F&quot;_&quot; &apos;{print $6}&apos;)
+  txtf=$(echo ${f%.*}.txt)
+  
+  if [ $COUNT -eq 7 ] &amp;&amp; [ &quot;$OPT&quot; = &quot;voice-hat&quot; ]; then
+    echo &quot;COUNT: $COUNT SOM: $SOM BOARD: $BOARD OS: ${OS%.*} DISP: $DISP&quot;
+    if [ &quot;$SOM&quot; = &quot;pico-imx8m&quot; ]; then
+    	SOM=pico-imx8mq
+        echo $SOM
+    fi
+    if [ $(echo &quot;$DISP&quot; | grep &quot;dsi&quot;) ]; then
+    	mkdir -p $SOM/$BOARD-dsi${DISP##*-}
+        echo &quot;$SOM/$BOARD-dsi${DISP##*-}/${OS%.*}.xz&quot;
+        cp $f $SOM/$BOARD-dsi${DISP##*-}/${OS%.*}.xz
+        echo $txtf
+        cp $txtf $SOM/$BOARD-dsi${DISP##*-}/${OS%.*}.md5.txt
+    elif [ $(echo &quot;$DISP&quot; | grep &quot;hdmi&quot;) ]; then
+    	mkdir -p $SOM/$BOARD-hdmi${DISP##*-}/
+        echo &quot;$SOM/$BOARD-hdmi${DISP##*-}/${OS%.*}.xz&quot;
+        cp $f $SOM/$BOARD-hdmi${DISP##*-}/${OS%.*}.xz
+        echo $txtf
+        cp $txtf $SOM/$BOARD-hdmi${DISP##*-}/${OS%.*}.md5.txt
+    fi
+  fi
+done
+
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*imx*/*/*.xz,*imx*/*/*.txt</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <jenkins.plugins.publish__over__ftp.BapFtpPublisherPlugin plugin="publish-over-ftp@1.15">
+      <consolePrefix>FTP: </consolePrefix>
+      <delegate plugin="publish-over@0.22">
+        <publishers>
+          <jenkins.plugins.publish__over__ftp.BapFtpPublisher plugin="publish-over-ftp@1.15">
+            <configName>Rescue FTP</configName>
+            <verbose>false</verbose>
+            <transfers>
+              <jenkins.plugins.publish__over__ftp.BapFtpTransfer>
+                <remoteDirectory>/</remoteDirectory>
+                <sourceFiles>*imx*/*/*.xz,*imx*/*/*.txt</sourceFiles>
+                <excludes></excludes>
+                <removePrefix></removePrefix>
+                <remoteDirectorySDF>false</remoteDirectorySDF>
+                <flatten>false</flatten>
+                <cleanRemote>false</cleanRemote>
+                <noDefaultExcludes>false</noDefaultExcludes>
+                <makeEmptyDirs>false</makeEmptyDirs>
+                <patternSeparator>[, ]+</patternSeparator>
+                <asciiMode>false</asciiMode>
+              </jenkins.plugins.publish__over__ftp.BapFtpTransfer>
+            </transfers>
+            <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+            <usePromotionTimestamp>false</usePromotionTimestamp>
+          </jenkins.plugins.publish__over__ftp.BapFtpPublisher>
+        </publishers>
+        <continueOnError>false</continueOnError>
+        <failOnError>false</failOnError>
+        <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+        <hostConfigurationAccess class="jenkins.plugins.publish_over_ftp.BapFtpPublisherPlugin" reference="../.."/>
+      </delegate>
+    </jenkins.plugins.publish__over__ftp.BapFtpPublisherPlugin>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

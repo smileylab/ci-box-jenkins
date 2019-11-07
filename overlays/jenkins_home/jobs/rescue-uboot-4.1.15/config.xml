@@ -1,0 +1,158 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>build u-boot for rescue system&#xd;
+&#xd;
+32bits configs: &quot;pico-imx6s&quot; &quot;pico-imx6dl&quot; &quot;pico-imx6q&quot; &quot;pico-imx7d&quot; &quot;pico-imx6ul&quot; &quot;edm-cf-imx6&quot;&#xd;
+             &quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot; &quot;pico-imx6ul_spl&quot; &quot;edm-cf-imx6_spl&quot;&#xd;
+             &quot;edm1-cf-imx6sx_spl&quot; &quot;edm1-imx6ul-nand_spl&quot; &quot;edm1-imx7d_spl&quot;&#xd;
+             &quot;tek3-imx6ul_spl&quot; &quot;tek-imx6_spl&quot; &quot;tep1-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>30</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <artifactDaysToKeep>30</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tn-imx_v2016.03_4.1.15_2.0.0_ga_rescue</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/kernel</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+BLDDIR=/home/jenkins/build
+CONFIGS=(&quot;pico-imx6s&quot; &quot;pico-imx6dl&quot; &quot;pico-imx6q&quot; &quot;pico-imx7d&quot; &quot;pico-imx6ul&quot; &quot;edm-cf-imx6&quot; \
+         &quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot; &quot;pico-imx6ul_spl&quot; &quot;edm-cf-imx6_spl&quot; ) # \
+         # &quot;edm1-cf-imx6sx_spl&quot; &quot;edm1-imx6ul-nand_spl&quot; &quot;edm1-imx7d_spl&quot; \
+         # &quot;tek3-imx6ul_spl&quot; &quot;tek-imx6_spl&quot; &quot;tep1-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot;)
+
+get_board_dir() {
+  case &quot;$1&quot; in
+    *pico-imx6ul*)
+      BRD=&quot;pico-imx6ul&quot;
+      ;;
+    *pico-imx6*)
+      BRD=&quot;pico-imx6&quot;
+      ;;
+    *pico-imx7d*)
+      BRD=&quot;pico-imx7d&quot;
+      ;;
+    *pico-imx8m*)
+      BRD=&quot;pico-8m&quot;
+      ;;
+    *edm-cf-imx6*)
+      BRD=&quot;edm-cf-imx6&quot;
+      ;;
+    *edm1-cf-imx6*)
+      BRD=&quot;edm1-cf-imx6sx&quot;
+      ;;
+    *edm1-imx6ul*)
+      BRD=&quot;edm1-imx6ul-nand&quot;
+      ;;
+    *edm1-imx7d*)
+      BRD=&quot;edm1-imx7d&quot;
+      ;;
+    *tek3-imx6ul*)
+      BRD=&quot;tek3-imx6ul&quot;
+      ;;
+    *tek-imx6*)
+      BRD=&quot;tek-imx6&quot;
+      ;;
+    *tep1-imx6ul*)
+      BRD=&quot;tep1-imx6ul&quot;
+      ;;
+    *tep1-imx7d*)
+      BRD=&quot;tep1-imx7d&quot;
+      ;;
+    *)
+      BRD=&quot;$1&quot;
+      ;;
+  esac
+}
+
+# export variables for arm 32 bits environment
+. buildenv.sh
+for CONF in ${CONFIGS[@]}; do
+  # clear and make /home/jenkins/build/uboot-rescue/${CONF} directory
+  [ -d ${BLDDIR}/uboot-rescue-old/${CONF} ] &amp;&amp; rm -fr ${BLDDIR}/uboot-rescue-old/${CONF}/* || mkdir -p ${BLDDIR}/uboot-rescue-old/${CONF}
+  # change log
+  if [ &quot;${GIT_COMMIT}&quot; == &quot;${GIT_PREVIOUS_COMMIT}&quot; ]; then
+    git log --oneline -1 &gt; ${BLDDIR}/uboot-rescue-old/${CONF}/changelog
+  else
+	git log --oneline ${GIT_PREVIOUS_COMMIT}..${GIT_COMMIT} &gt; ${BLDDIR}/uboot-rescue-old/${CONF}/changelog
+  fi
+  # build
+  make O=BUILD-${CONF} clean
+  make O=BUILD-${CONF} distclean
+  make O=BUILD-${CONF} ${CONF}_defconfig
+  make O=BUILD-${CONF}
+  # copy artifacts
+  get_board_dir $CONF
+  if [[ $CONF == *&quot;spl&quot;* ]]; then
+    cp BUILD-${CONF}/SPL ${BLDDIR}/uboot-rescue-old/${CONF}/SPL
+    cp BUILD-${CONF}/u-boot.img ${BLDDIR}/uboot-rescue-old/${CONF}/u-boot.img
+  else
+    cp BUILD-${CONF}/u-boot.bin ${BLDDIR}/uboot-rescue-old/${CONF}/u-boot.bin
+    cp BUILD-${CONF}/board/technexion/${BRD}/*.cfg.cfgtmp ${BLDDIR}/uboot-rescue-old/${CONF}/imximage.cfg.cfgtmp
+  fi
+  cp board/technexion/${BRD}/tnrescue.its ${BLDDIR}/uboot-rescue-old/${CONF}/tnrescue.its
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>BUILD-**/SPL,BUILD-**/spl/u-boot-spl.bin,BUILD-**/u-boot.bin,BUILD-**/u-boot.img,BUILD-**/u-boot-nodtb.bin,BUILD-**/board/technexion/**/*.cfgtmp,board/technexion/**/tnrescue.its</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

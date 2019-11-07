@@ -1,0 +1,213 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build IMX7 Yocto Rocko</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * 6</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>data/${JOB_NAME}</customWorkspace>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>gen_qca_firmware</project>
+      <filter>linux-firmware-qca-tn.bb,bdwlan30.bin,otp30.bin,qwlan30.bin,utf30.bin,wlan/cfg.dat,wlan/qcom_cfg.ini,CadenceLicense.txt,Notice.txt,qca/nvm_tlv_3.2.bin,qca/rampatch_tlv_3.2.tlv</filter>
+      <target>qca_firmware/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+MANUSCRIPT=imx-4.9.88-2.0.0_ga.xml
+
+# initialize technexion github yocto repository
+echo &quot;===== Repo init yocto from TechNexion github =====&quot;
+${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+echo &quot;===== Repo sync yocto from TechNexion github =====&quot;
+${HOME}/bin/repo sync -j16 -f
+
+# copy QCA RF firmware files from prebuilt archives
+echo &quot;===== Copy QCA RF Firmware =====&quot;
+rm -fR sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/*
+mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
+[ -f qca_firmware/linux-firmware-qca-tn.bb ] &amp;&amp; cp qca_firmware/linux-firmware-qca-tn.bb sources/meta-edm-bsp-release/recipes-kernel/linux-firmware
+[ -f qca_firmware/CadenceLicense.txt ] &amp;&amp; cp qca_firmware/CadenceLicense.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/Notice.txt ] &amp;&amp; cp qca_firmware/Notice.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/bdwlan30.bin ] &amp;&amp; cp qca_firmware/bdwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/otp30.bin ] &amp;&amp; cp qca_firmware/otp30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/qwlan30.bin ] &amp;&amp; cp qca_firmware/qwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/utf30.bin ] &amp;&amp; cp qca_firmware/utf30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
+[ -f qca_firmware/wlan/cfg.dat ] &amp;&amp; cp qca_firmware/wlan/cfg.dat sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+[ -f qca_firmware/wlan/qcom_cfg.ini ] &amp;&amp; cp qca_firmware/wlan/qcom_cfg.ini sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
+[ -f qca_firmware/qca/nvm_tlv_3.2.bin ] &amp;&amp; cp qca_firmware/qca/nvm_tlv_3.2.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
+[ -f qca_firmware/qca/rampatch_tlv_3.2.tlv ] &amp;&amp; cp qca_firmware/qca/rampatch_tlv_3.2.tlv sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo &quot;===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====&quot;
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+# copy new EULA
+echo &quot;===== Copy EULA =====&quot;
+cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+DLDIR=/home/jenkins/data/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
+
+SOMs=(&quot;pico-imx7&quot;) # &quot;edm-imx6&quot; &quot;pico-imx6&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;pico-imx8m&quot;) # &quot;pico-imx8m&quot;
+DISTROs=(&quot;xwayland&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
+TGTIMGTYPEs=(&quot;fsl-image-validation-imx&quot; &quot;fsl-image-qt5-validation-imx&quot;) # &quot;core-image-minimal&quot; &quot;core-image-base&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot;
+
+# setup environment variables for building
+# BASEBOARDs=(&quot;pi&quot; &quot;nymph&quot; &quot;dwarf&quot; &quot;hobbit&quot;)
+# DISPLAYs=(&quot;lvds7&quot; &quot;hdmi720p&quot; &quot;hdmi1080p&quot; &quot;lcd&quot; &quot;lvds7_hdmi720p&quot;)
+# WLANs=(&quot;qca&quot; &quot;brcm&quot; &quot;ath-pci&quot;)
+setup_env_vars () {
+  case $1 in
+    pico-imx8m)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    pico-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    pico-imx7)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    pico-imx6ul)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    edm-imx6)
+      board=&quot;fairy&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    edm-imx7)
+      board=&quot;gnome&quot;
+      wlan=&quot;qca&quot;
+      ;;
+    tep1-imx7)
+      wlan=&quot;ath-pci&quot;
+      ;;
+    tep1-imx6ul)
+      ;;
+    tek-imx6)
+      disp=&quot;lvds10&quot;
+      wlan=&quot;ath-pci&quot;
+      ;;
+    tek3-imx6ul)
+      ;;
+  	*)
+      ;;
+  esac
+}
+
+# Loop each som distro image_type and configs
+for som in ${SOMs[*]}; do
+    for distro in ${DISTROs[*]}; do
+
+        # go to workspace for next build
+        cd ${WORKSPACE}
+
+        # Set up the build environment variables
+        setup_env_vars $som
+
+        # setup yocto build environment
+        MACHINE=$som DISTRO=fsl-imx-$distro WIFI_FIRMWARE=y WIFI_MODULE=$wlan DISPLAY=$disp BASEBOARD=$board source edm-setup-release.sh -b build-$som
+
+        # get current build dir and check if local.conf exists
+        BUILD_DIR=.
+        if [ ! -e $BUILD_DIR/conf/local.conf ]; then
+            echo -e &quot;\n ERROR - No build directory is set yet. Run the &apos;setup-environment&apos; script before running this script to create &quot; $BUILD_DIR
+            echo -e &quot;\n&quot;
+            return 1
+        else
+            # set the download directory
+            [ -d ${DLDIR} ] || mkdir -p ${DLDIR}
+            [ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
+            # setup conf/local.conf
+            echo &quot;BB_NUMBER_THREADS ?= \&quot;12\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+            if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+		      sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
+            else
+		      echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+            fi
+            if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+		      sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
+	        else
+		      echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+	        fi
+            cat $BUILD_DIR/conf/local.conf
+            cat $BUILD_DIR/conf/bblayers.conf
+        fi
+
+        for target in ${TGTIMGTYPEs[*]}; do
+			# building the yocto with preset config params
+            echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
+
+            # Compile using bitbake
+            bitbake $target
+        done
+    done
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-*/tmp/deploy/images/*/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

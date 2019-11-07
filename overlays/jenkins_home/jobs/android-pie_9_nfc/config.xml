@@ -1,0 +1,124 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-9</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd ${HOME}
+mkdir -p test
+cd test
+repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_2.0.0_8m-ga --depth 1
+repo sync --force-sync -j12
+
+
+###########################################################
+#														  #
+# PICO-IMX8M                                              #
+#														  #
+###########################################################
+
+# hdmi
+# NFC enable
+sed -i &apos;s/NFC_ACTIVE=false/NFC_ACTIVE=true/&apos; cookers/env.bash
+source cookers/env.bash.imx8.pico-imx8m.pi.hdmi
+merge_restricted_extras
+
+## WIFI ENABLED
+cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/pico_imx8m/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx8m/pico_imx8m/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv /home/jenkins/output/nvm_tlv_3.2.bin device/fsl/imx8m/pico_imx8m/bluetooth/
+cp -rv /home/jenkins/output/rampatch_tlv_3.2.tlv device/fsl/imx8m/pico_imx8m/bluetooth/
+
+# hdmi
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/README.txt auto_test/
+zip -R -9 pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.0_QCA9377_hdmi-1920x1080_nfc_&quot;$release_date&quot;.zip auto_test/*
+cp pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.0_QCA9377_hdmi-1920x1080_nfc_&quot;$release_date&quot;.zip /home/jenkins/output/release/
+rm -rf auto_test
+
+#su jenkins
+#git config --global user.email &quot;you@example.com&quot;
+#git config --global user.name &quot;Your Name&quot;
+#cd ../
+#mkdir technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#cd technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_1.0.0_8m-ga
+#repo sync --force-sync -j12
+#rm -rf .repo/project-objects/*.git
+#cd -
+#tar Jcvf technexion-imx8_android-8.1.0_fullsource_20180919.tar.xz technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#sync
+
+#mv technexion-imx8_android-8.1.0_fullsource_20180919.tar.xz /home/jenkins/output/
+
+#source cookers/env.bash.imx8.pico-8m.pi.lcd
+#cook -j4
+
+#gen_mp_images
+#zip -r &quot;$release_date&quot;_auto_images_lcd.zip auto_test
+#mv &quot;$release_date&quot;_auto_images_lcd.zip /home/jenkins/output/
+#rm -rf auto_test
+
+#dd if=/dev/zero of=&quot;$release_date&quot;_emmc_16G_lcd.img bs=13M count=1024
+#kpartx -av &quot;$release_date&quot;_emmc_16G_lcd.img
+
+#loop_dev=$(losetup | grep &quot;emmc_16G_lcd.img&quot; | awk  &apos;{print $1}&apos;)
+
+#echo &quot;mounted ${loop_dev}&quot;
+
+#(echo n; echo p; echo 1; echo; echo; echo w;) | fdisk ${loop_dev}
+#sync
+#flashcard ${loop_dev}
+#sync
+#kpartx -d ${loop_dev}
+#losetup -d ${loop_dev}
+#sync
+#mv &quot;$release_date&quot;_emmc_16G_lcd.img /home/jenkins/output/
+#sync
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*.zip</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Wig Cheng&lt;wig.cheng@technexion.com&gt;; Hank Chang &lt;hank.chang@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>
