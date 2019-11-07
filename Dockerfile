@@ -22,6 +22,8 @@ USER jenkins
 
 # For automated password setup
 COPY scripts/security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy
+# For automated jnlp setup
+COPY scripts/tcp-slave-agent-port.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
 
 ARG agent_port=50000
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
