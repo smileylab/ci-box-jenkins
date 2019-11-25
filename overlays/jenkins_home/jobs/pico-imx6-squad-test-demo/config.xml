@@ -1,0 +1,59 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set -e
+
+# don&apos;t build here, just test existing images to speed up demo
+
+SQUAD_SERVER=10.88.88.93
+SQUAD_SERVER_PORT=8082
+SQUAD_BACKEND=10.88.88.93:8080
+SQUAD_TOKEN=2d703e793ea345efdbab52d95fe33ec715bcc2d4
+SQUAD_GROUP=TechNexion
+SQUAD_PROJECT=yocto-sumo
+VERSION=&quot;001&quot;
+
+FILESERVER=10.88.88.93
+FILESERVER_PORT=8085
+LAVA_JOB_TEMPLATE_URL=http://${FILESERVER}:${FILESERVER_PORT}/job-templates/pico-imx6-qc-tests.yaml
+
+# Retrieve lava job template
+wget ${LAVA_JOB_TEMPLATE_URL} -O lava_job_template.yaml
+
+
+# Substitute with build info (nothing to do)
+envsubst &lt; lava_job_template.yaml &gt; lava_job.yaml
+
+LAVA_JOB_DEFINITION=$(cat lava_job.yaml)
+
+# Submit to squad
+curl \
+    --header &quot;Auth-Token: ${SQUAD_TOKEN}&quot; \
+    --form backend=${SQUAD_BACKEND} \
+    --form definition=&quot;${LAVA_JOB_DEFINITION}&quot; \
+    http://${SQUAD_SERVER}:${SQUAD_SERVER_PORT}/api/submitjob/${SQUAD_GROUP}/${SQUAD_PROJECT}/${VERSION}/jenkins
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.37">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+      <disableDeferredWipeout>false</disableDeferredWipeout>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>
