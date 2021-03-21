@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-16 03:17:25.256 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>104</number>
+  </original>
+  <md5sum>b872364992652ba3c20932fc05a124b7</md5sum>
+  <fileName>tep1560-imx6q_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_20200115.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>81</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

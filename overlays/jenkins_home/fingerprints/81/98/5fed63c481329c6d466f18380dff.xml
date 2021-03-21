@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-11-30 05:21:35.783 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.1.15</name>
+    <number>21</number>
+  </original>
+  <md5sum>81985fed63c481329c6d466f18380dff</md5sum>
+  <fileName>pico-imx6dl.cfg.cfgtmp</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.1.15</string>
+      <ranges>21</ranges>
+    </entry>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32-36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

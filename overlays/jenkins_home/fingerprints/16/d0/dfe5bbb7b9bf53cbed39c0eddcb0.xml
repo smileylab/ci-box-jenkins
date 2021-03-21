@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-03 08:11:02.237 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88-imx8m</name>
+    <number>2</number>
+  </original>
+  <md5sum>16d0dfe5bbb7b9bf53cbed39c0eddcb0</md5sum>
+  <fileName>u-boot-nodtb.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88-imx8m</string>
+      <ranges>2</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

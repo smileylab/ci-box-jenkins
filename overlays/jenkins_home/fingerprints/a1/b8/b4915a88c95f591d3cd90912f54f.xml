@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 04:18:39.171 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>130</number>
+  </original>
+  <md5sum>a1b8b4915a88c95f591d3cd90912f54f</md5sum>
+  <fileName>tn-image-rescue-initramfs-tek-imx6-20210204022546.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

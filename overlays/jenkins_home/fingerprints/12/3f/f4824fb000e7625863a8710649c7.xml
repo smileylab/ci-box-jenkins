@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-11-30 01:45:16.791 UTC</timestamp>
+  <original>
+    <name>rescue-uboot</name>
+    <number>18</number>
+  </original>
+  <md5sum>123ff4824fb000e7625863a8710649c7</md5sum>
+  <fileName>tnrescue.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.1.15</string>
+      <ranges>55-59</ranges>
+    </entry>
+    <entry>
+      <string>rescue-uboot-4.1.15</string>
+      <ranges>21</ranges>
+    </entry>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32-36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

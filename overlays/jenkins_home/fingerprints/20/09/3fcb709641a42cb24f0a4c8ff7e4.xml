@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-22 01:48:37.129 UTC</timestamp>
+  <original>
+    <name>uuu-package-release</name>
+    <number>29</number>
+  </original>
+  <md5sum>20093fcb709641a42cb24f0a4c8ff7e4</md5sum>
+  <fileName>imx-mfg-uuu-tool-20210222.zip</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

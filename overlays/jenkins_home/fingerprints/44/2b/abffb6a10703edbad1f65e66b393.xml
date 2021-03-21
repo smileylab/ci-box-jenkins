@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-03-04 21:28:23.490 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>132</number>
+  </original>
+  <md5sum>442babffb6a10703edbad1f65e66b393</md5sum>
+  <fileName>modules--4.14.98-r1-tek-imx6-20210304163309.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

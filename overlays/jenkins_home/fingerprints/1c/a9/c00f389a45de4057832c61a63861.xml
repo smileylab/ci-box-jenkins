@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-17 10:31:28.736 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>8</number>
+  </original>
+  <md5sum>1ca9c00f389a45de4057832c61a63861</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mq-pico-pi-voicehat-20200817073845.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>79,84,90,95</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

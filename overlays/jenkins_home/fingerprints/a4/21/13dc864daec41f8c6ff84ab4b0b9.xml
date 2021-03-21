@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-23 04:40:04.733 UTC</timestamp>
+  <md5sum>a42113dc864daec41f8c6ff84ab4b0b9</md5sum>
+  <fileName>extlinux.conf</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-pico-imx7d</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

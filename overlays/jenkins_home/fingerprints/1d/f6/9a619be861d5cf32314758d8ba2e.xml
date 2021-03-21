@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-22 13:24:52.50 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>122</number>
+  </original>
+  <md5sum>1df69a619be861d5cf32314758d8ba2e</md5sum>
+  <fileName>modules--4.14.98-r1-edm-imx6-20201222114321.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>122</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

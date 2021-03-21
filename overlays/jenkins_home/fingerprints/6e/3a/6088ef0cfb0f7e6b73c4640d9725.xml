@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-08 05:24:20.163 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>100</number>
+  </original>
+  <md5sum>6e3a6088ef0cfb0f7e6b73c4640d9725</md5sum>
+  <fileName>edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_20200107.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>77</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

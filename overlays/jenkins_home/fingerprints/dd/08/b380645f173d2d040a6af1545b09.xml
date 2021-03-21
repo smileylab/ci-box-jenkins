@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-27 10:33:40.365 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>7</number>
+  </original>
+  <md5sum>dd08b380645f173d2d040a6af1545b09</md5sum>
+  <fileName>fitImage-its-4.14.98-r1-flex-imx8mm-20200727060639.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>84</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

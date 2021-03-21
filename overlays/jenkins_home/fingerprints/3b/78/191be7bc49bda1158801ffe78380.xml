@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-27 04:18:14.36 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>6</number>
+  </original>
+  <md5sum>3b78191be7bc49bda1158801ffe78380</md5sum>
+  <fileName>imx6q-pico-hobbit-qca.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>20,108,111,118,122,125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

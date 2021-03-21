@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-21 09:41:44.711 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>11</number>
+  </original>
+  <md5sum>2567e7ad477a46d6ba7b7e106be9dcd3</md5sum>
+  <fileName>uuu.exe</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>14,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>5,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

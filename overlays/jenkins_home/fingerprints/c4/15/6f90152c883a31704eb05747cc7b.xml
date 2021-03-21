@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-22 13:24:26.879 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>122</number>
+  </original>
+  <md5sum>c4156f90152c883a31704eb05747cc7b</md5sum>
+  <fileName>fitImage-linux.bin-4.14.98-r1-pico-imx6ul-20201222090250.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>122</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-10 12:50:20.677 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>108</number>
+  </original>
+  <md5sum>bf6b54855720cc74b48d2d5bbfeea325</md5sum>
+  <fileName>fitImage</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

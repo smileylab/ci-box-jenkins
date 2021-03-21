@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-06 03:00:37.757 UTC</timestamp>
+  <md5sum>0e67221d372f21efb2772248ed0f182d</md5sum>
+  <fileName>boot.scr.uimg</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>126,128,130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-24 05:20:17.911 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88-imx8m</name>
+    <number>4</number>
+  </original>
+  <md5sum>ecc3284660ea0d7257670ea79abbb258</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88-imx8m</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

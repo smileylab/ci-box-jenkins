@@ -21,7 +21,7 @@
   <scm class="hudson.scm.NullSCM"/>
   <assignedNode>docker-slave/ubuntu</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -40,7 +40,7 @@
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
       <project>rescue-buildroot-install-modules64-4.14.98</project>
-      <filter>rescue64/images/rootfs.cpio.xz</filter>
+      <filter>rescue64/images/rootfs.cpio.xz, rescue64/images/rootfs.cpio</filter>
       <target></target>
       <excludes></excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
@@ -60,7 +60,7 @@
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
       <project>github_tn-kernel-4.14.98-arm64</project>
-      <filter>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*.dtb,changelog*</filter>
+      <filter>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*.dtb,arch/arm64/boot/dts/freescale/overlays/*.dtbo,changelog*</filter>
       <target></target>
       <excludes></excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
@@ -99,25 +99,43 @@ BOARDS=(&quot;pi&quot;)
 # clear and make /home/jenkins/build/images/ directory to store disk images
 [ -d ${BLDDIR} ] &amp;&amp; rm -fr ${BLDDIR}/*{imx8}*.xz || mkdir -p ${BLDDIR}
 
-# gets the xz file size
+# work out rootfs, uboot, and kernel image sizes
+CPIO_SIZE=$(stat --format %s rescue64/images/rootfs.cpio)
 ROOTFS_SIZE=$(stat --format %s rescue64/images/rootfs.cpio.xz)
 UBOOT_SIZE=$(stat --format %s iMX8M/flash.bin)
 KERNEL_SIZE=$(stat --format %s arch/arm64/boot/Image)
 PARTITION_OFFSET=8388608
-DISK_SIZE=$(((((($ROOTFS_SIZE+$KERNEL_SIZE+$PARTITION_OFFSET)/1048576)/8)+1)*8))
-echo &quot;Rootfs: $ROOTFS_SIZE Uboot: $UBOOT_SIZE Kernel: $KERNEL_SIZE, PartOffset: $PARTITION_OFFSET, Disk: $DISK_SIZE&quot;
+
+# work out the boot partition size for rescue image (+ spare 8MB)
+RESCUE_SIZE=$(((($ROOTFS_SIZE+$KERNEL_SIZE+$PARTITION_OFFSET)/1048576)+8))
+echo &quot;RESCUE IMAGE: Rootfs.cpio.xz: $ROOTFS_SIZE flash.bin: $UBOOT_SIZE Image: $KERNEL_SIZE, Offset: $PARTITION_OFFSET, Rescue: $RESCUE_SIZE&quot;
+
+# work out the demo disk partitions&apos; sizes for demo image (with 8MB spare)
+BOOT_SIZE=$(((($KERNEL_SIZE+$PARTITION_OFFSET)/1048576)+8))
+BOOT_SECTORS=$((($BOOT_SIZE*1048576)/512))
+SYSTEM_SIZE=$((($CPIO_SIZE/1048576)/+16))
+SYSTEM_SECTORS=$((($SYSTEM_SIZE*1048575)/512))
+
+DEMO_SIZE=$(((($BOOT_SIZE+$SYSTEM_SIZE)/1048576)+280))
+DEMO_SECTORS=$((($DEMO_SIZE*1048576)/512))
+echo &quot;DEMO IMAGE: Boot: $BOOT_SIZE System: $SYSTEM_SIZE, Demo: $DEMO_SIZE&quot;
+
+
 
 set_uenv_display() {
+  # update the uEnv.txt file
+  echo &quot;baseboard=${1}&quot; &gt; ./fat/uEnv.txt
   echo &quot;has_m4=0&quot; &gt;&gt; ./fat/uEnv.txt
-  case $1 in
+  case ${1} in
     hobbit)
-      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800×480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
+      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800x480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
       ;;
     pi)
+      DISP=dsi720x1280
+      echo &quot;mmcrootdev=/dev/mmcblk0&quot; &gt;&gt; ./fat/uEnv.txt
       echo &quot;dispif=dcss&quot; &gt;&gt; ./fat/uEnv.txt
       echo &quot;panel=ili9881c&quot; &gt;&gt; ./fat/uEnv.txt
-      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800×480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
-      DISP=dsi720x1280
+      echo &quot;displayinfo=video=card0-DSI-1:1280x720-24@60&quot; &gt;&gt; ./fat/uEnv.txt
       ;;
     nymph)
       echo &quot;displayinfo=video=mxcfb0:dev=hdmi,1280x720@60,if=RGB24 fbmem=28M&quot; &gt;&gt; ./fat/uEnv.txt
@@ -134,76 +152,124 @@ set_uenv_display() {
 }
 
 set_board() {
-    # copy out the xz disk image
-    cp rescue_img tn_${1}-${2}_rescue
-	# setup the uEnv.txt file
-    # set the loopback device using the partition table
-    LOOPPATH=($(losetup -P -f --show tn_${1}-${2}_rescue))
-    # mount the fat partition to ./fat directory
-    mount -t vfat ${LOOPPATH}p1 ./fat
-    # update the uEnv.txt file
-    echo &quot;baseboard=${2}&quot; &gt; ./fat/uEnv.txt
-    # setup uEnv.txt display
-    set_uenv_display ${2}
-    # umount the fat file system
-    umount ./fat
-    # un-set the loop device
-    losetup -d ${LOOPPATH}
+  mkdir -p ./fat
+  # copy out the rescue image
+  cp ${3}_img tn_${1}-${2}_${3}
+  # setup the uEnv.txt file
+  # set the loopback device using the partition table
+  LOOPPATH=($(losetup -P -f --show tn_${1}-${2}_${3}))
+  # mount the fat partition to ./fat directory
+  mount -t vfat ${LOOPPATH}p1 ./fat
+  # setup uEnv.txt display
+  set_uenv_display ${2}
+  # umount the fat file system
+  sync
+  umount ./fat
+  # un-set the loop device
+  losetup -d ${LOOPPATH}
+  rm -rf ./fat
+
+  if [ &quot;${3}&quot; == &quot;rescue&quot; ]; then
     # md5 checksum the disk image
-    md5sum tn_${1}-${2}_rescue &gt; tn_${1}-${2}_rescue.md5.txt
-    # xz the image and copy out to external volume
-    xz -9 tn_${1}-${2}_rescue
-    cp tn_${1}-${2}_rescue.xz ${BLDDIR}
+    md5sum tn_${1}-${2}_${3} &gt; tn_${1}-${2}_${3}.md5.txt
+  fi
+  # xz the image and copy out to external volume
+  xz -9 tn_${1}-${2}_${3}
+  cp tn_${1}-${2}_${3}.xz ${BLDDIR}
+  if [ &quot;${3}&quot; == &quot;rescue&quot; ]; then
     # Copy to rescue server directory architecture
     mkdir -p ./${1}/${2}-${DISP}/
-    cp tn_${1}-${2}_rescue.xz ./${1}/${2}-${DISP}/rescue.xz
-    cp tn_${1}-${2}_rescue.md5.txt ./${1}/${2}-${DISP}/rescue.md5.txt
+    cp tn_${1}-${2}_${3}.xz ./${1}/${2}-${DISP}/${3}.xz
+    cp tn_${1}-${2}_${3}.md5.txt ./${1}/${2}-${DISP}/${3}.md5.txt
+  fi
 }
 
-# build rescue system disk images
-mkdir -p ./fat
-for CONF in ${CONFIGS[@]}; do
-  # create an empty image file
-  dd if=/dev/zero of=rescue_img bs=1M count=$DISK_SIZE
-  # fdisk the partitions in the empty image file
-  echo &quot;start=16384, type=c, bootable&quot; | sfdisk rescue_img
-
+setup_base_image() {
   # set the loopback device using the partition table
-  LOOPPATH=($(losetup -P -f --show rescue_img))
-  sync
-
+  LOOPPATH=($(losetup -P -f --show ${2}))
+  mkdir -p ./fat
   # make the file system for dos partition and mount to ./fat
   mkfs.vfat ${LOOPPATH}p1
   mount -t vfat ${LOOPPATH}p1 ./fat
+  if [ &quot;${2}&quot; == &quot;demo_img&quot; ]; then
+    mkdir -p ./root
+    mkfs.ext4 ${LOOPPATH}p2
+    mount -t ext4 ${LOOPPATH}p2 ./root
+  fi
+  sync
 
   # copy back the change log
   cp ./changelog* ./fat || :
   # copy the boot.scr.uimg
   cp ./boot.scr.uimg ./fat
-  # make the fit folder and generate FIT image with SPL dd&apos;ed to rescue_img
-  mkdir -p ./fit/dtb
-  cp rescue64/images/rootfs.cpio.xz ./fit
-  cp arch/arm64/boot/Image ./fit
-  cp arch/arm64/boot/dts/freescale/*.dtb ./fit/dtb
-  cp board/technexion/${CONF}/tnrescue.its ./fit
-  mkimage -f ./fit/tnrescue.its ./fat/tnrescue.itb
-  rm -fr ./fit
+  if [ &quot;${2}&quot; == &quot;rescue_img&quot; ]; then
+    # make the fit folder and generate FIT image with SPL dd&apos;ed to rescue_img
+    mkdir -p ./fit/dtb
+    cp rescue64/images/rootfs.cpio.xz ./fit
+    cp arch/arm64/boot/Image ./fit
+    cp arch/arm64/boot/dts/freescale/*.dtb ./fit/dtb
+    cp arch/arm64/boot/dts/freescale/overlays/*.dtbo ./fit/dtb
+    cp board/technexion/${1}/tnrescue.its ./fit
+    mkimage -f ./fit/tnrescue.its ./fat/tnrescue.itb
+    rm -fr ./fit
+  else
+    cp arch/arm64/boot/Image ./fat
+    cp arch/arm64/boot/dts/freescale/*.dtb ./fat
+    # cpio the rootfs
+    pushd ./root
+    cpio -i &lt; ../rescue64/images/rootfs.cpio
+    popd
+    umount ./root
+  fi
   umount ./fat
   (dd if=${WORKSPACE}/iMX8M/flash.bin of=${LOOPPATH} bs=1024 seek=33 oflag=dsync conv=notrunc)
   sync
 
   # un-set the loop device
   losetup -d ${LOOPPATH}
-  
+  rm -rf ./fat
+}
+
+# build rescue system disk images
+for CONF in ${CONFIGS[@]}; do
+  #
+  # rescue image
+  #
+  # create an empty rescue image file
+  dd if=/dev/zero of=rescue_img bs=1M count=$RESCUE_SIZE
+  # fdisk the partitions in the empty image file
+  echo &quot;start=16384, type=c, bootable&quot; | sfdisk rescue_img
+
+  setup_base_image ${CONF} rescue_img
   # setup the uEnv.txt in ./fat for each board types
   for BOARD in ${BOARDS[@]}; do
-  	set_board ${CONF} ${BOARD}
+  	set_board ${CONF} ${BOARD} rescue
   done
 
   # remove the original disk image
   rm -fr rescue_img
+
+  #
+  # demo image
+  #
+  # create an empty demo image file
+  dd if=/dev/zero of=demo_img bs=1M count=$DEMO_SIZE
+  sfdisk demo_img &lt;&lt; EOF
+start=16384, size=$BOOT_SECTORS, type=c, bootable,
+start=$((($BOOT_SECTORS)+1)), type=83,
+EOF
+
+  setup_base_image ${CONF} demo_img
+  # setup the uEnv.txt in ./fat for each board types
+  for BOARD in ${BOARDS[@]}; do
+  	set_board ${CONF} ${BOARD} demo
+  done
+
+  # remove the original disk image
+  rm -fr demo_img
+
 done
-rm -fr ./fat
+
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -253,6 +319,19 @@ rm -fr ./fat
         <hostConfigurationAccess class="jenkins.plugins.publish_over_ftp.BapFtpPublisherPlugin" reference="../.."/>
       </delegate>
     </jenkins.plugins.publish__over__ftp.BapFtpPublisherPlugin>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

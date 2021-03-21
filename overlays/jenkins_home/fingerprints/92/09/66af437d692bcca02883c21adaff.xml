@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-11-09 04:03:46.571 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>92</number>
+  </original>
+  <md5sum>920966af437d692bcca02883c21adaff</md5sum>
+  <fileName>imx6ull-pico-hobbit.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>95</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

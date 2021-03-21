@@ -1,0 +1,188 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Use CI-BOX to test image from job &quot;yocto-sumo_4.14.98_GA-build_pico-imx7&quot;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.88.88.8/volume1/internal_git/lava-job-templates.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>yocto-sumo_4.14.98_GA-build_pico-imx7</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>yocto-sumo_4.14.98_GA-build_pico-imx7</project>
+      <filter>build-*/tmp/deploy/images/**/*.sdcard.bz2</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+mv build-*/tmp/deploy/images/*/*.bz2 ./
+
+# find the name of the disk image to flash via ums
+# e.g. fsl-image-qt5-validation-imx-pico-imx7-20200228211014.rootfs.sdcard.bz2
+SDCARDLIST=$(ls *.sdcard.bz2)
+SDCARDFILES=( $SDCARDLIST )
+
+echo &quot;First: ${SDCARDFILES[0]}&quot;
+echo &quot;Second: ${SDCARDFILES[1]}&quot;
+
+if [ ${#SDCARDFILES[0]} -gt ${#SDCARDFILES[1]} ]; then
+    rm -f ${SDCARDFILES[1]}
+    echo &quot;${SDCARDFILES[0]%.sdcard.bz2}&quot; &gt; ./SDCARD_IMAGE_NAME
+elif [ ${#SDCARDFILES[1]} -gt ${#SDCARDFILES[0]} ]; then
+    rm -f ${SDCARDFILES[0]}
+    echo &quot;${SDCARDFILES[1]%.sdcard.bz2}&quot; &gt; ./SDCARD_IMAGE_NAME
+fi
+</command>
+    </hudson.tasks.Shell>
+    <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.20.1">
+      <delegate>
+        <consolePrefix>SSH: </consolePrefix>
+        <delegate plugin="publish-over@0.22">
+          <publishers>
+            <jenkins.plugins.publish__over__ssh.BapSshPublisher plugin="publish-over-ssh@1.20.1">
+              <configName>CI-BOX</configName>
+              <verbose>false</verbose>
+              <transfers>
+                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                  <remoteDirectory>/mnt/md0/healthcheck/technexion/sdcard/</remoteDirectory>
+                  <sourceFiles>*.sdcard.bz2</sourceFiles>
+                  <excludes></excludes>
+                  <removePrefix></removePrefix>
+                  <remoteDirectorySDF>false</remoteDirectorySDF>
+                  <flatten>false</flatten>
+                  <cleanRemote>false</cleanRemote>
+                  <noDefaultExcludes>false</noDefaultExcludes>
+                  <makeEmptyDirs>false</makeEmptyDirs>
+                  <patternSeparator>[, ]+</patternSeparator>
+                  <execCommand></execCommand>
+                  <execTimeout>120000</execTimeout>
+                  <usePty>false</usePty>
+                  <useAgentForwarding>false</useAgentForwarding>
+                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+              </transfers>
+              <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+              <usePromotionTimestamp>false</usePromotionTimestamp>
+            </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+          </publishers>
+          <continueOnError>false</continueOnError>
+          <failOnError>false</failOnError>
+          <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+          <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin" reference="../.."/>
+        </delegate>
+      </delegate>
+    </jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+# meta-data settings
+export MACH_ARCH=&quot;arm&quot;
+#export DEVICE_TYPE=&quot;pico-imx7-ums&quot;
+export DEVICE_TYPE=&quot;pico-imx7&quot;
+export CONSOLE_DEVICE=&quot;ttymxc4&quot;
+
+# lava functional tests settings
+export TEST_GIT_REPO=&quot;ssh://rdsw@10.88.88.8/volume1/internal_git/lava-functional-tests.git&quot;
+export TEST_DIRECTORY=&quot;tn-test-shell&quot;
+export TEST_DEFINITION=&quot;yocto-tests-basic.yaml&quot;
+export TEST_TITLE=&quot;yocto-qc-test-with-ums&quot;
+
+# download fileserver settings
+export FILESERVER=10.88.88.12
+export FILESERVER_PORT=8085
+export FILESERVER_URL=&quot;http://${FILESERVER}:${FILESERVER_PORT}/&quot;
+export SDCARD_IMAGE_NAME=$(cat ./SDCARD_IMAGE_NAME) # &quot;fsl-image-qt5-validation-imx-pico-imx7&quot;
+
+# using overlay job templates which boot DUT os, and then transfer overlay via wget
+# Substitute with build info (nothing to do)
+envsubst &lt; u-boot-ums-template.yaml &gt; lava_job.yaml
+
+LAVA_JOB_DEFINITION=$(cat lava_job.yaml)
+
+# squad settings
+SQUAD_SERVER=10.88.88.12
+SQUAD_SERVER_PORT=8082
+SQUAD_LAVA_BACKEND=10.88.88.12:8080
+SQUAD_TOKEN=fb5ff1c7e4425a89b61859cab995137eacb133e4
+SQUAD_GROUP=TechNexion
+SQUAD_PROJECT=yocto-sumo
+VERSION=${BUILD_NUMBER}
+
+# Submit to squad
+curl \
+    --header &quot;Auth-Token: ${SQUAD_TOKEN}&quot; \
+    --form backend=${SQUAD_LAVA_BACKEND} \
+    --form definition=&quot;${LAVA_JOB_DEFINITION}&quot; \
+    http://${SQUAD_SERVER}:${SQUAD_SERVER_PORT}/api/submitjob/${SQUAD_GROUP}/${SQUAD_PROJECT}/${VERSION}/jenkins
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

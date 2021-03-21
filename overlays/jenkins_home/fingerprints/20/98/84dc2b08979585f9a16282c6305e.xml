@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:06:57.682 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>128</number>
+  </original>
+  <md5sum>209884dc2b08979585f9a16282c6305e</md5sum>
+  <fileName>tn-image-rescue-initramfs-axon-imx6-20210202015747.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

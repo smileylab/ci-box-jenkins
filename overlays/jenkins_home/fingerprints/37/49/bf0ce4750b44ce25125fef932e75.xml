@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-21 13:53:38.301 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>68</number>
+  </original>
+  <md5sum>3749bf0ce4750b44ce25125fef932e75</md5sum>
+  <fileName>imx6q-edm1-tc0700-qca.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>87-91</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

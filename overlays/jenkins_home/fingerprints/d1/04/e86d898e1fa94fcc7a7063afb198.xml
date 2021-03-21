@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 04:17:54.298 UTC</timestamp>
+  <md5sum>d104e86d898e1fa94fcc7a7063afb198</md5sum>
+  <fileName>u-boot-edm-imx8mq.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

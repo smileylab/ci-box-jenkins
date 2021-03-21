@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-17 10:31:39.280 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>8</number>
+  </original>
+  <md5sum>9a221d20a13e41e91c20240ba1aedc96</md5sum>
+  <fileName>Image</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

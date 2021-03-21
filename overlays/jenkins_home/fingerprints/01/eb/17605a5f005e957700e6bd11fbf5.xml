@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 10:10:37.444 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>5</number>
+  </original>
+  <md5sum>01eb17605a5f005e957700e6bd11fbf5</md5sum>
+  <fileName>hello_world.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>7-11</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

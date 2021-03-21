@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:56:46.429 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>125</number>
+  </original>
+  <md5sum>bda6c97df70b5f83141f4337929a5312</md5sum>
+  <fileName>tn-image-rescue-fitimage-axon-imx6-20201229133346.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

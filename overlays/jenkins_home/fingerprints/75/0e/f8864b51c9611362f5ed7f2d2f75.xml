@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-15 11:01:41.456 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.78-arm64</name>
+    <number>2</number>
+  </original>
+  <md5sum>750ef8864b51c9611362f5ed7f2d2f75</md5sum>
+  <fileName>imx8mm-pico-pi-voicehat.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mq</string>
+      <ranges>1-10</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>6-14</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

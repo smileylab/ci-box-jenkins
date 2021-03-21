@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-22 13:24:32.106 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>122</number>
+  </original>
+  <md5sum>7b3fba1a2b19e26603ab8cd502f8106b</md5sum>
+  <fileName>tn-image-rescue-fitimage-pico-imx6ul-20201222090250.rootfs.wic</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>122</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

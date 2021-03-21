@@ -26,8 +26,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/TechNexion/u-boot-edm.git</url>
-        <credentialsId>tn-jenkins</credentialsId>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -49,12 +49,12 @@
   </scm>
   <assignedNode>docker-slave/kernel</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <hudson.triggers.TimerTrigger>
-      <spec>H 23 * * 5</spec>
+      <spec>H 12 * * 1</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
@@ -65,8 +65,7 @@
 CHANGELOG=changelog-uboot
 OUT_PATH=/home/jenkins/build/uboot-${JOB_NAME}
 
-# CONFIGS=(&quot;pico-imx6s&quot; &quot;pico-imx6dl&quot; &quot;pico-imx6q&quot; &quot;pico-imx7d&quot; &quot;pico-imx6ul&quot; &quot;edm-cf-imx6&quot;
-CONFIGS=(&quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot;) #&quot;pico-imx6ul_spl&quot; &quot;edm-imx6_spl&quot; &quot;edm1-imx7d_spl&quot; &quot;tek3-imx6ul_spl&quot; &quot;tek-imx6_spl&quot; &quot;tep1-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot;) # &quot;edm1-imx6ul-nand_spl&quot; &quot;edm1-cf-imx6sx_spl&quot;
+CONFIGS=(&quot;axon-imx6&quot; &quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot; &quot;pico-imx6ul_spl&quot; &quot;edm-imx6_spl&quot; &quot;edm-imx7d_spl&quot; &quot;tek-imx6_spl&quot; &quot;tek-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot; &quot;tep-imx6ul_spl&quot;)
 
 get_board_dir() {
   case &quot;$1&quot; in
@@ -88,29 +87,24 @@ get_board_dir() {
     *edm-imx6*)
       BRDDIR=&quot;edm-imx6&quot;
       ;;
-    *edm1-cf-imx6*)
-      BRDDIR=&quot;edm1-cf-imx6sx&quot;
-      ;;
-    *edm1-imx6ul*)
-      BRDDIR=&quot;edm1-imx6ul-nand&quot;
-      ;;
     *edm1-imx7d*)
       BRDDIR=&quot;edm1-imx7d&quot;
       ;;
-    *tek3-imx6ul*)
-      BRDDIR=&quot;tek3-imx6ul&quot;
+    *tek-imx6ul*)
+      BRDDIR=&quot;tek-imx6ul&quot;
       ;;
     *tek-imx6*)
       BRDDIR=&quot;tek-imx6&quot;
       ;;
-    *tep1-imx6ul*)
-      BRDDIR=&quot;tep1-imx6ul&quot;
+    *tep-imx6ul*)
+      BRDDIR=&quot;tep-imx6ul&quot;
       ;;
     *tep1-imx7d*)
       BRDDIR=&quot;tep1-imx7d&quot;
       ;;
     *)
       BRDDIR=&quot;$1&quot;
+      ;;
   esac
 }
 
@@ -126,6 +120,10 @@ build_uboot() {
 
   # copy artifacts
   if [[ &quot;$1&quot; == *&quot;spl&quot;* ]]; then
+    cp ./$1/SPL ${OUT_PATH}/$1/
+    cp ./$1/spl/u-boot-spl.bin ${OUT_PATH}/$1/
+    cp ./$1/u-boot.img ${OUT_PATH}/$1/
+  elif [ &quot;$1&quot; = &quot;axon-imx6&quot; ]; then
     cp ./$1/SPL ${OUT_PATH}/$1/
     cp ./$1/spl/u-boot-spl.bin ${OUT_PATH}/$1/
     cp ./$1/u-boot.img ${OUT_PATH}/$1/

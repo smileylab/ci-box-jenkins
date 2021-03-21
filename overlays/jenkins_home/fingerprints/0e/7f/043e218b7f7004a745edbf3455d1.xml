@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-08 18:36:33.643 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>105</number>
+  </original>
+  <md5sum>0e7f043e218b7f7004a745edbf3455d1</md5sum>
+  <fileName>tn-image-rescue-initramfs-axon-imx8mm-20201208103017.rootfs.manifest</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

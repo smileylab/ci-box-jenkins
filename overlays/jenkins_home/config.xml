@@ -3,7 +3,8 @@
   <disabledAdministrativeMonitors>
     <string>hudson.diagnosis.TooManyJobsButNoView</string>
   </disabledAdministrativeMonitors>
-  <version>2.277.1</version>
+  <version>2.121.1</version>
+  <installStateName>RESTART</installStateName>
   <numExecutors>20</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -108,48 +109,77 @@
     <permission>hudson.model.Computer.Disconnect:richard.hu</permission>
     <permission>hudson.model.Computer.Disconnect:wig_cheng</permission>
     <permission>hudson.model.Hudson.Administer:admin</permission>
+    <permission>hudson.model.Hudson.Administer:po.cheng</permission>
     <permission>hudson.model.Hudson.Read:admin</permission>
     <permission>hudson.model.Hudson.Read:andy_lin</permission>
+    <permission>hudson.model.Hudson.Read:aurora_yang</permission>
     <permission>hudson.model.Hudson.Read:authenticated</permission>
+    <permission>hudson.model.Hudson.Read:gavin_chen</permission>
     <permission>hudson.model.Hudson.Read:Hank.Chang</permission>
     <permission>hudson.model.Hudson.Read:jim_lee</permission>
     <permission>hudson.model.Hudson.Read:john_weber</permission>
+    <permission>hudson.model.Hudson.Read:lance_yen</permission>
+    <permission>hudson.model.Hudson.Read:Leo_Chen</permission>
     <permission>hudson.model.Hudson.Read:leo_wang</permission>
+    <permission>hudson.model.Hudson.Read:marcel</permission>
     <permission>hudson.model.Hudson.Read:po.cheng</permission>
     <permission>hudson.model.Hudson.Read:Ray.Chang</permission>
     <permission>hudson.model.Hudson.Read:richard.hu</permission>
+    <permission>hudson.model.Hudson.Read:voice_lee</permission>
+    <permission>hudson.model.Hudson.Read:wei_chuang</permission>
     <permission>hudson.model.Hudson.Read:wig_cheng</permission>
     <permission>hudson.model.Item.Build:admin</permission>
     <permission>hudson.model.Item.Build:andy_lin</permission>
+    <permission>hudson.model.Item.Build:aurora_yang</permission>
     <permission>hudson.model.Item.Build:authenticated</permission>
+    <permission>hudson.model.Item.Build:gavin_chen</permission>
     <permission>hudson.model.Item.Build:Hank.Chang</permission>
     <permission>hudson.model.Item.Build:jim_lee</permission>
     <permission>hudson.model.Item.Build:john_weber</permission>
+    <permission>hudson.model.Item.Build:lance_yen</permission>
+    <permission>hudson.model.Item.Build:Leo_Chen</permission>
     <permission>hudson.model.Item.Build:leo_wang</permission>
+    <permission>hudson.model.Item.Build:marcel</permission>
     <permission>hudson.model.Item.Build:po.cheng</permission>
     <permission>hudson.model.Item.Build:Ray.Chang</permission>
     <permission>hudson.model.Item.Build:richard.hu</permission>
+    <permission>hudson.model.Item.Build:voice_lee</permission>
+    <permission>hudson.model.Item.Build:wei_chuang</permission>
     <permission>hudson.model.Item.Build:wig_cheng</permission>
     <permission>hudson.model.Item.Cancel:admin</permission>
     <permission>hudson.model.Item.Cancel:andy_lin</permission>
+    <permission>hudson.model.Item.Cancel:aurora_yang</permission>
     <permission>hudson.model.Item.Cancel:authenticated</permission>
+    <permission>hudson.model.Item.Cancel:gavin_chen</permission>
     <permission>hudson.model.Item.Cancel:Hank.Chang</permission>
     <permission>hudson.model.Item.Cancel:jim_lee</permission>
     <permission>hudson.model.Item.Cancel:john_weber</permission>
+    <permission>hudson.model.Item.Cancel:lance_yen</permission>
+    <permission>hudson.model.Item.Cancel:Leo_Chen</permission>
     <permission>hudson.model.Item.Cancel:leo_wang</permission>
+    <permission>hudson.model.Item.Cancel:marcel</permission>
     <permission>hudson.model.Item.Cancel:po.cheng</permission>
     <permission>hudson.model.Item.Cancel:Ray.Chang</permission>
     <permission>hudson.model.Item.Cancel:richard.hu</permission>
+    <permission>hudson.model.Item.Cancel:voice_lee</permission>
+    <permission>hudson.model.Item.Cancel:wei_chuang</permission>
     <permission>hudson.model.Item.Cancel:wig_cheng</permission>
     <permission>hudson.model.Item.Configure:admin</permission>
     <permission>hudson.model.Item.Configure:andy_lin</permission>
+    <permission>hudson.model.Item.Configure:aurora_yang</permission>
+    <permission>hudson.model.Item.Configure:gavin_chen</permission>
     <permission>hudson.model.Item.Configure:Hank.Chang</permission>
     <permission>hudson.model.Item.Configure:jim_lee</permission>
     <permission>hudson.model.Item.Configure:john_weber</permission>
+    <permission>hudson.model.Item.Configure:lance_yen</permission>
+    <permission>hudson.model.Item.Configure:Leo_Chen</permission>
     <permission>hudson.model.Item.Configure:leo_wang</permission>
+    <permission>hudson.model.Item.Configure:marcel</permission>
     <permission>hudson.model.Item.Configure:po.cheng</permission>
     <permission>hudson.model.Item.Configure:Ray.Chang</permission>
     <permission>hudson.model.Item.Configure:richard.hu</permission>
+    <permission>hudson.model.Item.Configure:voice_lee</permission>
+    <permission>hudson.model.Item.Configure:wei_chuang</permission>
     <permission>hudson.model.Item.Configure:wig_cheng</permission>
     <permission>hudson.model.Item.Create:admin</permission>
     <permission>hudson.model.Item.Create:andy_lin</permission>
@@ -190,25 +220,39 @@
     <permission>hudson.model.Item.Move:wig_cheng</permission>
     <permission>hudson.model.Item.Read:admin</permission>
     <permission>hudson.model.Item.Read:andy_lin</permission>
+    <permission>hudson.model.Item.Read:aurora_yang</permission>
     <permission>hudson.model.Item.Read:authenticated</permission>
+    <permission>hudson.model.Item.Read:gavin_chen</permission>
     <permission>hudson.model.Item.Read:Hank.Chang</permission>
     <permission>hudson.model.Item.Read:jim_lee</permission>
     <permission>hudson.model.Item.Read:john_weber</permission>
+    <permission>hudson.model.Item.Read:lance_yen</permission>
+    <permission>hudson.model.Item.Read:Leo_Chen</permission>
     <permission>hudson.model.Item.Read:leo_wang</permission>
+    <permission>hudson.model.Item.Read:marcel</permission>
     <permission>hudson.model.Item.Read:po.cheng</permission>
     <permission>hudson.model.Item.Read:Ray.Chang</permission>
     <permission>hudson.model.Item.Read:richard.hu</permission>
+    <permission>hudson.model.Item.Read:voice_lee</permission>
+    <permission>hudson.model.Item.Read:wei_chuang</permission>
     <permission>hudson.model.Item.Read:wig_cheng</permission>
     <permission>hudson.model.Item.Workspace:admin</permission>
     <permission>hudson.model.Item.Workspace:andy_lin</permission>
+    <permission>hudson.model.Item.Workspace:aurora_yang</permission>
     <permission>hudson.model.Item.Workspace:authenticated</permission>
+    <permission>hudson.model.Item.Workspace:gavin_chen</permission>
     <permission>hudson.model.Item.Workspace:Hank.Chang</permission>
     <permission>hudson.model.Item.Workspace:jim_lee</permission>
     <permission>hudson.model.Item.Workspace:john_weber</permission>
+    <permission>hudson.model.Item.Workspace:lance_yen</permission>
+    <permission>hudson.model.Item.Workspace:Leo_Chen</permission>
     <permission>hudson.model.Item.Workspace:leo_wang</permission>
+    <permission>hudson.model.Item.Workspace:marcel</permission>
     <permission>hudson.model.Item.Workspace:po.cheng</permission>
     <permission>hudson.model.Item.Workspace:Ray.Chang</permission>
     <permission>hudson.model.Item.Workspace:richard.hu</permission>
+    <permission>hudson.model.Item.Workspace:voice_lee</permission>
+    <permission>hudson.model.Item.Workspace:wei_chuang</permission>
     <permission>hudson.model.Item.Workspace:wig_cheng</permission>
     <permission>hudson.model.Run.Delete:admin</permission>
     <permission>hudson.model.Run.Delete:andy_lin</permission>
@@ -266,14 +310,21 @@
     <permission>hudson.model.View.Delete:wig_cheng</permission>
     <permission>hudson.model.View.Read:admin</permission>
     <permission>hudson.model.View.Read:andy_lin</permission>
+    <permission>hudson.model.View.Read:aurora_yang</permission>
     <permission>hudson.model.View.Read:authenticated</permission>
+    <permission>hudson.model.View.Read:gavin_chen</permission>
     <permission>hudson.model.View.Read:Hank.Chang</permission>
     <permission>hudson.model.View.Read:jim_lee</permission>
     <permission>hudson.model.View.Read:john_weber</permission>
+    <permission>hudson.model.View.Read:lance_yen</permission>
+    <permission>hudson.model.View.Read:Leo_Chen</permission>
     <permission>hudson.model.View.Read:leo_wang</permission>
+    <permission>hudson.model.View.Read:marcel</permission>
     <permission>hudson.model.View.Read:po.cheng</permission>
     <permission>hudson.model.View.Read:Ray.Chang</permission>
     <permission>hudson.model.View.Read:richard.hu</permission>
+    <permission>hudson.model.View.Read:voice_lee</permission>
+    <permission>hudson.model.View.Read:wei_chuang</permission>
     <permission>hudson.model.View.Read:wig_cheng</permission>
     <permission>hudson.scm.SCM.Tag:admin</permission>
     <permission>hudson.scm.SCM.Tag:andy_lin</permission>
@@ -291,40 +342,40 @@
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
-  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
   <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
   <jdks/>
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds>
-    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.2.0">
+    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.1.0-rc45">
       <name>docker-slave</name>
       <provisionedImages/>
       <templates>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>d2d5e23f-71ec-439b-b907-cdc5de5aa6d6</id>
-          <labelString>tn/yocto-builder</labelString>
+          <labelString>docker-slave/yocto</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/yocto-builder</image>
+            <image>docker-slave/yocto</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -349,7 +400,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -394,20 +447,20 @@
           <id>8248210c-699a-4e9a-a303-650e6022cd47</id>
           <labelString>docker-slave/android-7</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -480,27 +533,27 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>9f6910b4-51dd-4a32-9306-7f76d0048677</id>
-          <labelString>tn/buildroot-builder</labelString>
+          <labelString>docker-slave/buildroot</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/buildroot-builder</image>
+            <image>docker-slave/buildroot</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -516,7 +569,7 @@
                 <c class="list">
                   <string>/dev:/dev</string>
                   <string>/home/admin/build:/home/jenkins/build</string>
-                  <string>/home/admin/workspace:/home/jenkins/data</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -525,7 +578,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -568,27 +623,27 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>56d55eca-17e6-47a7-bb5b-4a4ceb294895</id>
-          <labelString>tn/qcgui-builder</labelString>
+          <labelString>docker-slave/qcgui_builder</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/qcgui-builder</image>
+            <image>docker-slave/qcgui_builder</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -613,7 +668,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -656,27 +713,27 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>84dc573e-7b2e-47c9-a82f-4e9da3682099</id>
-          <labelString>tn/kernel-builder</labelString>
+          <labelString>docker-slave/kernel</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/kernel-builder</image>
+            <image>docker-slave/kernel</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -701,7 +758,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -744,27 +803,25 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>e540ace5-9219-4cce-9ea2-8ff077f90ef0</id>
-          <labelString>tn/ubuntu-builder</labelString>
-          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
-              <port>22</port>
-              <credentialsId>ce44a682-257f-431e-85d9-a3dcf244d938</credentialsId>
-              <jvmOptions></jvmOptions>
-              <javaPath></javaPath>
-              <maxNumRetries>0</maxNumRetries>
-              <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
-            </sshConnector>
+          <labelString>docker-slave/ubuntu</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
+            <launchTimeout>0</launchTimeout>
+            <user>root</user>
+            <jvmOpts></jvmOpts>
+            <slaveOpts></slaveOpts>
+            <jenkinsUrl></jenkinsUrl>
+            <noCertificateCheck>false</noCertificateCheck>
+            <reconnect>false</reconnect>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/ubuntu-builder</image>
+            <image>docker-slave/ubuntu</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -781,6 +838,7 @@
                   <string>/dev:/dev</string>
                   <string>/home/admin/build:/home/jenkins/build</string>
                   <string>/home/admin/build/ubuntu:/home/jenkins/data</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -789,7 +847,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -832,27 +892,27 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>0aefd2b4-95c6-42de-8ca1-2d27bac4a557</id>
-          <labelString>tn/yocto-builder</labelString>
+          <labelString>docker-slave/yocto-develop</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/yocto-builder</image>
+            <image>docker-slave/yocto-develop</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -868,7 +928,7 @@
                 <c class="list">
                   <string>/dev:/dev</string>
                   <string>/home/admin/build:/home/jenkins/build</string>
-                  <string>/home/admin/workspace:/home/jenkins/data</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -877,7 +937,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -920,7 +982,7 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>e142a1d1-4a0b-4417-acc1-148be3350cf3</id>
-          <labelString>tn/android-builder</labelString>
+          <labelString>docker-slave/android-8</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
             <launchTimeout>120</launchTimeout>
             <user>root</user>
@@ -933,12 +995,12 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/android-builder</image>
+            <image>docker-slave/android-8</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -953,6 +1015,7 @@
               <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
                 <c class="list">
                   <string>/home/admin/docker/android_8:/home/jenkins/output</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -961,7 +1024,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -1004,7 +1069,7 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>2fc4aae2-1c4b-4de5-a657-253173bd02ee</id>
-          <labelString>tn/android-builder</labelString>
+          <labelString>docker-slave/android-9</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
             <launchTimeout>120</launchTimeout>
             <user>root</user>
@@ -1017,12 +1082,12 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/android-builder</image>
+            <image>docker-slave/android-9</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -1037,6 +1102,8 @@
               <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
                 <c class="list">
                   <string>/home/admin/docker/android_9:/home/jenkins/output</string>
+                  <string>/home/admin/build:/home/jenkins/build</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -1045,7 +1112,9 @@
                 <list reference="../c"/>
               </volumesFrom>
               <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
-                <c class="list"/>
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
                 <list reference="../c"/>
               </environment>
               <bindPorts></bindPorts>
@@ -1101,7 +1170,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1123,7 +1192,7 @@
                   <string>/var/run/docker.sock:/var/run/docker.sock</string>
                   <string>/dev:/dev</string>
                   <string>/home/admin/build:/home/jenkins/build</string>
-                  <string>/home/admin/workspace:/home/jenkins/data</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -1178,27 +1247,27 @@
         </com.github.kostyasha.yad.DockerSlaveTemplate>
         <com.github.kostyasha.yad.DockerSlaveTemplate>
           <id>7a10641f-a45d-4555-a253-1415402fb561</id>
-          <labelString>tn/yocto-builder-builder</labelString>
+          <labelString>docker-slave/yocto-builder</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector>
+            <sshConnector plugin="ssh-slaves@1.22">
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>0</idleMinutes>
+            <idleMinutes>10</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
           <dockerContainerLifecycle>
-            <image>tn/yocto-builder-builder</image>
+            <image>docker-slave/yocto-builder</image>
             <pullImage>
               <pullStrategy>PULL_NEVER</pullStrategy>
               <credentialsId></credentialsId>
@@ -1214,7 +1283,451 @@
                 <c class="list">
                   <string>/dev:/dev</string>
                   <string>/home/admin/build:/home/jenkins/build</string>
-                  <string>/home/admin/workspace:/home/jenkins/data</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
+                </c>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>false</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+              <shmSize>0</shmSize>
+              <restartPolicy>
+                <policyName>NO</policyName>
+                <maximumRetryCount>0</maximumRetryCount>
+              </restartPolicy>
+              <workdir></workdir>
+              <user></user>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>true</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <configVersion>1</configVersion>
+          <maxCapacity>10</maxCapacity>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>1a6ae3a3-2ff7-4de2-9534-aef2ea45feea</id>
+          <labelString>tn/mender-util</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
+            <launchTimeout>120</launchTimeout>
+            <user>root</user>
+            <jvmOpts></jvmOpts>
+            <slaveOpts></slaveOpts>
+            <jenkinsUrl></jenkinsUrl>
+            <noCertificateCheck>false</noCertificateCheck>
+            <reconnect>false</reconnect>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>tn/mender-util</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>false</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+              <shmSize>0</shmSize>
+              <restartPolicy>
+                <policyName>NO</policyName>
+                <maximumRetryCount>0</maximumRetryCount>
+              </restartPolicy>
+              <workdir></workdir>
+              <user></user>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>true</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <configVersion>1</configVersion>
+          <maxCapacity>10</maxCapacity>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>e037d517-d647-4bd3-a866-c3c9f9674bd2</id>
+          <labelString>tn/builder</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
+            <sshConnector plugin="ssh-slaves@1.22">
+              <port>22</port>
+              <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
+              <jvmOptions></jvmOptions>
+              <javaPath></javaPath>
+              <maxNumRetries>0</maxNumRetries>
+              <retryWaitTime>0</retryWaitTime>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+            </sshConnector>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>tn/builder</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>/dev:/dev</string>
+                  <string>/home/admin/build:/home/jenkins/build</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
+                  <string>/var/run/docker.sock:/var/run/docker.sock</string>
+                  <string>/tmp:/tmp</string>
+                </c>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                  <string>JENKINS_HOMEDIR=&quot;/home/admin/jenkins_home&quot;</string>
+                </c>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>true</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+              <shmSize>0</shmSize>
+              <restartPolicy>
+                <policyName>NO</policyName>
+                <maximumRetryCount>0</maximumRetryCount>
+              </restartPolicy>
+              <workdir></workdir>
+              <user></user>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>true</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <configVersion>1</configVersion>
+          <maxCapacity>10</maxCapacity>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>875d82fc-e1c8-4c45-8e5e-d8c59f398991</id>
+          <labelString>tn/builder3</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
+            <sshConnector plugin="ssh-slaves@1.22">
+              <port>22</port>
+              <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
+              <jvmOptions></jvmOptions>
+              <javaPath></javaPath>
+              <maxNumRetries>0</maxNumRetries>
+              <retryWaitTime>0</retryWaitTime>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+            </sshConnector>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>tn/builder3</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>/dev:/dev</string>
+                  <string>/home/admin/build:/home/jenkins/build</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
+                  <string>/var/run/docker.sock:/var/run/docker.sock</string>
+                  <string>/tmp:/tmp</string>
+                </c>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                  <string>JENKINS_HOMEDIR=&quot;/home/admin/jenkins_home&quot;</string>
+                </c>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>true</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+              <shmSize>0</shmSize>
+              <restartPolicy>
+                <policyName>NO</policyName>
+                <maximumRetryCount>0</maximumRetryCount>
+              </restartPolicy>
+              <workdir></workdir>
+              <user></user>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>true</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <configVersion>1</configVersion>
+          <maxCapacity>10</maxCapacity>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>3e99aa0b-c8ed-45bb-a123-8eb4ea8c5b2e</id>
+          <labelString>docker-slave/ubuntu-2004</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
+            <launchTimeout>10</launchTimeout>
+            <user>root</user>
+            <jvmOpts></jvmOpts>
+            <slaveOpts></slaveOpts>
+            <jenkinsUrl></jenkinsUrl>
+            <noCertificateCheck>false</noCertificateCheck>
+            <reconnect>false</reconnect>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>docker-slave/ubuntu-2004</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>/home/admin/docker/ubuntu_2004:/home/jenkins/output</string>
+                </c>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>TZ=Asia/Taipei</string>
+                </c>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>true</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+              <shmSize>0</shmSize>
+              <restartPolicy>
+                <policyName>NO</policyName>
+                <maximumRetryCount>0</maximumRetryCount>
+              </restartPolicy>
+              <workdir></workdir>
+              <user></user>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>true</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <configVersion>1</configVersion>
+          <maxCapacity>10</maxCapacity>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>306f86fc-ee03-4fda-8b06-51d21cb8838e</id>
+          <labelString>docker-slave/android-10</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerJNLPLauncher">
+            <launchTimeout>120</launchTimeout>
+            <user>root</user>
+            <jvmOpts></jvmOpts>
+            <slaveOpts></slaveOpts>
+            <jenkinsUrl></jenkinsUrl>
+            <noCertificateCheck>false</noCertificateCheck>
+            <reconnect>false</reconnect>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>docker-slave/android-10</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list">
+                  <string>/home/admin/docker/android_10:/home/jenkins/output</string>
+                  <string>/home/admin/build:/home/jenkins/build</string>
+                  <string>/home/admin/jenkins_home/workspace:/home/jenkins/workspace</string>
                 </c>
                 <list reference="../c"/>
               </volumes>
@@ -1286,7 +1799,7 @@
     </hudson.model.AllView>
   </views>
   <primaryView>all</primaryView>
-  <slaveAgentPort>8084</slaveAgentPort>
+  <slaveAgentPort>50000</slaveAgentPort>
   <label></label>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
     <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>

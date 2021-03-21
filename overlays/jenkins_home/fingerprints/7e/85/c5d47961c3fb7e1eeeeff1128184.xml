@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-17 10:31:39.708 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>8</number>
+  </original>
+  <md5sum>7e85c5d47961c3fb7e1eeeeff1128184</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-xore-wizard-m4-20200817070237.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

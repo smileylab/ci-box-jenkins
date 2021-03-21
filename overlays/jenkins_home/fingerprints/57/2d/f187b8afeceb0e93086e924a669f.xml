@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-27 10:34:03.959 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>7</number>
+  </original>
+  <md5sum>572df187b8afeceb0e93086e924a669f</md5sum>
+  <fileName>fitImage-its-tn-image-rescue-initramfs-tep1-imx7-4.14.98-r1-20200727082905.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

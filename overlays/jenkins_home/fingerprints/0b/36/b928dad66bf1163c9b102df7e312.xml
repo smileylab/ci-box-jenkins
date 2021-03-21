@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-06 02:57:51.352 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>7</number>
+  </original>
+  <md5sum>0b36b928dad66bf1163c9b102df7e312</md5sum>
+  <fileName>torizon-core-docker-colibri-imx7-20190506011138.rootfs.manifest</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

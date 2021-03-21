@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:06:57.158 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>128</number>
+  </original>
+  <md5sum>f722442a00a88eaa21e50ddb64b1f8cb</md5sum>
+  <fileName>tn-image-rescue-fitimage-axon-imx6-20210202015747.rootfs.wic</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

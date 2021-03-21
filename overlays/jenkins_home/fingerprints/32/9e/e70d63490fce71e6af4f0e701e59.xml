@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-08 13:53:16.898 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>88</number>
+  </original>
+  <md5sum>329ee70d63490fce71e6af4f0e701e59</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.14.98</string>
+      <ranges>85</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>88</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

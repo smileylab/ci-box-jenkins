@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:08:02.20 UTC</timestamp>
+  <md5sum>9d4bb2e890e4b15b96901567b5332bbc</md5sum>
+  <fileName>Image</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

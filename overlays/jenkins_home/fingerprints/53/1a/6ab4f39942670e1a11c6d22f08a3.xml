@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-11-10 13:12:56.294 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>94</number>
+  </original>
+  <md5sum>531a6ab4f39942670e1a11c6d22f08a3</md5sum>
+  <fileName>imx6q-axon-wizard.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>95,108,111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-10-05 04:12:18.694 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>54</number>
+  </original>
+  <md5sum>359c375ec2ba2f163555ebf51e224a16</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-pico-wizard-sn65dsi84-g215hvn01-20201005032407.dtb</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>54</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

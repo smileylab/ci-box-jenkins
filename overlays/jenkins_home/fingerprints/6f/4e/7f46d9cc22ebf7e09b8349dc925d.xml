@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-03 05:51:32.655 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88</name>
+    <number>69</number>
+  </original>
+  <md5sum>6f4e7f46d9cc22ebf7e09b8349dc925d</md5sum>
+  <fileName>u-boot-nodtb.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88</string>
+      <ranges>69</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

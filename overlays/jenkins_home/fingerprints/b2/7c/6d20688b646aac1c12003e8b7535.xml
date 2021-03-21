@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:56:47.755 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>125</number>
+  </original>
+  <md5sum>b27c6d20688b646aac1c12003e8b7535</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-axon-pi-20201229125646.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

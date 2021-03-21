@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-09-19 10:03:26.934 UTC</timestamp>
+  <original>
+    <name>qca_firmware</name>
+    <number>7</number>
+  </original>
+  <md5sum>7dd4a54841035888c940bf2fab50c5e2</md5sum>
+  <fileName>linux-firmware-qca-tn.bb</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>1-7</ranges>
+    </entry>
+    <entry>
+      <string>gen_qca_firmware</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA</string>
+      <ranges>23-64</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

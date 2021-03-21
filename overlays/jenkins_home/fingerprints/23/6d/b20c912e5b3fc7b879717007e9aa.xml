@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 10:10:33.744 UTC</timestamp>
+  <md5sum>236db20c912e5b3fc7b879717007e9aa</md5sum>
+  <fileName>signed_dp_imx8m.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>7-11</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

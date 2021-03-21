@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-03-04 21:27:14.151 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>132</number>
+  </original>
+  <md5sum>d0b983e9ef1bf30db73887576bd09a09</md5sum>
+  <fileName>tn-image-rescue-initramfs-axon-imx6-20210304173009.rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

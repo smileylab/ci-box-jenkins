@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-06 10:51:08.444 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-installer-scripts32</name>
+    <number>5</number>
+  </original>
+  <md5sum>410eb977a0866a0536ae6225c5aa2521</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

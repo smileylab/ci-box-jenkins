@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-03-20 07:29:06.503 UTC</timestamp>
+  <original>
+    <name>ota-mender-sumo_4.14.y_GA-internal-build</name>
+    <number>58</number>
+  </original>
+  <md5sum>187b87372c62534aba7ea53f96cedeba</md5sum>
+  <fileName>core-image-base-pico-imx8mm-20200320055231.mender</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-artifect-upload</string>
+      <ranges>17</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

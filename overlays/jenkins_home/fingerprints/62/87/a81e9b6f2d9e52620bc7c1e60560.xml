@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-03 02:29:27.336 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>60</number>
+  </original>
+  <md5sum>6287a81e9b6f2d9e52620bc7c1e60560</md5sum>
+  <fileName>tn-image-docker-os-pico-imx8mm-20210203014453.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>60</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

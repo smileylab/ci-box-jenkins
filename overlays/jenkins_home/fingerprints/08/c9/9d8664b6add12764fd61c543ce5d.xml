@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-06-19 13:53:09.536 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>59</number>
+  </original>
+  <md5sum>08c99d8664b6add12764fd61c543ce5d</md5sum>
+  <fileName>imx6q-pico-dwarf-qca.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>87-91</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

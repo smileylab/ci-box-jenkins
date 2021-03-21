@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-09-18 14:09:45.249 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>86</number>
+  </original>
+  <md5sum>6658167fb66519c9e0dcba94fefd4305</md5sum>
+  <fileName>.imx8mm-flex-pi-ili9881c-m4.dtb.dts.tmp</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>90-94</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

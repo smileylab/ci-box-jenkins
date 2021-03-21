@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-03-04 21:28:28.706 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>132</number>
+  </original>
+  <md5sum>1cdcbf6f3b5d2f1d05ecfdfa6070b5b5</md5sum>
+  <fileName>tn-image-rescue-fitimage-tek-imx6-20210304182017.rootfs.wic</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-20 03:49:14.427 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>105</number>
+  </original>
+  <md5sum>e36f79bd9ebca55606f7bccd5e3f3079</md5sum>
+  <fileName>tc0700_edm1-cf-imx6dl_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_20200117.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>82</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

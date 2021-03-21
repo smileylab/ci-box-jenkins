@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-15 11:01:41.672 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.78-arm64</name>
+    <number>2</number>
+  </original>
+  <md5sum>8f9011ca72c0a298c4f02a183839262f</md5sum>
+  <fileName>pico-imx8m-dcss-ili9881c.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mq</string>
+      <ranges>1-5</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>6-10</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

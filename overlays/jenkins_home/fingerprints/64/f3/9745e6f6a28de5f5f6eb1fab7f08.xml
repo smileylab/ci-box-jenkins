@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-20 09:51:53.413 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>4</number>
+  </original>
+  <md5sum>64f39745e6f6a28de5f5f6eb1fab7f08</md5sum>
+  <fileName>torizon-core-docker-colibri-imx7-20190420080932-Tezi_1.0b1-20190420.tar</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

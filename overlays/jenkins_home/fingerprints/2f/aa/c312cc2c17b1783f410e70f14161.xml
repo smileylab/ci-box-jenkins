@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 10:41:28.941 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>8</number>
+  </original>
+  <md5sum>2faac312cc2c17b1783f410e70f14161</md5sum>
+  <fileName>tn-image-tsl-fitimage-edm-g-imx8mp-20210217100514.rootfs.wic.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-14 07:53:41.685 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-install-modules32-4.9.88-lvds-dual-channel-patch</name>
+    <number>3</number>
+  </original>
+  <md5sum>a1091c39206c6d1e82d958dec05ea650</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

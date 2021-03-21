@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-03-04 21:28:12.345 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>132</number>
+  </original>
+  <md5sum>4db0d77223890ea6b730f8de22ad811e</md5sum>
+  <fileName>tn-image-rescue-initramfs-pico-imx8mq-20210304073619.rootfs.cpio.gz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

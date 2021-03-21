@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-14 07:31:46.594 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88</name>
+    <number>13</number>
+  </original>
+  <md5sum>0f9df6cc7c8222e3f18d834fc5e309e1</md5sum>
+  <fileName>SPL</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>130-131</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>21-22</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88</string>
+      <ranges>13</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-06-19 13:53:12.148 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>59</number>
+  </original>
+  <md5sum>870decb82b1a1ef13d1dcec58a3f18c2</md5sum>
+  <fileName>imx7d-pico-pi-qca-voicehat.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>87-91</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

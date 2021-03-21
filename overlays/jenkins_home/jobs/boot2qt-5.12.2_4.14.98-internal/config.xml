@@ -1,0 +1,384 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Boot2Qt from internal git repositories&#xd;
+</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/meta-boot2qt.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/sumo-tn-boot2qt-5.12.5-next</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <noTags>false</noTags>
+        <reference></reference>
+        <timeout>30</timeout>
+        <depth>1</depth>
+        <honorRefspec>false</honorRefspec>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>sources/meta-boot2qt</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <assignedNode>tn/builder3</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>yocto-sumo_4.14.98_GA-virtualization-internal</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+cat &gt; site.conf &lt;&lt;EOF
+BB_GIT_SHALLOW ?= &quot;1&quot;
+BB_GIT_SHALLOW_DEPTH ?= &quot;1&quot;
+# Usage in a recipe with multiple named uris or multiple named branches
+BB_GIT_SHALLOW_DEPTH_doc = &quot;&quot;
+
+# u-boot-edm.bb
+#SRCSERVER_pn-u-boot-edm = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCBRANCH_pn-u-boot-edm = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-u-boot-edm = &quot;;protocol=ssh;user=rdsw&quot;
+# becc33ae43d571f497f94588bc86ecab5cc23fbc
+#SRCREV_pn-u-boot-edm = &quot;7829ea5ee9a829811677868eb8ebae335eab854b&quot;
+#SRC_URI_pn-u-boot-edm = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# u-boot-script.bb
+#SRCSERVER_pn-u-boot-script = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
+
+# linux-firmware-brcm-tn.bb
+#SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+#SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
+#SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-linux-firmware-brcm-tn = &quot;\${AUTOREV}&quot;
+#SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+#S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-firmware-qca-tn.bb
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;efa5726f00863a2a9e5dbf5708a5c116ec4b6092&quot;
+SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-tn-imx.bb
+#KERNEL_SRC_pn-linux-tn-imx = &quot;git://10.20.30.20/volume1/internal_git/edm/tn-kernel.git&quot;
+#SRCBRANCH_pn-linux-tn-imx = &quot;tn-imx_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+# 2cdfa5e0f3e736a3d798efe835262f2a51445dde
+#SRCREV_pn-linux-tn-imx = &quot;2cdfa5e0f3e736a3d798efe835262f2a51445dde&quot;
+#SRC_URI_pn-linux-tn-imx = &quot;\${KERNEL_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+# Remove the upstream history from our kernel repo, keeping our own
+#BB_GIT_SHALLOW_REVS_pn-linux-tn-imx = &quot;921765ac1d28eeeabb2d85305df2c3f9cc6426a4&quot;
+#BB_GIT_SHALLOW_DEPTH_pn-linux-tn-imx = &quot;&quot;
+# Keep the branches in linux-tn-imx repositories
+#BB_GIT_SHALLOW_TRIM_REFS_pn-linux-tn-imx = &quot;0&quot;
+
+# afloader.bb
+#TECHNEXION_GITHUB_MIRROR_pn-afloader = &quot;git://10.20.30.20/volume1/internal_git/fpga/afloader.git&quot;
+#SRCOPTIONS_pn-afloader = &quot;;protocol=ssh;user=rdsw&quot;
+#SRC_URI_pn-afloader = &quot;\${TECHNEXION_GITHUB_MIRROR};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+SRCREV_pn-afloader = &quot;87814f59c55002ec388d5a508d10300bf5b8d140&quot;
+
+# axonfabric-firmware.bb
+#TECHNEXION_GITHUB_MIRROR_pn-axonfabric-firmware = &quot;git://10.20.30.20/volume1/internal_git/fpga/axonfabric-firmware.git&quot;
+#SRCOPTIONS_pn-axonfabric-firmware = &quot;;protocol=ssh;user=rdsw&quot;
+#SRC_URI_pn-axonfabric-firmware = &quot;\${TECHNEXION_GITHUB_MIRROR};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+SRCREV_pn-axonfabric-firmware = &quot;409677369d4ccd764fde5dc7ac0f7569251e87c7&quot;
+
+# imx-m4-demos-tn.bb
+#SRCREV_pn-imx-m4-demos-tn = &quot;4eb89db96ffca5f17becebf1363f0a00df534a00&quot;
+#M4_SRC_pn-imx-m4-demos-tn = &quot;git://10.20.30.20:/volume1/internal_git/edm/imx-m4-demos-tn.git&quot;
+#SRCOPTIONS_pn-imx-m4-demos-tn = &quot;;protocol=ssh;user=rdsw&quot;
+#SRC_URI_pn-imx-m4-demos-tn = &quot;\${M4_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+#RDEPENDS_packagegroup-tn-tools_remove = &quot;thermal-imx-test&quot;
+
+EOF
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+GITSERVER=&quot;10.20.30.20&quot;
+GITMIRROR=&quot;10.88.88.8&quot;
+chmod 0600 ~/.ssh/id_rsa
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+ssh-keyscan ${GITMIRROR} &gt;&gt; ~/.ssh/known_hosts
+
+# replaces the host URL and revision with internal git server
+sed -e &quot;s,https://github.com/TechNexion,ssh://rdsw@10.20.30.20/volume1/internal_git/edm/,g&quot; -i sources/meta-boot2qt/scripts/manifest.xml
+#sed -e &quot;s,3388de490387d82e2a87c95fe3bee245fe274d0c,sumo_4.14.98-2.0.0_GA-yocto-wip,g&quot; -i sources/meta-boot2qt/scripts/manifest.xml
+cat sources/meta-boot2qt/scripts/manifest.xml
+
+OUTDIR=/home/jenkins/build/boot2qt-images
+CACHEDIR=/home/jenkins/workspace/src/yocto2.5/cache
+DLDIR=/home/jenkins/workspace/src/yocto2.5/downloads
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.5/sstate-cache
+
+# clear and meta-edm-bsp-release folder on external volume
+rm -f -R ./sources/meta-edm-bsp-release
+
+# machine confs
+CONFs=(&quot;pico-imx8mq&quot; &quot;pico-imx8mm&quot; &quot;flex-imx8mm&quot; &quot;edm-imx8mq&quot; &quot;pico-imx7&quot; &quot;pico-imx6&quot; &quot;edm-imx7&quot; &quot;edm-imx6&quot;)
+
+# setup environment variables for building
+# BASEBOARDs=(&quot;pi&quot; &quot;nymph&quot; &quot;dwarf&quot; &quot;hobbit&quot;)
+# DISPLAYs=(&quot;lvds7&quot; &quot;hdmi720p&quot; &quot;hdmi1080p&quot; &quot;lcd&quot; &quot;lvds7_hdmi720p&quot;)
+# WLANs=(&quot;qca&quot; &quot;brcm&quot; &quot;ath-pci&quot; &quot;all&quot;)
+setup_env_vars () {
+  case $1 in
+    pico-imx8mq)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      ;;
+    pico-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      ;;
+    edm-imx8mq)
+      board=&quot;wizard&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      ;;
+    flex-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      ;;
+    axon-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      ;;
+    pico-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    pico-imx7)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    pico-imx6ul)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    edm-imx6)
+      board=&quot;fairy&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    axon-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    edm-imx7)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      ;;
+    tep1-imx7)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      ;;
+    tep1-imx6ul)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      ;;
+    tek-imx6)
+      board=&quot;tek&quot;
+      disp=&quot;lvds10&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      ;;
+    tek3-imx6ul)
+      board=&quot;tek&quot;
+      disp=&quot;lvds10&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      ;;
+  	*)
+      ;;
+  esac
+}
+
+# update ./conf/local.conf setting
+setup_local_conf () {
+    CURDIR=.
+
+    # setup conf/local.conf
+    if grep &quot;^DL_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^SSTATE_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+
+    # add TN_TOKEN to local.conf
+    echo &quot;PA_TOKEN ?= \&quot;SbtQ_mC4fvJRA88_9jB7\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+  
+    # re-enable remove built works in local.conf
+    echo &quot;INHERIT += \&quot;rm_work\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    
+    # add image-buildinfo
+	echo &quot;INHERIT += \&quot;image-buildinfo\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+
+    # filter out thermal-imx-test
+    echo &quot;RDPENDS_packagegroup-tn-tools_remove = \&quot;thermal-imx-test\&quot; &gt;&gt; $CURDIR/conf/local.conf
+
+    unset CURDIR    
+}
+
+
+for conf in ${CONFs[*]}; do
+  cd $WORKSPACE
+
+  ./sources/meta-boot2qt/b2qt-init-build-env init --device $conf
+
+  unset MACHINE
+  export MACHINE=$conf
+  source setup-environment.sh
+
+  # call setup_env_vars() to get our default values
+  setup_env_vars $conf
+  
+  # call setup_local_conf to replace DL_DIR and SSTAT_DIR
+  setup_local_conf
+
+  # Copy the site.conf for overriding QCA firmware downloads
+  cp $WORKSPACE/site.conf ./conf/site.conf
+
+  # Export uEnv.txt variables
+  export BASE_BOARD=$board
+  export DISPLAY_INFO=$disp
+  export RF_FIRMWARES=$wlan
+  export DISPLAY_PANEL=$pan
+  export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE BASE_BOARD DISPLAY_INFO RF_FIRMWARES DISPLAY_PANEL&quot;
+
+  # export out the conf and bitbake environment settings
+  cat ./conf/local.conf
+  cat ./conf/bblayers.conf
+  cat ./conf/site.conf
+  export
+
+  #bitbake u-boot-edm -c cleanall
+  #bitbake linux-tn-imx -c cleanall
+  #bitbake b2qt-embedded-qt5-image -c cleanall
+  bitbake b2qt-embedded-qt5-image -e | grep ^OVERRIDES
+  bitbake b2qt-embedded-qt5-image
+  
+  # SDK / QBSP for Linux
+  bitbake meta-toolchain-b2qt-embedded-qt5-sdk
+  bitbake meta-b2qt-embedded-qbsp
+
+  # SDK / QBSP for MS-Windows
+  SDKMACHINE=i686-mingw32 bitbake meta-toolchain-b2qt-embedded-qt5-sdk
+  SDKMACHINE=i686-mingw32 bitbake meta-b2qt-embedded-qbsp
+
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-*/tmp/deploy/images/*/*.wic,build-*/tmp/deploy/images/*/*.xz,build-*/tmp/deploy/sdk/*,build-*/tmp/deploy/qbsp/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

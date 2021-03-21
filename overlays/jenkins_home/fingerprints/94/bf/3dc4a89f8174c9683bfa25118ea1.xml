@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:08:00.864 UTC</timestamp>
+  <md5sum>94bf3dc4a89f8174c9683bfa25118ea1</md5sum>
+  <fileName>modules--4.14.98-r1-pico-imx8mm-20210201092222.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

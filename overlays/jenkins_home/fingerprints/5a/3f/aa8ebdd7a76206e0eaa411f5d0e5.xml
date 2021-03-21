@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 06:29:57.848 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next-package-release</name>
+    <number>30</number>
+  </original>
+  <md5sum>5a3faa8ebdd7a76206e0eaa411f5d0e5</md5sum>
+  <fileName>pico-imx8mm_pico-pi-imx8m_yocto-2.5-qt5_qca9377_mipi5-1280x720_20210217.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

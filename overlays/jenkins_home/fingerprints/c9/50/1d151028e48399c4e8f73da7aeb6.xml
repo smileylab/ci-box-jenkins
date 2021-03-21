@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 10:10:39.318 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>5</number>
+  </original>
+  <md5sum>c9501d151028e48399c4e8f73da7aeb6</md5sum>
+  <fileName>tn-image-tsl-fitimage-tn-imx8-imxboot-fit.wks</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>7-11</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

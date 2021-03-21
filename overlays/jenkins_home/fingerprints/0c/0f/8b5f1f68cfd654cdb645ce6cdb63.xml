@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-06 10:45:16.625 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.1.15</name>
+    <number>6</number>
+  </original>
+  <md5sum>0c0f8b5f1f68cfd654cdb645ce6cdb63</md5sum>
+  <fileName>imx6q-edm1-cf-pmic_tc1000_vxt101.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.1.15</string>
+      <ranges>55-59</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.1.15</string>
+      <ranges>6-7</ranges>
+    </entry>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32-36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

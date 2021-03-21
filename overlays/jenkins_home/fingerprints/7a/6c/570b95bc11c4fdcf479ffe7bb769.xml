@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 06:46:29.865 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>61</number>
+  </original>
+  <md5sum>7a6c570b95bc11c4fdcf479ffe7bb769</md5sum>
+  <fileName>modules--4.14.98-r1-pico-imx8mm-20210208055115.tgz</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>61</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

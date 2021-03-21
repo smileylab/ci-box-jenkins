@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-21 13:53:37.661 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>68</number>
+  </original>
+  <md5sum>01a3b26633a3d047b7be63422fa8617b</md5sum>
+  <fileName>imx6dl-pico-wizard-qca.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>87-91</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

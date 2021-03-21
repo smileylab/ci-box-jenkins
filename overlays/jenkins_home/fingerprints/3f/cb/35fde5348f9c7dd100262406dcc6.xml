@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-27 09:53:55.433 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>5</number>
+  </original>
+  <md5sum>3fcb35fde5348f9c7dd100262406dcc6</md5sum>
+  <fileName>imx7s-colibri-eval-v3--5.0.8+git0+8590c75f56_2136d9515a-r0-colibri-imx7-20190427081006.dtb</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>5,7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

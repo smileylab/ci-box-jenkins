@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-16 04:14:10.916 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx8m</name>
+    <number>34</number>
+  </original>
+  <md5sum>56b8045820d01121a2f8f50ce360d825</md5sum>
+  <fileName>tee.bin</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx8m</string>
+      <ranges>34,37</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

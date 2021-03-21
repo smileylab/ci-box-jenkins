@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-29 03:56:18.880 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.78-arm64</name>
+    <number>3</number>
+  </original>
+  <md5sum>49028a7b798577d7a6cb70a47a2fb974</md5sum>
+  <fileName>changelog</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mq</string>
+      <ranges>6-10</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>11-14</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

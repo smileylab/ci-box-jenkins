@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-19 10:48:22.699 UTC</timestamp>
+  <md5sum>08fd295cce89b0a9c74b9b83ed74f671</md5sum>
+  <fileName>COPYING</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx-ddrhdmi-7.4</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

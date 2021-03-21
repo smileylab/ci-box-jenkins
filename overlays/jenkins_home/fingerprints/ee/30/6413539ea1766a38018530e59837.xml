@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 13:51:00.705 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>91</number>
+  </original>
+  <md5sum>ee306413539ea1766a38018530e59837</md5sum>
+  <fileName>zImage</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98</string>
+      <ranges>91</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

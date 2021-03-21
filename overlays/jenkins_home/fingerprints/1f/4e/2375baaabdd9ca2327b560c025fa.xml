@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-03-06 15:19:40.691 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.98_arm64</name>
+    <number>58</number>
+  </original>
+  <md5sum>1f4e2375baaabdd9ca2327b560c025fa</md5sum>
+  <fileName>changelog-uboot</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>126-127</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>115-116</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>114-115</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

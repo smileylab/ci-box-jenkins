@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-11 03:26:37.974 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>15</number>
+  </original>
+  <md5sum>acd5e78a8b236bb6b6d27c55e3a71a66</md5sum>
+  <fileName>Image</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>15</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

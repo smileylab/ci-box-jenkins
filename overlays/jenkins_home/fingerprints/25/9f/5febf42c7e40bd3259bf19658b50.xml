@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-11-09 04:04:09.999 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>92</number>
+  </original>
+  <md5sum>259f5febf42c7e40bd3259bf19658b50</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-xore-wizard-sn65dsi84-g156xw01-20201109020607.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>95</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

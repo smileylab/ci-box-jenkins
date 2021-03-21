@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-11 05:37:02.946 UTC</timestamp>
+  <md5sum>e1c22d75cbb4e57d1933bc0b4810e6bb</md5sum>
+  <fileName>prepare.sh</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>2,4-5,7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

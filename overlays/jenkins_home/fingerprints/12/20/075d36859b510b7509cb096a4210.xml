@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-05 09:56:49.707 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88</name>
+    <number>53</number>
+  </original>
+  <md5sum>1220075d36859b510b7509cb096a4210</md5sum>
+  <fileName>tnrescue.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88-imx8m</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-11 05:57:56.34 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>111</number>
+  </original>
+  <md5sum>55b110d9720739d6b8ed88c2a54216ce</md5sum>
+  <fileName>fitImage-linux.bin-4.14.98-r1-edm-imx6-20201211045617.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

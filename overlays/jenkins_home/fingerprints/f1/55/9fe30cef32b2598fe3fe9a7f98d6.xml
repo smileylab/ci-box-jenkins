@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-11-24 13:00:50.392 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>9</number>
+  </original>
+  <md5sum>f1559fe30cef32b2598fe3fe9a7f98d6</md5sum>
+  <fileName>pico-8m-dual.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>15</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-25 09:07:53.284 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>32</number>
+  </original>
+  <md5sum>55a34ba19f318b739f4bdef8257b2754</md5sum>
+  <fileName>zImage</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>99</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88</string>
+      <ranges>32</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

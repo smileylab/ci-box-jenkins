@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:57:07.187 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>125</number>
+  </original>
+  <md5sum>b4c91f78ecfc254a7c1b485d6f4977a2</md5sum>
+  <fileName>tn-image-rescue-initramfs-flex-imx8mm-20201229124155.rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

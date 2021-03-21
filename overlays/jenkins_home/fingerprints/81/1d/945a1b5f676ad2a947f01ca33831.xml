@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-30 02:11:12.27 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx6</name>
+    <number>106</number>
+  </original>
+  <md5sum>811d945a1b5f676ad2a947f01ca33831</md5sum>
+  <fileName>u-boot-pico-imx6-2017.03-r0.img</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx6</string>
+      <ranges>106</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

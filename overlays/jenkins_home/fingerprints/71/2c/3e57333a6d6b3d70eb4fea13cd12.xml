@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-21 08:47:46.367 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>20</number>
+  </original>
+  <md5sum>712c3e57333a6d6b3d70eb4fea13cd12</md5sum>
+  <fileName>imx7d-edm1-qca_gnome-m4.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>1-2</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>6-8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

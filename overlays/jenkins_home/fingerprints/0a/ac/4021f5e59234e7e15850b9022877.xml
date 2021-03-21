@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-09 10:46:27.559 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>5</number>
+  </original>
+  <md5sum>0aac4021f5e59234e7e15850b9022877</md5sum>
+  <fileName>imx6q-pico_dwarf.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>33-42</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

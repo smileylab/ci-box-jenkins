@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-12 04:20:38.607 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>97</number>
+  </original>
+  <md5sum>aee28ce7e0b0572497d4c9e296f58f5f</md5sum>
+  <fileName>pico-imx6dl_nymph_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_20191211.img.txt</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>74</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-03-26 02:48:50.982 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>13</number>
+  </original>
+  <md5sum>f058fbaf10ffefe320d6e01678f273ba</md5sum>
+  <fileName>hello_world.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8,14-17</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>20,79,84,90,95,108,111,118,122,125-126,128,130,132</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>19,23,31,38,46,54,59-61</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-22 01:48:31.199 UTC</timestamp>
+  <original>
+    <name>yocto-zeus_5.4.70_GA-internal-nightly-build</name>
+    <number>102</number>
+  </original>
+  <md5sum>b2bbcd84f9040ee1c3f8556be346c3d1</md5sum>
+  <fileName>u-boot-sd-2020.04-r0.bin</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+    <entry>
+      <string>yocto-zeus_5.4.70_GA-internal-nightly-build</string>
+      <ranges>102</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-22 15:22:00.148 UTC</timestamp>
+  <original>
+    <name>gen_imx8mm-uboot-with-firmware_uboot-v2018.03-4.14.98-xore</name>
+    <number>69</number>
+  </original>
+  <md5sum>116629dff6b045fe1945139eb636d60b</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx8mm-uboot-with-firmware_uboot-v2018.03-4.14.98-xore</string>
+      <ranges>69</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

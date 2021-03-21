@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-11 05:58:45.959 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>111</number>
+  </original>
+  <md5sum>d3b8ffdef19f7a41b593314f02ed7c89</md5sum>
+  <fileName>tn-image-rescue-fitimage-tek-imx6-20201211052559.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

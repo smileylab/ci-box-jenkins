@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-13 07:41:26.244 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx6</name>
+    <number>102</number>
+  </original>
+  <md5sum>02810d763c6c6d279eb5db2938b621b8</md5sum>
+  <fileName>SPL</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx6</string>
+      <ranges>102</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

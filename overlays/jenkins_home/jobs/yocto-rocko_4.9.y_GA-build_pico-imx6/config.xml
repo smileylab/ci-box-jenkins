@@ -13,7 +13,7 @@
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
-      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp/</projectUrl>
+      <projectUrl>https://github.com/TechNexion/edm-yocto-bsp.git/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
@@ -23,18 +23,13 @@
     </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <assignedNode>docker-slave/yocto-builder</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>H H * * 6</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>data/${JOB_NAME}</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
@@ -47,18 +42,16 @@ ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
 
 # initialize technexion github yocto repository
 echo &quot;===== Repo init yocto from TechNexion github =====&quot;
-${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
-#${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+#${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
 echo &quot;===== Repo sync yocto from TechNexion github =====&quot;
-${HOME}/bin/repo sync -j16 -f
+rm -fR sources/meta-edm-bsp-release
+${HOME}/bin/repo sync --force-sync
 
 # Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
 echo &quot;===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====&quot;
 sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
-
-# copy new EULA
-echo &quot;===== Copy EULA =====&quot;
-cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA</command>
+</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
@@ -68,7 +61,7 @@ cat &gt; site.conf &lt;&lt;EOF
 #SRCSERVER_pn-u-boot-edm = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
 #SRCBRANCH_pn-u-boot-edm = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip&quot;
 #SRCOPTIONS_pn-u-boot-edm = &quot;;protocol=ssh;user=rdsw&quot;
-#SRCREV_pn-u-boot-edm = &quot;080a178dd478f6b590d1a5b73b687238ac93b859&quot;
+#SRCREV_pn-u-boot-edm = &quot;\${AUTOREV}&quot;
 #SRC_URI_pn-u-boot-edm = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
 
 # u-boot-script.bb
@@ -104,12 +97,12 @@ EOF
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
 
-DLDIR=/home/jenkins/data/src/yocto2.4/download
-SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
+DLDIR=/home/jenkins/workspace/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.4/sstat
 
 SOMs=(&quot;pico-imx6&quot;) # &quot;edm-imx6&quot; &quot;pico-imx7&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;pico-imx8m&quot;) # &quot;pico-imx8m&quot;
-DISTROs=(&quot;fb&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
-TGTIMGTYPEs=(&quot;core-image-base&quot;) # &quot;core-image-minimal&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot; &quot;fsl-image-validation-imx&quot; &quot;fsl-image-qt5-validation-imx&quot;
+DISTROs=(&quot;x11&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
+TGTIMGTYPEs=(&quot;fsl-image-qt5-validation-imx&quot;) # &quot;core-image-base&quot; &quot;core-image-minimal&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot; &quot;fsl-image-validation-imx&quot;
 
 #WIFI_FIRMWARE=y WIFI_MODULE=brcm DISTRO=fsl-imx-fb MACHINE=pico-imx6 BASEBOARD=nymph source edm-setup-release.sh -b build-pico-imx6
 
@@ -205,11 +198,16 @@ for som in ${SOMs[*]}; do
         
         cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
         cat $BUILD_DIR/conf/site.conf
+        cat $BUILD_DIR/conf/local.conf
+        cat $BUILD_DIR/conf/bblayers.conf
+        export
 
+        bitbake u-boot-edm -c cleanall
+        bitbake linux-tn-imx -c cleanall
         for target in ${TGTIMGTYPEs[*]}; do
 			# building the yocto with preset config params
             echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
-
+            bitbake $target -c cleanall
             # Compile using bitbake
             bitbake $target
         done
@@ -232,6 +230,19 @@ done
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

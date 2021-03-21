@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-19 08:00:52.799 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>48</number>
+  </original>
+  <md5sum>6eb93bb9483f714d2b6833d961ec3886</md5sum>
+  <fileName>imx8mm-xore-wizard-g080uan01.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-xore</string>
+      <ranges>15</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>112-143</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq-edm</string>
+      <ranges>96</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>101-132</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>100-131</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

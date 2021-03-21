@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-04 12:51:55.852 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>98</number>
+  </original>
+  <md5sum>786e5e7ac0c86715c3755e666eec5486</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-axon-pi-voicehat-20201204045840.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:57:34.713 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>125</number>
+  </original>
+  <md5sum>4dcdf7f12f799f669184e289fbc16473</md5sum>
+  <fileName>tn-image-rescue-initramfs-pico-imx8mq-20201229115026.rootfs.manifest</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

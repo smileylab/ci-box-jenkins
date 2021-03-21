@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-23 04:40:04.945 UTC</timestamp>
+  <md5sum>cf0aff50f7ba6a19f852897955c2445b</md5sum>
+  <fileName>modules--4.17+git0+80f8894094-r0-imx7d-pico-20190523025443.tgz</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-pico-imx7d</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,521 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Yocto zeus 5.4.47 stable build to iron out build issues with new commits</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>tn/builder3</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+cat &gt; site.conf &lt;&lt;EOF
+BB_GIT_SHALLOW ?= &quot;1&quot;
+BB_GIT_SHALLOW_DEPTH ?= &quot;1&quot;
+# Usage in a recipe with multiple named uris or multiple named branches
+BB_GIT_SHALLOW_DEPTH_doc = &quot;&quot;
+
+# u-boot-tn-imx.bb
+SRCSERVER_pn-u-boot-tn-imx = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+SRCBRANCH_pn-u-boot-tn-imx = &quot;tn-imx_v2020.04_5.4.70_2.3.0-next&quot;
+SRCOPTIONS_pn-u-boot-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-u-boot-tn-imx = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-u-boot-tn-imx = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# u-boot-script.bb
+#SRCSERVER_pn-u-boot-script = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
+
+# linux-firmware-brcm-tn.bb
+SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
+SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-brcm-tn = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-firmware-qca-tn.bb
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-tn-imx.bb
+SRCSERVER_pn-linux-tn-imx = &quot;git://10.20.30.20/volume1/internal_git/edm/tn-kernel.git&quot;
+SRCBRANCH_pn-linux-tn-imx = &quot;tn-imx_5.4.70_2.3.0-next&quot;
+SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-linux-tn-imx = &quot;dfed983640ea0d51a9a2be786d111cfb715f60ff&quot;
+SRCREV_pn-linux-tn-imx = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-linux-tn-imx = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+# Remove the upstream history from our kernel repo, keeping our own
+#BB_GIT_SHALLOW_REVS_pn-linux-tn-imx = &quot;dfed983640ea0d51a9a2be786d111cfb715f60ff&quot;
+BB_GIT_SHALLOW_REVS_pn-linux-tn-imx = &quot;\${AUTOREV}&quot;
+BB_GIT_SHALLOW_DEPTH_pn-linux-tn-imx = &quot;&quot;
+# Keep the branches in linux-tn-imx repositories
+BB_GIT_SHALLOW_TRIM_REFS_pn-linux-tn-imx = &quot;0&quot;
+
+# kernel-module-imx-gpu-viv_%.bbappend
+KERNEL_SRC_pn-kernel-module-imx-gpu-viv = &quot;git://10.20.30.20/volume1/internal_git/edm/tn-kernel.git&quot;
+SRCBRANCH_pn-kernel-module-imx-gpu-viv = &quot;tn-imx_5.4.70_2.3.0-next&quot;
+SRCOPTIONS_pn-kernel-module-imx-gpu-viv = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-kernel-module-imx-gpu-viv = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-kernel-module-imx-gpu-viv = &quot;\${KERNEL_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# kernel-module-qcacld-tn.bb
+SRCSERVER_pn-kernel-module-qcacld-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qcacld-2.0.git&quot;
+SRCBRANCH_pn-kernel-module-qcacld-tn = &quot;tn-CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-kernel-module-qcacld-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-kernel-module-qcacld-tn = &quot;\${AUTOREV}&quot;
+SRC_URI_pn-kernel-module-qcacld-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+#EXTRA_OEMAKE_append_pn-kernel-module-qcacld-tn = &quot; CONFIG_P2P_INTERFACE=y&quot;
+#S_pn-kernel-module-qcacld-tn = &quot;\${WORKDIR}/git&quot;
+
+# afloader.bb
+#TECHNEXION_GITHUB_MIRROR_pn-afloader = &quot;git://10.20.30.20/volume1/internal_git/fpga/afloader.git&quot;
+#SRCOPTIONS_pn-afloader = &quot;;protocol=ssh;user=rdsw&quot;
+#SRC_URI_pn-afloader = &quot;\${TECHNEXION_GITHUB_MIRROR};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+SRCREV_pn-afloader = &quot;87814f59c55002ec388d5a508d10300bf5b8d140&quot;
+
+# axonfabric-firmware.bb
+#TECHNEXION_GITHUB_MIRROR_pn-axonfabric-firmware = &quot;git://10.20.30.20/volume1/internal_git/fpga/axonfabric-firmware.git&quot;
+#SRCOPTIONS_pn-axonfabric-firmware = &quot;;protocol=ssh;user=rdsw&quot;
+#SRC_URI_pn-axonfabric-firmware = &quot;\${TECHNEXION_GITHUB_MIRROR};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# imx-m4-demos-tn.bb
+SRCREV_pn-imx-m4-demos-tn = &quot;\${AUTOREV}&quot;
+SRCBRANCH_pn-imx-m4-demos-tn = &quot;freertos_2.5.1&quot;
+M4_SRC_pn-imx-m4-demos-tn = &quot;git://10.20.30.20:/volume1/internal_git/edm/imx-m4-demos-tn.git&quot;
+SRCOPTIONS_pn-imx-m4-demos-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRC_URI_pn-imx-m4-demos-tn = &quot;\${M4_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+#GST1.0-PLUGINS-GOOD_SRC_pn-gstreamer1.0-plugins-good = &quot;gitsm://10.88.88.8/volume1/external/imx/gst-plugins-good.git;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-gstreamer1.0-plugins-good = &quot;bed7132deff7769a5bb929eae02e7fee3b4e8c6d&quot;
+#GST1.0-PLUGINS-BAD_SRC_pn-gstreamer1.0-plugins-bad = &quot;gitsm://10.88.88.8/volume1/external/imx/gst-plugins-bad.git;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-gstreamer1.0-plugins-bad = &quot;249fb31cf445b31411dfc5deaee457ab7667114f&quot;
+#GST1.0-PLUGINS-BASE_SRC_pn-gstreamer1.0-plugins-base = &quot;gitsm://10.88.88.8/volume1/external/imx/gst-plugins-base.git;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-gstreamer1.0-plugins-base = &quot;63552e1d854ce658eb1fd5039f65a503ed98929c&quot;
+#GST1.0_SRC_pn-gstreamer1.0 = &quot;gitsm://10.88.88.8/volume1/external/imx/gstreamer.git;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-gstreamer1.0 = &quot;f6f3ac8722c4fb6888ed0eee89946db3fceeac1d&quot;
+
+EOF
+
+cat &gt; local_manifest.xml &lt;&lt;EOF
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;manifest&gt;
+  &lt;remote name=&quot;internal&quot; fetch=&quot;ssh://rdsw@10.20.30.20/volume1/internal_git/edm&quot; /&gt;
+
+  &lt;remove-project name=&quot;meta-tn-imx-bsp&quot; /&gt;
+  &lt;project name=&quot;meta-tn-imx-bsp&quot; remote=&quot;internal&quot; path=&quot;sources/meta-tn-imx-bsp&quot; revision=&quot;zeus_5.4.70-2.3.0-next&quot; &gt;
+     &lt;linkfile src=&quot;tools/tn-setup-release.sh&quot; dest=&quot;tn-setup-release.sh&quot;/&gt;
+     &lt;linkfile src=&quot;tools/setup-environment.sh&quot; dest=&quot;setup-environment&quot;/&gt;
+     &lt;linkfile src=&quot;README&quot; dest=&quot;README-TechNexion-BSP&quot;/&gt;
+  &lt;/project&gt;
+&lt;/manifest&gt;
+EOF</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+MANUSCRIPT=imx-5.4.70-2.3.0.xml
+
+GITSERVER=&quot;10.20.30.20&quot;
+KERNELSRV=&quot;10.88.88.8&quot;
+chmod 0600 ~/.ssh/id_rsa
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+ssh-keyscan ${KERNELSRV} &gt;&gt; ~/.ssh/known_hosts
+
+# initialize technexion github yocto repository
+echo ===== Repo init yocto from TechNexion github =====
+${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/tn-imx-yocto-manifest.git -b zeus_5.4.y-next -m $MANUSCRIPT
+
+mkdir -p .repo/local_manifests/
+cp local_manifest.xml .repo/local_manifests/
+
+echo ===== Repo sync yocto from TechNexion github =====
+rm -fr $WORKSPACE/sources/meta-tn-imx-bsp
+${HOME}/bin/repo sync --force-sync
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+DLDIR=/home/jenkins/workspace/src/yocto3.0/downloads
+SSTATEDIR=/home/jenkins/workspace/src/yocto3.0/sstate-cache
+
+SOMs=(&quot;axon-imx8mp&quot; &quot;axon-imx8mm&quot; &quot;edm-g-imx8mp&quot; &quot;edm-g-imx8mm&quot; &quot;edm-g-imx8mn&quot; &quot;pico-imx8mm&quot; &quot;pico-imx8mq&quot; &quot;edm-imx8mq&quot; &quot;pico-imx6&quot;) # imx8mpevk
+TGTIMGTYPEs=(&quot;fsl-image-qt5-validation-imx&quot;)
+
+# setup environment variables for building
+setup_env_vars () {
+  case $1 in
+  	imx8mpevk)
+      board=&quot;wizard&quot;
+      disp=&quot;lvds&quot;
+      wlan=&quot;&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    pico-imx8mq)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      # wlan=&quot;qca simcom&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      nfc=&quot;nfc&quot;
+      ;;
+    pico-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      # wlan=&quot;qca simcom&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      nfc=&quot;nfc&quot;
+      ;;
+    edm-imx8mq)
+      board=&quot;wizard&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    edm-g-imx8mp)
+      board=&quot;wb&quot;
+      disp=&quot;hdmi&quot;
+      #wlan=&quot;qca simcom&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;xwayland&quot;
+      nfc=&quot;nfc&quot;
+      ;;
+    flex-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    axon-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    axon-imx8mp)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    xore-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca ath-pci&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    pico-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx7)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx6ul)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    edm-imx6)
+      board=&quot;fairy&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;qca brcm ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    axon-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    edm-imx7)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tep1-imx7)
+      disp=&quot;lcd&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tep1-imx6ul)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tek-imx6)
+      board=&quot;tek&quot;
+      disp=&quot;lvds10 lvds15&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tek3-imx6ul)
+      board=&quot;tek&quot;
+      disp=&quot;lvds10&quot;
+      wlan=&quot;&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+  	*)
+      ;;
+  esac
+}
+
+
+# update ./conf/local.conf setting
+setup_local_conf () {
+    CURDIR=.
+
+    # setup conf/local.conf
+    if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+
+#    if [ &quot;$1&quot; = &quot;flex-imx8mm&quot; -o &quot;$1&quot; = &quot;pico-imx8mm&quot; ]; then
+#        echo &quot;IMAGE_INSTALL_append = \&quot; pt2-usb57x4\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+#    fi
+
+#	sed -e &apos;s|SOUNDCARD.*$|SOUNDCARD ?= &quot;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    echo &quot;MACHINE_FEATURES_remove = \&quot;nxp8987\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    echo &quot;INHERIT += \&quot;rm_work\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+	echo &quot;INHERIT += \&quot;image-buildinfo\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    unset CURDIR
+}
+
+# update ./conf/bblayer.conf setting
+setup_bblayer_conf () {
+	CURDIR=.
+
+	# Support integrating community meta-freescale instead of meta-fsl-arm
+	if [ -d ../sources/meta-freescale ]; then
+		echo meta-freescale directory found
+		# Change settings according to environment
+		sed -e &quot;s,meta-fsl-arm\s,meta-freescale ,g&quot; -i $CURDIR/conf/bblayers.conf
+		sed -e &quot;s,\$.BSPDIR./sources/meta-fsl-arm-extra\s,,g&quot; -i $CURDIR/conf/bblayers.conf
+	fi
+	echo ===== ./conf/bblayers.conf =====
+	unset CURDIR
+}
+
+# export additional paramters through BB_ENV_EXTRAWHITE
+setup_bb_env_extrawhite () {
+    unset BASE_BOARD RF_FIRMWARES DISPLAY_INFO DISPLAY_PANEL
+    # setup uEnv.txt parameters
+    export BASE_BOARD=$board
+    export DISPLAY_INFO=$2
+    export DISPLAY_PANEL=$pan
+    export RF_FIRMWARES=$wlan
+    if ! grep -qF &quot;BASE_BOARD&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE BASE_BOARD&quot;
+    fi
+    if ! grep -qF &quot;DISPLAY_INFO&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE DISPLAY_INFO&quot;
+    fi
+    if ! grep -qF &quot;DISPLAY_PANEL&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE DISPLAY_PANEL&quot;
+    fi
+    if ! grep -qF &quot;RF_FIRMWARES&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE RF_FIRMWARES&quot;
+    fi
+
+    if [ &quot;$1&quot; = &quot;pico-imx8mq&quot; -o &quot;$1&quot; = &quot;pico-imx8mm&quot; -o &quot;$1&quot; = &quot;edm-g-imx8mp&quot; ]; then
+        # additional NFC to pico-imx8mq build
+        export NFC=${nfc}
+        if ! grep -qF &quot;NFC&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+            export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE NFC&quot;
+        fi
+    fi
+}
+
+build_yocto () {
+    # go to workspace for next build
+    cd $WORKSPACE
+    
+    # building the yocto with preset config params
+    # Set up the build environment variables
+    echo &quot;===== Building SOM:$1 DISTRO:fsl-imx-$distro TARGET:$3 =====&quot;
+    echo &quot;===== WLAN:$wlan DISPLAY:$2 BASEBOARD:$board PANEL:$pan =====&quot;
+
+    # setup yocto build environment
+    #MACHINE=$1 DISTRO=fsl-imx-$distro WIFI_FIRMWARE=all WIFI_MODULE=$wlan DISPLAY=$disp BASEBOARD=$board PANEL=$pan source edm-setup-release.sh -b build-$som || :
+    MACHINE=$1 DISTRO=fsl-imx-$distro source ./setup-environment -b build-$1-$2 || :
+
+	# get current build dir and check if local.conf exists
+    BUILD_DIR=.
+    if [ ! -e $BUILD_DIR/conf/local.conf ]; then
+        echo -e &quot;\n ERROR - No build directory is set yet. Run the &apos;setup-environment&apos; script before running this script to create &quot; $BUILD_DIR &quot;\n&quot;
+        return 1
+    else
+        setup_local_conf $1
+    fi
+
+	# setup ./conf/bblayers.conf
+    #if [ ! -e ./conf/bblayers.conf ]; then
+	#	echo -e &quot;\n ERROR - No bblayers.conf, Run the &apos;setup-environment&apos; script again\n&quot;
+	#	return 1
+    #else
+    #	setup_bblayer_conf
+    #fi
+
+    # set BB_ENV_EXTRAWHITE
+    setup_bb_env_extrawhite $1 $2
+
+    # copy the site.conf from ${workspace} for internal git fetch
+    cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
+
+    # *** temporary until u-boot for arm32 targets has been migrated
+    case $1 in
+      pico-imx6)
+        # SRCBRANCH_pn-u-boot-tn-imx = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip&quot;
+        sed -e &apos;s|^SRCBRANCH_pn-u-boot-tn-imx.*|SRCBRANCH_pn-u-boot-tn-imx = \&quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip\&quot;|g&apos; -i $BUILD_DIR/conf/site.conf
+        ;;
+      edm-g-imx8mn)
+        #SRCBRANCH_pn-linux-tn-imx = &quot;tevi-ov5640-v2&quot;
+        sed -e &apos;s|^SRCBRANCH_pn-linux-tn-imx.*|SRCBRANCH_pn-linux-tn-imx = \&quot;tevi-ov5640-v2\&quot;|g&apos; -i $BUILD_DIR/conf/site.conf
+        sed -e &apos;s|^SRCBRANCH_pn-imx-m4-demos-tn.*|SRCBRANCH_pn-imx-m4-demos-tn = \&quot;freertos_2.8.0\&quot;|g&apos; -i $BUILD_DIR/conf/site.conf
+        ;;
+      *)
+        ;;
+    esac
+
+    # export of the conf and bitbake environment settings
+    cat $BUILD_DIR/conf/site.conf
+    cat $BUILD_DIR/conf/local.conf
+    cat $BUILD_DIR/conf/bblayers.conf
+    export
+    bitbake $3 -e | grep ^OVERRIDES
+	#bitbake u-boot-tn-imx -c cleansstate
+    #bitbake linux-tn-imx -c cleansstate
+    # build both fsl-image-validation-imx, fsl-image-qt5-validation-imx images
+    case $1 in
+      edm-g-imx8mn)
+        bitbake imx-m4-demos-tn -c cleansstate
+        ;;
+      *)
+        ;;
+    esac
+    #bitbake $3 -c cleanall
+    bitbake $3
+}
+
+# loop targets
+loop_targets () {
+	for target in ${TGTIMGTYPEs[*]}; do
+    	build_yocto $1 $2 $target
+    done
+}
+
+loop_display() {
+    # Set up the build environment variables
+    setup_env_vars $1
+
+	for dp in $disp; do
+		loop_targets $1 $dp
+	done
+}
+
+# ----- MAIN ENTRY POINT -----
+ulimit -aS
+ulimit -aH
+
+# build loops to build all necessary combinations
+for som in ${SOMs[*]}; do
+	loop_display $som
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-*/tmp/deploy/images/*/*wic*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

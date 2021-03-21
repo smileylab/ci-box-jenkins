@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-17 16:47:13.376 UTC</timestamp>
+  <md5sum>b6e0c8eb85e792fee4fdc7af2e39484c</md5sum>
+  <fileName>u-boot-axon-imx6-2018.03-r0.img</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>118</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

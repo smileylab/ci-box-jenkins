@@ -1,0 +1,90 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build Torizon</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/toradex/toradex-torizon-manifest/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>data/${JOB_NAME}</customWorkspace>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>gen_qca_firmware</project>
+      <filter>linux-firmware-qca-tn.bb,bdwlan30.bin,otp30.bin,qwlan30.bin,utf30.bin,wlan/cfg.dat,wlan/qcom_cfg.ini,CadenceLicense.txt,Notice.txt</filter>
+      <target>qca_firmware/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+# initialize technexion github yocto repository
+echo ===== Repo init yocto from TechNexion github =====
+${HOME}/bin/repo init -u https://github.com/toradex/toradex-torizon-manifest.git -b master
+echo ===== Repo sync yocto from TechNexion github =====
+${HOME}/bin/repo sync -j16
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; setup-environment
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+MACHINE=colibri-imx7 DISTRO=torizon source setup-environment
+bitbake torizon-core-docker
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-torizon/deploy/images/colibri-imx7/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

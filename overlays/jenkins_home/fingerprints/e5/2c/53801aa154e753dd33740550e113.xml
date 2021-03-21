@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-30 02:11:11.940 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx6</name>
+    <number>106</number>
+  </original>
+  <md5sum>e52c53801aa154e753dd33740550e113</md5sum>
+  <fileName>modules--4.9.88-r0-pico-imx6-20191230014331.tgz</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx6</string>
+      <ranges>106</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

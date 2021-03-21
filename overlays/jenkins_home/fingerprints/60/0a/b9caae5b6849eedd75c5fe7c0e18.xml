@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-23 12:17:42.752 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build</name>
+    <number>93</number>
+  </original>
+  <md5sum>600ab9caae5b6849eedd75c5fe7c0e18</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-edm-imx7-20191223102629.rootfs.tar.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build</string>
+      <ranges>93</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

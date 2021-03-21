@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-02 04:42:50.93 UTC</timestamp>
+  <original>
+    <name>gen_qca_firmware</name>
+    <number>15</number>
+  </original>
+  <md5sum>61d53f4ed92d36068d5d4028a8961410</md5sum>
+  <fileName>linux-firmware-qca-tn.bb</fileName>
+  <usages>
+    <entry>
+      <string>gen_qca_firmware</string>
+      <ranges>15</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-build_pico-imx8mq-chromium</string>
+      <ranges>93-97</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-10 14:09:20.229 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-install-modules64-4.14.98</name>
+    <number>41</number>
+  </original>
+  <md5sum>21091c2f1572f92649bb09be04b71dc8</md5sum>
+  <fileName>rootfs.cpio</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>89-90</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

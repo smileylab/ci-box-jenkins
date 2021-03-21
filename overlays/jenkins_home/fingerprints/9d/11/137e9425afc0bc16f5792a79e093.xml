@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-11-30 05:21:37.654 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.1.15</name>
+    <number>21</number>
+  </original>
+  <md5sum>9d11137e9425afc0bc16f5792a79e093</md5sum>
+  <fileName>SPL</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.1.15</string>
+      <ranges>55-59</ranges>
+    </entry>
+    <entry>
+      <string>rescue-uboot-4.1.15</string>
+      <ranges>21</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:56:58.378 UTC</timestamp>
+  <md5sum>cacf24fbd28a32473f32c4f9e27be917</md5sum>
+  <fileName>imx7d-edm1-gnome-qca.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

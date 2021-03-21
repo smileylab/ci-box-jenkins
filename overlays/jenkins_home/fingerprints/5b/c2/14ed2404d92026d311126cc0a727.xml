@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-18 07:06:12.376 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>10</number>
+  </original>
+  <md5sum>5bc214ed2404d92026d311126cc0a727</md5sum>
+  <fileName>modules--5.4-r0-edm-g-imx8mm-20210218064223.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>10</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

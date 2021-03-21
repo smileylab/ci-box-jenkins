@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-10 12:49:54.989 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>108</number>
+  </original>
+  <md5sum>fb10aa44228c070e5fa65f51093dfc95</md5sum>
+  <fileName>tn-image-rescue-fitimage-flex-imx8mm-20201210103524.rootfs.wic.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

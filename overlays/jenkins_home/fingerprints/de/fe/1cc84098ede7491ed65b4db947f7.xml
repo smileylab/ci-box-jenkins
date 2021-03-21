@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-10 09:04:34.570 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build</name>
+    <number>100</number>
+  </original>
+  <md5sum>defe1cc84098ede7491ed65b4db947f7</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx7-20200710052403.rootfs.sdcard.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build</string>
+      <ranges>100</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

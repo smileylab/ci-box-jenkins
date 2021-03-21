@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-09 10:46:27.342 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>5</number>
+  </original>
+  <md5sum>ffa6b9a01a7f5e36d56f871b93ffa3d4</md5sum>
+  <fileName>imx6q-pico-qca_pi.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>33-42</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

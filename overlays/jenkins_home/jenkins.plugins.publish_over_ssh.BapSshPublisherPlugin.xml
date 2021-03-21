@@ -2,10 +2,10 @@
 <jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin_-Descriptor plugin="publish-over-ssh@1.20.1">
   <hostConfigurations>
     <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
-      <name>Internal FTP</name>
+      <name>Internal FreeNAS</name>
       <hostname>10.20.30.215</hostname>
       <username>rdsw</username>
-      <secretPassword>{AQAAABAAAAAQvUa7aXCFBITr+RmZ9+mrHkYib47ZV0fvwZZA6A4kJ80=}</secretPassword>
+      <secretPassword>{AQAAABAAAAAQujsXJiwORSBVX14d7VD9tFx72DDf5ljo0Ch4QveOFuc=}</secretPassword>
       <remoteRootDir>/</remoteRootDir>
       <port>522</port>
       <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration">
@@ -19,6 +19,29 @@
       <disableExec>false</disableExec>
       <keyInfo>
         <secretPassphrase>{AQAAABAAAAAQZErgt78RbDwmPc+5lNjtMp1zFyDa2sRGwH20sFWDoXU=}</secretPassphrase>
+        <key></key>
+        <keyPath></keyPath>
+      </keyInfo>
+      <jumpHost></jumpHost>
+      <proxyType></proxyType>
+      <proxyHost></proxyHost>
+      <proxyPort>0</proxyPort>
+      <proxyUser></proxyUser>
+      <proxyPassword></proxyPassword>
+    </jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
+    <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
+      <name>CI-BOX</name>
+      <hostname>10.88.88.12</hostname>
+      <username>lava</username>
+      <secretPassword>{AQAAABAAAAAQrRwTHK7zk3FXSJLxyzlOvmkAOAjvEz7uND+YX4sbw9I=}</secretPassword>
+      <remoteRootDir>/</remoteRootDir>
+      <port>22</port>
+      <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration" reference="../../jenkins.plugins.publish__over__ssh.BapSshHostConfiguration/commonConfig"/>
+      <timeout>300000</timeout>
+      <overrideKey>true</overrideKey>
+      <disableExec>false</disableExec>
+      <keyInfo>
+        <secretPassphrase>{AQAAABAAAAAQoINsvuaAUaHAfbf2xI6FaJiycsdShh8+SGqoaS5okMw=}</secretPassphrase>
         <key></key>
         <keyPath></keyPath>
       </keyInfo>

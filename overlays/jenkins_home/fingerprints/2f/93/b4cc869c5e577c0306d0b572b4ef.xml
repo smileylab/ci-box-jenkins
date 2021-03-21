@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-08 18:36:29.927 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>105</number>
+  </original>
+  <md5sum>2f93b4cc869c5e577c0306d0b572b4ef</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-axon-wizard-g080uan01-20201208103017.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111,118,122,125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-08 05:17:55.329 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>74</number>
+  </original>
+  <md5sum>cd60000b05a75cb6d894877d46fae43d</md5sum>
+  <fileName>imx8mm-pico-wizard-sn65dsi84-m101nwwb.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>164-170</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>153-160</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>152-158</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

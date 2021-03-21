@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-21 09:41:43.693 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>11</number>
+  </original>
+  <md5sum>f54d043fb79732f4f4eb37ae0e3c00e0</md5sum>
+  <fileName>fat_write.lst</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>14,24,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>5,7,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-11 05:37:03.30 UTC</timestamp>
+  <md5sum>4c966e502fcfe74d9a9dca532fa29118</md5sum>
+  <fileName>toradexlinux.png</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>2,4-5,7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

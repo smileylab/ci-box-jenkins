@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-07 05:56:56.874 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>33</number>
+  </original>
+  <md5sum>bc4d222f621cbd8fe0607cf0ea874621</md5sum>
+  <fileName>imx6dl-edm1_gnome.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>102,114,125,129-131</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88</string>
+      <ranges>33-35</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>7,16,20-22</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

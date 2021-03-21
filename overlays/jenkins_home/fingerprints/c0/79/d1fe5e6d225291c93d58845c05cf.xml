@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:57:10.845 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>24</number>
+  </original>
+  <md5sum>c079d1fe5e6d225291c93d58845c05cf</md5sum>
+  <fileName>spl_boot.clst</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>24,27,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

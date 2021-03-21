@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-04-10 07:34:37.204 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>19</number>
+  </original>
+  <md5sum>ad7724cd9f0785907a604dc1f6963ab7</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx8mm-20200410071801.rootfs.ext4</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>19</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

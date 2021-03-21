@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 10:10:43.6 UTC</timestamp>
+  <md5sum>7dd399479c8420785e6e58718c200e94</md5sum>
+  <fileName>lpddr4_pmu_train_1d_dmem_202006.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>7-11</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-18 03:41:34.898 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>9</number>
+  </original>
+  <md5sum>4ac354853d14610e3e7cf7a76127f9cd</md5sum>
+  <fileName>tn-image-tsl-initramfs-edm-g-imx8mn-20210218032912.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>9</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

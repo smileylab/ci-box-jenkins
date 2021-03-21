@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-19 07:36:50.729 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>46</number>
+  </original>
+  <md5sum>aa4fb0a56b7cae1f14b654c3041acb4e</md5sum>
+  <fileName>imx8mq-pico-pi-lcdif-sn65dsi84-m101nwwb.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-xore</string>
+      <ranges>15</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>111-115,117-130</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq-edm</string>
+      <ranges>96</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>100-104,106-119</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>99-103,105-118</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

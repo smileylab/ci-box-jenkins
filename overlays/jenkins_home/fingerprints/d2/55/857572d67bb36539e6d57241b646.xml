@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-27 04:18:21.613 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>6</number>
+  </original>
+  <md5sum>d255857572d67bb36539e6d57241b646</md5sum>
+  <fileName>fitImage-its-4.14.98-r1-pico-imx8mm-20200727025504.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>20,79,84</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

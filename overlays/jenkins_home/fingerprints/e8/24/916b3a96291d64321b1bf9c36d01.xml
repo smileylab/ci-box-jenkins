@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 04:17:58.522 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>130</number>
+  </original>
+  <md5sum>e824916b3a96291d64321b1bf9c36d01</md5sum>
+  <fileName>tn-image-rescue-fitimage-flex-imx8mm-20210204015314.rootfs.wic.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:07:13.547 UTC</timestamp>
+  <md5sum>347e2d183d17f7fa5c92b43d22bcabc7</md5sum>
+  <fileName>fitImage-its-4.14.98-r1-edm-imx8mq-20210201095804.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

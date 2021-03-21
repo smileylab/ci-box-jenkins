@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 10:10:42.262 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>5</number>
+  </original>
+  <md5sum>1bfe4cf1dbf8951230706f127ce32921</md5sum>
+  <fileName>imx8mp-edm-g-wb-lvds-vl15613676--5.4-r0-edm-g-imx8mp-20210129093512.dtbo</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>7-11</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

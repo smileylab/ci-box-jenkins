@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-10-14 08:06:14.677 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>90</number>
+  </original>
+  <md5sum>2c27d4f0930935fcfcbfa66d1b0ad279</md5sum>
+  <fileName>modules--4.14.98-r1-pico-imx8mm-20201014061350.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>90</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

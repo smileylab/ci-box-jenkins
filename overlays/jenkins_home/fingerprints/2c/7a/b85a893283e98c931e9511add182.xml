@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-23 04:40:05.381 UTC</timestamp>
+  <md5sum>2c7ab85a893283e98c931e9511add182</md5sum>
+  <fileName>uboot.env</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-pico-imx7d</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

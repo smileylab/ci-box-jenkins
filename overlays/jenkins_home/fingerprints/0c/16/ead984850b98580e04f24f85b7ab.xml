@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-17 03:57:04.707 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>20</number>
+  </original>
+  <md5sum>0c16ead984850b98580e04f24f85b7ab</md5sum>
+  <fileName>tn-image-rescue-fitimage-pico-imx7-20200817033743.rootfs.wic.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>20</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

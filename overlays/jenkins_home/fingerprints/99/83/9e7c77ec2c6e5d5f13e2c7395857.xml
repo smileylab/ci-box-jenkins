@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:26:01.39 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next</name>
+    <number>27</number>
+  </original>
+  <md5sum>99839e7c77ec2c6e5d5f13e2c7395857</md5sum>
+  <fileName>SPL-pico-imx7-2018.03-r0</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next</string>
+      <ranges>27</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

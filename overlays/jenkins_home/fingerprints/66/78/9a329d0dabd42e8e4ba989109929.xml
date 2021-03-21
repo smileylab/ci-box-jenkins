@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 06:29:58.92 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next-package-release</name>
+    <number>30</number>
+  </original>
+  <md5sum>66789a329d0dabd42e8e4ba989109929</md5sum>
+  <fileName>tek-imx6_yocto-2.5-qt5_ath-pci_lvds15_20210217.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

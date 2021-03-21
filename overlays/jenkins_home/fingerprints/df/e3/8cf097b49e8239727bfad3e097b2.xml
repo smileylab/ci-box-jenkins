@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-02 10:54:32.660 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88_internal</name>
+    <number>1</number>
+  </original>
+  <md5sum>dfe38cf097b49e8239727bfad3e097b2</md5sum>
+  <fileName>zImage</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

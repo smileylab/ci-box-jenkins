@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-27 04:18:17.434 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next</name>
+    <number>6</number>
+  </original>
+  <md5sum>ed64db849eac7f8931ec19ad6b4ea914</md5sum>
+  <fileName>imx7d-pico-pi-c2.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next</string>
+      <ranges>8</ranges>
+    </entry>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>20,95,108,111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

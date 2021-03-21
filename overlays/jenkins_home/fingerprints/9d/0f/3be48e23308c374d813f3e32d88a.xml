@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-11-22 15:18:10.492 UTC</timestamp>
+  <original>
+    <name>gen_imx8mm-uboot-with-firmware_uboot-v2018.03-4.14.98</name>
+    <number>32</number>
+  </original>
+  <md5sum>9d0f3be48e23308c374d813f3e32d88a</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>60-61</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

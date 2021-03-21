@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-17 08:02:00.852 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-install-modules32-4.9.88-no-tslib</name>
+    <number>13</number>
+  </original>
+  <md5sum>b871af7e70fccb81f5daef3ce2d3efdb</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.9.88-no-tslib</string>
+      <ranges>13</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

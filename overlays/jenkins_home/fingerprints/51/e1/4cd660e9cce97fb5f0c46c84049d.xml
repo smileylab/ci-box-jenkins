@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-25 02:15:35.863 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next-package-release</name>
+    <number>29</number>
+  </original>
+  <md5sum>51e14cd660e9cce97fb5f0c46c84049d</md5sum>
+  <fileName>axon-imx8mm_axon-pi-imx8mm_yocto-2.5-qt5_qca9377_mipi5-1280x720_20200825.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>29</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

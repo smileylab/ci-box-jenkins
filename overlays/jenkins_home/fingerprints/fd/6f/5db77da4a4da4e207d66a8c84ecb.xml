@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:57:44.5 UTC</timestamp>
+  <md5sum>fd6f5db77da4a4da4e207d66a8c84ecb</md5sum>
+  <fileName>fitImage-linux.bin-4.14.98-r1-tek-imx6-20201229082757.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125-126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

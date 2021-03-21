@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-04 12:51:55.590 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>98</number>
+  </original>
+  <md5sum>253a337cc2e0247bfc69e9dd7104bb54</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-axon-loopbacktest-20201204045840.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111,118,122,125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

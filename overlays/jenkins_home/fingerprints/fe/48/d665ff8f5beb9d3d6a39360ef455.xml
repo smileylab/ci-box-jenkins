@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:57:06.429 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>24</number>
+  </original>
+  <md5sum>fe48d665ff8f5beb9d3d6a39360ef455</md5sum>
+  <fileName>CMakeDirectoryInformation.cmake</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>24,27</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

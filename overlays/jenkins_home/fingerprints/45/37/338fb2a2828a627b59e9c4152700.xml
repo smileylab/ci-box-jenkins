@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-12 07:31:01.572 UTC</timestamp>
+  <original>
+    <name>ota_agl-rpi3</name>
+    <number>7</number>
+  </original>
+  <md5sum>4537338fb2a2828a627b59e9c4152700</md5sum>
+  <fileName>rpi-basic-image-raspberrypi3-20190612070215.rootfs.ext3</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

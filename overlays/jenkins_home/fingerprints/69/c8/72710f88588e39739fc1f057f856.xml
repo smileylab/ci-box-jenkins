@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-15 09:31:24.732 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.78_pico-imx8</name>
+    <number>9</number>
+  </original>
+  <md5sum>69c872710f88588e39739fc1f057f856</md5sum>
+  <fileName>tnrescue.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>4-10</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

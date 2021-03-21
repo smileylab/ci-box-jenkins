@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-26 09:53:53.183 UTC</timestamp>
+  <original>
+    <name>gen_qca_firmware</name>
+    <number>13</number>
+  </original>
+  <md5sum>048a7c41b86764394c63a741d71d98ee</md5sum>
+  <fileName>linux-firmware-qca-tn.bb</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx7d</string>
+      <ranges>31-35</ranges>
+    </entry>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx8m</string>
+      <ranges>33-37</ranges>
+    </entry>
+    <entry>
+      <string>gen_qca_firmware</string>
+      <ranges>13</ranges>
+    </entry>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA</string>
+      <ranges>65-66</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

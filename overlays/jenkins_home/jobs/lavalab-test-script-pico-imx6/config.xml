@@ -1,0 +1,109 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://rdsw@10.88.88.8/volume1/internal_git/lava-job-templates.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set -x -e
+
+# meta-data settings
+export MACH_ARCH=&quot;arm&quot;
+export KERNEL_VERSION=&quot;v4.14.98&quot;
+export KERNEL_DEFCONFIG=&quot;tn_imx_defconfig&quot;
+export DEVICE_TYPE=&quot;pico-imx6&quot;
+export BASE_BOARD=&quot;pi&quot;
+export CONSOLE_DEVICE=&quot;ttymxc0&quot;
+export DEVICE_TREE=&quot;imx6q-pico-pi-qca.dtb&quot;
+
+# lava functional tests settings
+export TEST_GIT_REPO=&quot;ssh://rdsw@10.88.88.8/volume1/internal_git/lava-functional-tests.git&quot;
+export TEST_DIRECTORY=&quot;tn-test-shell&quot;
+export TEST_DEFINITION=&quot;qc-tests-basic.yaml&quot;
+export TEST_TITLE=&quot;yocto-qc-test-basic&quot;
+
+# download fileserver settings
+export FILESERVER=10.88.88.12
+export FILESERVER_PORT=8085
+export FILESERVER_URL=&quot;http://${FILESERVER}:${FILESERVER_PORT}/&quot;
+
+# Substitute with build info (nothing to do)
+envsubst &lt; overlay-template.yaml &gt; lava_job.yaml
+
+LAVA_JOB_DEFINITION=$(cat lava_job.yaml)
+
+# squad settings
+SQUAD_SERVER=10.88.88.12
+SQUAD_SERVER_PORT=8082
+SQUAD_LAVA_BACKEND=10.88.88.12:8080
+SQUAD_TOKEN=fb5ff1c7e4425a89b61859cab995137eacb133e4
+SQUAD_GROUP=TechNexion
+SQUAD_PROJECT=yocto-sumo
+VERSION=${BUILD_NUMBER}
+
+# Submit to squad
+curl \
+    --header &quot;Auth-Token: ${SQUAD_TOKEN}&quot; \
+    --form backend=${SQUAD_LAVA_BACKEND} \
+    --form definition=&quot;${LAVA_JOB_DEFINITION}&quot; \
+    http://${SQUAD_SERVER}:${SQUAD_SERVER_PORT}/api/submitjob/${SQUAD_GROUP}/${SQUAD_PROJECT}/${VERSION}/jenkins
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

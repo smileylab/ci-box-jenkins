@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-16 11:04:21.299 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build</name>
+    <number>92</number>
+  </original>
+  <md5sum>4563627a43a531d82329b6ceb792db35</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-tek-imx6-20191216094939.rootfs.sdcard.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build</string>
+      <ranges>92</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

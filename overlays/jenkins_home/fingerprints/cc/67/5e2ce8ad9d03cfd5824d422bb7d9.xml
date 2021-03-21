@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-10 17:40:07.667 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-arm64-install-modules-4.14.78</name>
+    <number>18</number>
+  </original>
+  <md5sum>cc675e2ce8ad9d03cfd5824d422bb7d9</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mq</string>
+      <ranges>10</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>14</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

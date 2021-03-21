@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-08 13:42:35.367 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>37</number>
+  </original>
+  <md5sum>527a37f520765e9db4c224a77026f204</md5sum>
+  <fileName>docker-data-partition.img</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>38</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

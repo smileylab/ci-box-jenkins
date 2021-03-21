@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-19 10:18:28.760 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>49</number>
+  </original>
+  <md5sum>ced169d1ad95df3aec099738a076acb8</md5sum>
+  <fileName>fsl-imx8qxp-mek-enet2-tja1100.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>115</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>104</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>103</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

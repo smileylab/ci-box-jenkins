@@ -1,0 +1,315 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build Ubuntu 20.04 with u-boot, kernel, kernel-modules, graphics drivers and ubuntu rootfs</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion-customization/ubuntu-tn-imx8.git/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/ubuntu-2004</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd /home/jenkins/output/ubuntu-tn-imx8
+git checkout .
+git pull origin master
+
+apt-get update
+yes &quot;Y&quot; | apt-get install kmod dosfstools gcc-arm-linux-gnueabi
+
+
+###############################
+# pico-imx8mq                 #
+###############################
+
+make clean
+rm -rf output rootfs_overlay rootfs
+
+
+make u-boot PLATFORM=&quot;pico-imx8m&quot;
+sed -i &apos;287,290 s/^/#/&apos; output/u-boot/u-boot-tn-imx/install_uboot_imx8.sh
+make u-boot PLATFORM=&quot;pico-imx8m&quot;
+
+make kernel PLATFORM=&quot;pico-imx8m&quot;
+
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make rootfs PLATFORM=&quot;pico-imx8m&quot;&apos;
+sync
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make image PLATFORM=&quot;pico-imx8m&quot; &gt; /dev/null 2&gt;&amp;1&apos;
+
+
+
+UBOOT_HASH=$(git ls-remote https://github.com/TechNexion/u-boot-tn-imx.git tn-imx_v2020.04_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+KERNEL_HASH=$(git ls-remote https://github.com/TechNexion/linux-tn-imx.git tn-imx_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+
+echo &quot;u-boot: &quot;$UBOOT_HASH&quot;&quot; &gt;&gt; release_note.txt
+echo &quot;kernel: &quot;$KERNEL_HASH&quot;&quot; &gt;&gt; release_note.txt
+
+kpartx -av test.img
+loop_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos;)
+mapper_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos; | awk -F/ &apos;{print $3}&apos;)
+
+mkdir mnt
+
+sudo mount /dev/mapper/&quot;$mapper_dev&quot;p2 mnt
+sudo cp -rv ../qca9377/qca mnt/lib/firmware/
+sudo cp -rv ../qca9377/qca9377 mnt/lib/firmware/
+sudo cp -rv ../qca9377/wlan mnt/lib/firmware/
+sudo umount mnt
+
+rm -rf mnt
+kpartx -d &quot;$loop_dev&quot;
+losetup -d &quot;$loop_dev&quot;
+
+sync
+
+# make release zip file
+release_date=$(date &quot;+%Y%m%d&quot;)
+mv test.img pico-imx8m_pi_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img
+zip -9 pico-imx8m_pi_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip pico-imx8m_pi_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img release_note.txt
+
+
+###############################
+# edm-imx8mq                  #
+###############################
+
+make clean
+rm -rf output rootfs_overlay rootfs
+git checkout .
+
+
+make u-boot PLATFORM=&quot;edm-imx8m&quot;
+sed -i &apos;287,290 s/^/#/&apos; output/u-boot/u-boot-tn-imx/install_uboot_imx8.sh
+make u-boot PLATFORM=&quot;edm-imx8m&quot;
+
+make kernel PLATFORM=&quot;edm-imx8m&quot;
+
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make rootfs PLATFORM=&quot;edm-imx8m&quot;&apos;
+sync
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make image PLATFORM=&quot;edm-imx8m&quot; &gt; /dev/null 2&gt;&amp;1&apos;
+
+
+
+UBOOT_HASH=$(git ls-remote https://github.com/TechNexion/u-boot-tn-imx.git tn-imx_v2020.04_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+KERNEL_HASH=$(git ls-remote https://github.com/TechNexion/linux-tn-imx.git tn-imx_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+
+echo &quot;u-boot: &quot;$UBOOT_HASH&quot;&quot; &gt;&gt; release_note.txt
+echo &quot;kernel: &quot;$KERNEL_HASH&quot;&quot; &gt;&gt; release_note.txt
+
+kpartx -av test.img
+loop_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos;)
+mapper_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos; | awk -F/ &apos;{print $3}&apos;)
+
+mkdir mnt
+
+sudo mount /dev/mapper/&quot;$mapper_dev&quot;p2 mnt
+sudo cp -rv ../qca9377/qca mnt/lib/firmware/
+sudo cp -rv ../qca9377/qca9377 mnt/lib/firmware/
+sudo cp -rv ../qca9377/wlan mnt/lib/firmware/
+sudo umount mnt
+
+rm -rf mnt
+kpartx -d &quot;$loop_dev&quot;
+losetup -d &quot;$loop_dev&quot;
+
+sync
+
+# make release zip file
+release_date=$(date &quot;+%Y%m%d&quot;)
+mv test.img edm-imx8m_edm-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img
+zip -9 edm-imx8m_edm-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip edm-imx8m_edm-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img release_note.txt
+
+
+###############################
+# pico-imx8mm                 #
+###############################
+
+make clean
+rm -rf output rootfs_overlay rootfs
+git checkout .
+
+make u-boot PLATFORM=&quot;pico-imx8mm&quot;
+sed -i &apos;287,290 s/^/#/&apos; output/u-boot/u-boot-tn-imx/install_uboot_imx8.sh
+make u-boot PLATFORM=&quot;pico-imx8mm&quot;
+
+make kernel PLATFORM=&quot;pico-imx8mm&quot;
+
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make rootfs PLATFORM=&quot;pico-imx8mm&quot;&apos;
+sync
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make image PLATFORM=&quot;pico-imx8mm&quot; &gt; /dev/null 2&gt;&amp;1&apos;
+
+
+
+UBOOT_HASH=$(git ls-remote https://github.com/TechNexion/u-boot-tn-imx.git tn-imx_v2020.04_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+KERNEL_HASH=$(git ls-remote https://github.com/TechNexion/linux-tn-imx.git tn-imx_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+
+echo &quot;u-boot: &quot;$UBOOT_HASH&quot;&quot; &gt;&gt; release_note.txt
+echo &quot;kernel: &quot;$KERNEL_HASH&quot;&quot; &gt;&gt; release_note.txt
+
+kpartx -av test.img
+loop_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos;)
+mapper_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos; | awk -F/ &apos;{print $3}&apos;)
+
+mkdir mnt
+
+sudo mount /dev/mapper/&quot;$mapper_dev&quot;p2 mnt
+sudo cp -rv ../qca9377/qca mnt/lib/firmware/
+sudo cp -rv ../qca9377/qca9377 mnt/lib/firmware/
+sudo cp -rv ../qca9377/wlan mnt/lib/firmware/
+sudo umount mnt
+
+rm -rf mnt
+kpartx -d &quot;$loop_dev&quot;
+losetup -d &quot;$loop_dev&quot;
+
+sync
+
+
+# make release zip file
+release_date=$(date &quot;+%Y%m%d&quot;)
+mv test.img pico-imx8mm_pico-pi-imx8m_ubuntu-20.04-weston_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.img
+zip -9 pico-imx8mm_pico-pi-imx8m_ubuntu-20.04-weston_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip pico-imx8mm_pico-pi-imx8m_ubuntu-20.04-weston_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.img release_note.txt
+
+
+
+###############################
+# axon-e-imx8mp               #
+###############################
+
+make clean
+rm -rf output rootfs_overlay rootfs
+git checkout .
+
+
+make u-boot PLATFORM=&quot;axon-e-imx8mp&quot;
+sed -i &apos;287,290 s/^/#/&apos; output/u-boot/u-boot-tn-imx/install_uboot_imx8.sh
+make u-boot PLATFORM=&quot;axon-e-imx8mp&quot;
+
+make kernel PLATFORM=&quot;axon-e-imx8mp&quot;
+
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make rootfs PLATFORM=&quot;axon-e-imx8mp&quot;&apos;
+sync
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make image PLATFORM=&quot;axon-e-imx8mp&quot; &gt; /dev/null 2&gt;&amp;1&apos;
+
+
+
+UBOOT_HASH=$(git ls-remote https://github.com/TechNexion/u-boot-tn-imx.git tn-imx_v2020.04_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+KERNEL_HASH=$(git ls-remote https://github.com/TechNexion/linux-tn-imx.git tn-imx_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+
+echo &quot;u-boot: &quot;$UBOOT_HASH&quot;&quot; &gt;&gt; release_note.txt
+echo &quot;kernel: &quot;$KERNEL_HASH&quot;&quot; &gt;&gt; release_note.txt
+
+kpartx -av test.img
+loop_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos;)
+mapper_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos; | awk -F/ &apos;{print $3}&apos;)
+
+mkdir mnt
+
+sudo mount /dev/mapper/&quot;$mapper_dev&quot;p2 mnt
+sudo cp -rv ../qca9377/qca mnt/lib/firmware/
+sudo cp -rv ../qca9377/qca9377 mnt/lib/firmware/
+sudo cp -rv ../qca9377/wlan mnt/lib/firmware/
+sudo umount mnt
+
+rm -rf mnt
+kpartx -d &quot;$loop_dev&quot;
+losetup -d &quot;$loop_dev&quot;
+
+sync
+
+# make release zip file
+release_date=$(date &quot;+%Y%m%d&quot;)
+mv test.img axon-e-imx8mp_axon-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img
+zip -9 axon-e-imx8mp_axon-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip axon-e-imx8mp_axon-wizard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img release_note.txt
+
+
+###############################
+# edm-g-imx8mp                #
+###############################
+
+make clean
+rm -rf output rootfs_overlay rootfs
+git checkout .
+
+
+make u-boot PLATFORM=&quot;edm-g-imx8mp&quot;
+sed -i &apos;287,290 s/^/#/&apos; output/u-boot/u-boot-tn-imx/install_uboot_imx8.sh
+make u-boot PLATFORM=&quot;edm-g-imx8mp&quot;
+
+make kernel PLATFORM=&quot;edm-g-imx8mp&quot;
+
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make rootfs PLATFORM=&quot;edm-g-imx8mp&quot;&apos;
+sync
+sshpass -p password=TN ssh -oStrictHostKeyChecking=no -tt admin@10.88.88.10 &apos;cd /home/admin/docker/ubuntu_2004/ubuntu-tn-imx8; (echo &quot;password=TN&quot;) | sudo -S make image PLATFORM=&quot;edm-g-imx8mp&quot; &gt; /dev/null 2&gt;&amp;1&apos;
+
+
+
+UBOOT_HASH=$(git ls-remote https://github.com/TechNexion/u-boot-tn-imx.git tn-imx_v2020.04_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+KERNEL_HASH=$(git ls-remote https://github.com/TechNexion/linux-tn-imx.git tn-imx_5.4.70_2.3.0-next | awk &apos;{print $1}&apos;)
+
+echo &quot;u-boot: &quot;$UBOOT_HASH&quot;&quot; &gt;&gt; release_note.txt
+echo &quot;kernel: &quot;$KERNEL_HASH&quot;&quot; &gt;&gt; release_note.txt
+
+kpartx -av test.img
+loop_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos;)
+mapper_dev=$(losetup | grep &quot;test.img&quot; | awk  &apos;{print $1}&apos; | awk -F/ &apos;{print $3}&apos;)
+
+mkdir mnt
+
+sudo mount /dev/mapper/&quot;$mapper_dev&quot;p2 mnt
+sudo cp -rv ../qca9377/qca mnt/lib/firmware/
+sudo cp -rv ../qca9377/qca9377 mnt/lib/firmware/
+sudo cp -rv ../qca9377/wlan mnt/lib/firmware/
+sudo umount mnt
+
+rm -rf mnt
+kpartx -d &quot;$loop_dev&quot;
+losetup -d &quot;$loop_dev&quot;
+
+sync
+
+# make release zip file
+release_date=$(date &quot;+%Y%m%d&quot;)
+mv test.img edm-g-imx8mp_wandboard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img
+zip -9 edm-g-imx8mp_wandboard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip edm-g-imx8mp_wandboard_ubuntu-20.04-weston_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.img release_note.txt</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

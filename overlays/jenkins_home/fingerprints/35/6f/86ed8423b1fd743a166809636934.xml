@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-17 12:43:11.847 UTC</timestamp>
+  <original>
+    <name>ota_agl-rpi3</name>
+    <number>8</number>
+  </original>
+  <md5sum>356f86ed8423b1fd743a166809636934</md5sum>
+  <fileName>agl-demo-platform-crosssdk-raspberrypi3-20190617063701.rootfs.wic.xz.sha256sum</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

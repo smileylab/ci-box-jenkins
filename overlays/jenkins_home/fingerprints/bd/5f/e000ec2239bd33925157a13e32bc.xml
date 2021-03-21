@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-02 10:54:31.75 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88_internal</name>
+    <number>1</number>
+  </original>
+  <md5sum>bd5fe000ec2239bd33925157a13e32bc</md5sum>
+  <fileName>imx7d-pico_hobbit.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>1-2</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>6-8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-06 03:01:41.995 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>126</number>
+  </original>
+  <md5sum>8d5aad3e4215cf36cf50e869c6004eef</md5sum>
+  <fileName>tn-image-rescue-fitimage-tep1-imx7-20210106023701.testdata.json</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

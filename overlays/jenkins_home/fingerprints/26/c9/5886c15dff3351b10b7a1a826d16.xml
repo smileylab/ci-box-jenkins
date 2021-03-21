@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 03:13:15.116 UTC</timestamp>
+  <original>
+    <name>uuu-package-release</name>
+    <number>28</number>
+  </original>
+  <md5sum>26c95886c15dff3351b10b7a1a826d16</md5sum>
+  <fileName>imx-mfg-uuu-tool-20210208.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

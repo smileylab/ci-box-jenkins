@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-20 01:47:24.629 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>51</number>
+  </original>
+  <md5sum>edfd05d3772a875b945767e773d7f979</md5sum>
+  <fileName>Image</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-xore</string>
+      <ranges>15</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>117-120</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq-edm</string>
+      <ranges>96</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>106-109</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>105-108</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

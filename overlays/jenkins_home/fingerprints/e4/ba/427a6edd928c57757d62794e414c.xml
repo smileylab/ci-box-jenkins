@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-09 09:15:05.875 UTC</timestamp>
+  <original>
+    <name>gen_imx-atf_4.14.98-ga</name>
+    <number>2</number>
+  </original>
+  <md5sum>e4ba427a6edd928c57757d62794e414c</md5sum>
+  <fileName>bl31.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx-atf_4.14.98-ga</string>
+      <ranges>2</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

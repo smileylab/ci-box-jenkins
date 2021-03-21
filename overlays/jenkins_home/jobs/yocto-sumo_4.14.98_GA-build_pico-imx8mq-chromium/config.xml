@@ -12,6 +12,10 @@
         <artifactNumToKeep>5</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/TechNexion/tn-imx-yocto-manifest.git/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
       <projectNameList>
         <string>*</string>
@@ -19,7 +23,7 @@
     </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <assignedNode>tn/builder3</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -30,7 +34,6 @@
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>data/${JOB_NAME}</customWorkspace>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
       <project>gen_qca_firmware</project>
@@ -55,48 +58,55 @@ GITSERVER=&quot;10.20.30.20&quot;
 
 # initialize technexion github yocto repository
 echo ===== Repo init yocto from TechNexion github =====
-#${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b sumo_4.14.y_GA -m $MANUSCRIPT
+${HOME}/bin/repo init -u https://github.com/TechNexion/tn-imx-yocto-manifest.git -b sumo_4.14.y_GA-stable -m $MANUSCRIPT
 #sshpass -p &apos;123456&apos; ${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
-${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
+#${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
 echo ===== Repo sync yocto from TechNexion github =====
-rm -fR sources/meta-edm-bsp-release
-${HOME}/bin/repo sync -j16 -f --force-sync
-
-# copy QCA RF firmware files from prebuilt archives
-echo ===== Copy QCA RF Firmware =====
-mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
-mkdir -p sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
-[ -f qca_firmware/linux-firmware-qca-tn.bb ] &amp;&amp; cp qca_firmware/linux-firmware-qca-tn.bb sources/meta-edm-bsp-release/recipes-kernel/linux-firmware
-[ -f qca_firmware/CadenceLicense.txt ] &amp;&amp; cp qca_firmware/CadenceLicense.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/Notice.txt ] &amp;&amp; cp qca_firmware/Notice.txt sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/bdwlan30.bin ] &amp;&amp; cp qca_firmware/bdwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/otp30.bin ] &amp;&amp; cp qca_firmware/otp30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/qwlan30.bin ] &amp;&amp; cp qca_firmware/qwlan30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/utf30.bin ] &amp;&amp; cp qca_firmware/utf30.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files
-[ -f qca_firmware/wlan/cfg.dat ] &amp;&amp; cp qca_firmware/wlan/cfg.dat sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
-[ -f qca_firmware/wlan/qcom_cfg.ini ] &amp;&amp; cp qca_firmware/wlan/qcom_cfg.ini sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/wlan
-[ -f qca_firmware/qca/nvm_tlv_3.2.bin ] &amp;&amp; cp qca_firmware/qca/nvm_tlv_3.2.bin sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca
-[ -f qca_firmware/qca/rampatch_tlv_3.2.tlv ] &amp;&amp; cp qca_firmware/qca/rampatch_tlv_3.2.tlv sources/meta-edm-bsp-release/recipes-kernel/linux-firmware/files/qca</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#!/bin/bash -x
-
-# Patch recipes to fix bugs
-#echo ===== Patch Recipes =====
-#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-bsp/imx-mkimage/imx-boot_0.2.bb &lt; sources/meta-edm-bsp-release/patches/0001-imx-boot-pass-dtb-name-to-imx-mkimage-when-making-fl.patch
-#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-security/optee-imx/optee-os-imx_git.bb &lt; sources/meta-edm-bsp-release/patches/0002-optee-os-imx-fix-build-failure-when-the-board-isn-t-.patch
-#patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/classes/image_types_fsl.bbclass &lt; sources/meta-edm-bsp-release/patches/0003-image_types_fsl.bbclass-change-to-put-u-boot.img-int.patch
-#cp sources/meta-edm-bsp-release/patches/0001-add-no-sandbox-as-argument-by-default.patch sources/meta-browser/recipes-browser/chromium/files
-#patch -Np1 -r - sources/meta-browser/recipes-browser/chromium/chromium-gn.inc &lt; sources/meta-edm-bsp-release/patches/0004-chromium-add-no-sandbox-as-default-argument.patch
+rm -fR sources/meta-tn-imx-bsp
+${HOME}/bin/repo sync --force-sync
 
 # Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
 echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
-sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; setup-environment
-sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
 
-# copy new EULA
-#echo ===== Copy EULA =====
-#cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA
+cat &gt; site.conf &lt;&lt;EOF
+# u-boot-edm.bb
+#SRCSERVER_pn-u-boot-edm = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCBRANCH_pn-u-boot-edm = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip-bootscript&quot;
+#SRCOPTIONS_pn-u-boot-edm = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-u-boot-edm = &quot;048fa2fd96c898c4cc9e12219cba2a4f00ceef52&quot;
+
+# u-boot-script.bb
+#SRCSERVER_pn-u-boot-script = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
+
+# linux-firmware-brcm-tn.bb
+SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
+SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-brcm-tn = &quot;317394ca84258e4f11a138014820eebf0c43db1e&quot;
+SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-firmware-qca-tn.bb
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;8faa87a6e6bbb0a5c16591e8b0adf0514cb33444&quot;
+SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-tn-imx.bb
+#KERNEL_SRC_pn-linux-tn-imx = &quot;git://10.20.30.20:/volume1/internal_git/edm/tn-kernel.git&quot;
+#SRCBRANCH_pn-linux-tn-imx = &quot;tn-imx_4.14.98_2.0.0_ga-wip-sdmafix&quot;
+#SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-linux-tn-imx = &quot;5b97eae48fd356d280815cb6088eff79570735f9&quot;
+#SRC_URI_pn-linux-tn-imx = &quot;\${KERNEL_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+EOF
+
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
@@ -108,9 +118,9 @@ source sources/meta-fsl-bsp-release/imx/tools/setup-utils.sh
 
 DATE=$(date +%Y%m%d)
 OUTDIR=/home/jenkins/build/yocto2.5-images
-CACHEDIR=/home/jenkins/data/src/yocto2.5/ccache
-DLDIR=/home/jenkins/data/src/yocto2.5/download
-SSTATEDIR=/home/jenkins/data/src/yocto2.5/sstat
+CACHEDIR=/home/jenkins/workspace/src/yocto2.5/ccache
+DLDIR=/home/jenkins/workspace/src/yocto2.5/downloads
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.5/sstate-cache
 
 # the following settings has to be build.
 MACHINEs=(&quot;pico-imx8mq&quot;) # &quot;pico-imx7&quot; &quot;pico-imx6&quot;)
@@ -317,6 +327,25 @@ done
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>

@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-17 09:04:27.630 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>2</number>
+  </original>
+  <md5sum>29986f8368a771df4e8966a68672d77e</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mm-pico-pi-g080uan01-20200717081757.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>171-176</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>78</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>161-166</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>159-164</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

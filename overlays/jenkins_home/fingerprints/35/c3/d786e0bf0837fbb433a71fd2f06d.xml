@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-10 05:32:14.537 UTC</timestamp>
+  <md5sum>35c3d786e0bf0837fbb433a71fd2f06d</md5sum>
+  <fileName>boot.scr</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>6-7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -2,20 +2,6 @@
 <jenkins.plugins.publish__over__ftp.BapFtpPublisherPlugin_-Descriptor plugin="publish-over-ftp@1.15">
   <hostConfigurations>
     <jenkins.plugins.publish__over__ftp.BapFtpHostConfiguration>
-      <name>Internal FTP</name>
-      <hostname>10.20.30.9</hostname>
-      <username>ftpuser</username>
-      <secretPassword>{AQAAABAAAAAQZwlGw2ytk4vm96CTzZIyKh6gMTIFwzihgKcVxHUIAm8=}</secretPassword>
-      <remoteRootDir>/</remoteRootDir>
-      <port>21</port>
-      <timeout>300000</timeout>
-      <useActiveData>false</useActiveData>
-      <disableMakeNestedDirs>false</disableMakeNestedDirs>
-      <disableRemoteVerification>false</disableRemoteVerification>
-      <useFtpOverTls>false</useFtpOverTls>
-      <useImplicitTls>false</useImplicitTls>
-    </jenkins.plugins.publish__over__ftp.BapFtpHostConfiguration>
-    <jenkins.plugins.publish__over__ftp.BapFtpHostConfiguration>
       <name>Rescue FTP</name>
       <hostname>10.20.30.9</hostname>
       <username>ftpuser</username>

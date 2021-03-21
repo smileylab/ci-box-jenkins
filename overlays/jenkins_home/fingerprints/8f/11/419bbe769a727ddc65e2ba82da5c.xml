@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-23 04:40:04.130 UTC</timestamp>
+  <md5sum>8f11419bbe769a727ddc65e2ba82da5c</md5sum>
+  <fileName>core-image-base-imx7d-pico-20190523025443.sdimg</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-pico-imx7d</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

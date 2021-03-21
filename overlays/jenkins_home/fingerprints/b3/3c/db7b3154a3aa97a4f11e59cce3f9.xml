@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-23 12:17:44.641 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build</name>
+    <number>93</number>
+  </original>
+  <md5sum>b33cdb7b3154a3aa97a4f11e59cce3f9</md5sum>
+  <fileName>tep5_dual_channel_15_18_21_inch_1920x1080.patch</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>1-2</ranges>
+    </entry>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build</string>
+      <ranges>93,100-101</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

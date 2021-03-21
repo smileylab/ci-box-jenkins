@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:26:08.55 UTC</timestamp>
+  <original>
+    <name>yocto-zeus_5.4.70_GA-internal-nightly-build</name>
+    <number>92</number>
+  </original>
+  <md5sum>05c8151baa15befb4178a0305a50a54a</md5sum>
+  <fileName>imx-boot-edm-g-imx8mp-sd.bin-flash_evk</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+    <entry>
+      <string>yocto-zeus_5.4.70_GA-internal-nightly-build</string>
+      <ranges>92,102</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

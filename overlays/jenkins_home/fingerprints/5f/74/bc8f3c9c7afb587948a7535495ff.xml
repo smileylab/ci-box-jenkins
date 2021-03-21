@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-24 07:26:36.528 UTC</timestamp>
+  <original>
+    <name>uuu-package-release</name>
+    <number>5</number>
+  </original>
+  <md5sum>5f74bc8f3c9c7afb587948a7535495ff</md5sum>
+  <fileName>imx-mfg-uuu-tool-20200824.zip</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>5</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>15,29,33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

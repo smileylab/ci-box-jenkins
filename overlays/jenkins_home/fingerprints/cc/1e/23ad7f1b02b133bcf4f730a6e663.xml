@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-07-24 14:10:06.898 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>78</number>
+  </original>
+  <md5sum>cc1e23ad7f1b02b133bcf4f730a6e663</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>78</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

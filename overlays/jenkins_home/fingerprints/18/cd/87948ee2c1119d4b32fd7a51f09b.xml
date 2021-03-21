@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-04-23 03:45:21.723 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>31</number>
+  </original>
+  <md5sum>18cd87948ee2c1119d4b32fd7a51f09b</md5sum>
+  <fileName>modules--4.14.98-r1-pico-imx8mm-20200423015256.tgz</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>31</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

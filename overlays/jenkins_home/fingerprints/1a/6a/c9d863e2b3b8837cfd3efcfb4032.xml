@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-09-20 21:51:05.978 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>19</number>
+  </original>
+  <md5sum>1a6ac9d863e2b3b8837cfd3efcfb4032</md5sum>
+  <fileName>imx7d-pico-hobbit.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>33-42</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

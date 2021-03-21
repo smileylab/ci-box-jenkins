@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 15:21:20.386 UTC</timestamp>
+  <original>
+    <name>gen_imx8mm-uboot-with-firmware_uboot-v2018.03-4.14.98-axon</name>
+    <number>24</number>
+  </original>
+  <md5sum>135c33e5223f30add2df1283e10a8bda</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx8mm-uboot-with-firmware_uboot-v2018.03-4.14.98-axon</string>
+      <ranges>24</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

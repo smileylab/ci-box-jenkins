@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-02-18 06:51:04.287 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>22</number>
+  </original>
+  <md5sum>8eacf3cab514d1ba3763e2c1209b72ac</md5sum>
+  <fileName>imx7d-pico-qca_pi.dtb</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx7d</string>
+      <ranges>34-35</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

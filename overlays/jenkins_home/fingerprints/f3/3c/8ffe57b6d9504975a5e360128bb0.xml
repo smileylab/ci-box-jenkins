@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 03:00:07.555 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>26</number>
+  </original>
+  <md5sum>f33c8ffe57b6d9504975a5e360128bb0</md5sum>
+  <fileName>autocomplete.cpp</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>27</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

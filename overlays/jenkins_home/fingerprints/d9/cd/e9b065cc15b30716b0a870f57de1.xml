@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 04:18:44.308 UTC</timestamp>
+  <md5sum>d9cde9b065cc15b30716b0a870f57de1</md5sum>
+  <fileName>modules--4.14.98-r1-xore-imx8mm-20210203054118.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

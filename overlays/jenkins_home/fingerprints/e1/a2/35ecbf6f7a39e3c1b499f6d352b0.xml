@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-17 12:43:13.970 UTC</timestamp>
+  <original>
+    <name>ota_agl-rpi3</name>
+    <number>8</number>
+  </original>
+  <md5sum>e1a235ecbf6f7a39e3c1b499f6d352b0</md5sum>
+  <fileName>uImage-1-4.9.50+git0+46e2d4d1bd-r0-iqaudio-dacplus-20190617063701.dtbo</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

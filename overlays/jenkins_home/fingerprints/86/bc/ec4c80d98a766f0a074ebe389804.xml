@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-23 04:40:05.179 UTC</timestamp>
+  <md5sum>86bcec4c80d98a766f0a074ebe389804</md5sum>
+  <fileName>u-boot-imx7d-pico.img-pi</fileName>
+  <usages>
+    <entry>
+      <string>ota-mender-pico-imx7d</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

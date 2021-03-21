@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-03 02:29:35.934 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>60</number>
+  </original>
+  <md5sum>e122b495ceb96c2e6ec416732a28c0e4</md5sum>
+  <fileName>u-boot-spl.bin</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>60</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

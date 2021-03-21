@@ -1,0 +1,263 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Packaging Yocto 2.5 images for release</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/TechNexion/meta-tn-imx-bsp.git</url>
+        <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/sumo_4.14.98-2.0.0_GA-stable</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>bsp</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>yocto-sumo_4.14.y_GA-build-next</project>
+      <filter>build-*/tmp/deploy/images/*/*rootfs.sdcard.bz2,build-*/tmp/deploy/images/*/*rootfs.sdcard.md5sum</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.SavedBuildSelector"/>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>uuu-package-release</project>
+      <filter>releases/*</filter>
+      <target>mfgtool/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.SpecificBuildSelector">
+        <buildNumber>5</buildNumber>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+mkdir -p ./releases/
+
+# PACKAGE RELEASE ZIP file for FTP
+RELEASEDATE=$(date +&apos;%Y%m%d&apos;)
+MFGTOOL=&quot;$(find ./mfgtool/releases/ -name *.zip | xargs)&quot;
+SOMS=(&quot;axon-imx6&quot; &quot;edm-imx6&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;pico-imx6&quot; &quot;pico-imx7&quot; \
+&quot;tek-imx6&quot; &quot;tep1-imx7&quot; \
+&quot;pico-imx8mq&quot; &quot;edm-imx8mq&quot; &quot;pico-imx8mm&quot; &quot;flex-imx8mm&quot; &quot;xore-imx8mm&quot; &quot;axon-imx8mm&quot;)
+
+setup_release_name () {
+
+  unset disp board wlan
+
+  case &quot;$1&quot; in
+  *axon-imx6*)
+    board=&quot;pico-pi&quot;
+    disp=&quot;hdmi-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *edm-imx6*)
+    board=&quot;edm-fairy&quot;
+    disp=&quot;lvds7&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *edm-imx7*)
+    board=&quot;edm-gnome&quot;
+    disp=&quot;lcd-800x480&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *pico-imx6ul*)
+    board=&quot;pico-pi&quot;
+    disp=&quot;lcd-800x480&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *pico-imx6*)
+    board=&quot;pico-pi&quot;
+    disp=&quot;lcd-800x480&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *pico-imx7*)
+    board=&quot;pico-pi&quot;
+    disp=&quot;lcd-800x480&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *tek-imx6ul*)
+    ;;
+  *tek-imx6*)
+    wlan=&quot;ath-pci&quot;
+    disp=&quot;lvds10 lvds15&quot;
+    #IMAGEDIR=&quot;build-$1-lvds10/tmp/deploy/images/$1/ build-$1-lvds15/tmp/deploy/images/$1/&quot;
+    ;;
+  *tep-imx6ul*)
+    ;;
+  *tep1-imx7*)
+    wlan=&quot;ath-pci&quot;
+    disp=&quot;lcd-800x600&quot;
+    ;;
+  *pico-imx8mq*)
+    board=&quot;pico-pi-imx8m&quot;
+    disp=&quot;mipi5&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *edm-imx8mq*)
+    board=&quot;edm-wizard-imx8m&quot;
+    disp=&quot;mipi5-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *pico-imx8mm*)
+    board=&quot;pico-pi-imx8m&quot;
+    disp=&quot;mipi5-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *flex-imx8mm*)
+    board=&quot;flex-pi-imx8mm&quot;
+    disp=&quot;mipi5-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *xore-imx8mm*)
+    board=&quot;xore-wizard-imx8mm&quot;
+    disp=&quot;mipi5-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *axon-imx8mm*)
+    board=&quot;axon-pi-imx8mm&quot;
+    disp=&quot;mipi5-1280x720&quot;
+    wlan=&quot;qca9377&quot;
+    ;;
+  *)
+    ;;
+  esac
+
+  unset IMAGEDIRS IMAGEFILES RELEASENAME
+
+  IMAGEFILES=&quot;&quot;
+  IMAGEDIRS=&quot;$(find . -name &quot;build-$1*&quot; | xargs)&quot;
+  for d in $IMAGEDIRS; do
+    IMAGE=&quot;$(find &quot;$d/tmp/deploy/images/$1/&quot; -name &quot;*.rootfs.sdcard.bz2&quot; | xargs)&quot;
+    IMAGEFILES=&quot;$IMAGE ${IMAGEFILES}&quot;
+  done
+
+  case &quot;$1&quot; in
+  *tep*|*tek*|*tc700*|*tc1010*)
+    NAMES=&quot;&quot;
+    for d in ${disp}; do
+      NAMES=&quot;${1}_yocto-2.5-qt5_${wlan}_${d} ${NAMES}&quot;
+    done
+    RELEASENAME=&quot;${NAMES%%*( )}&quot;
+    ;;
+  *)
+    RELEASENAME=&quot;${1}_${board}_yocto-2.5-qt5_${wlan}_${disp}&quot;
+    ;;
+  esac
+}
+
+pack_files () {
+  unset RELEASEDIR
+  for rel in ${RELEASENAME}; do
+    trimmed=${rel%%*( )}
+    dp=${trimmed##*_}
+    echo &quot;try to find $dp in $1...&quot;
+    case &quot;$1&quot; in
+    *&quot;${dp%%-*}&quot;*)
+      RELEASEDIR=&quot;${trimmed}_${RELEASEDATE}&quot;
+      break
+      ;;
+    *)
+      RELEASEDIR=&quot;&quot;
+      ;;
+    esac
+  done
+  
+  if [ -z $RELEASEDIR ]; then return 1; fi
+
+  mkdir -p ./$RELEASEDIR
+  cp $1 ./$RELEASEDIR/$RELEASEDIR.sdcard.bz2
+  #cp ${1/bz2/md5sum} ./$RELEASEDIR/$RELEASEDIR.sdcard.md5sum
+  cp ./bsp/RELEASENOTES-TN ./$RELEASEDIR/
+  
+  cd ./$RELEASEDIR/
+  unzip ../$MFGTOOL
+  cd -
+}
+
+zip_release () {
+  if [ x&quot;${RELEASEDIR}&quot; != x&quot;&quot; ]; then
+    zip -r &quot;${RELEASEDIR}.zip&quot; ./$RELEASEDIR/*
+    mv &quot;${RELEASEDIR}.zip&quot; ./releases/
+  fi
+}
+
+# ===== MAIN ENTRY POINT =====
+for som in ${SOMS[@]}; do
+  setup_release_name $som
+  for img in $IMAGEFILES; do
+    pack_files ${img%%*( )}
+    zip_release
+  done
+done
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>releases/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

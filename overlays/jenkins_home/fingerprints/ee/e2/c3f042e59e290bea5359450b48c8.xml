@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-19 10:18:27.871 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>49</number>
+  </original>
+  <md5sum>eee2c3f042e59e290bea5359450b48c8</md5sum>
+  <fileName>fsl-imx8qxp-lpddr4-arm2-lpspi-slave.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>115</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>104</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>103</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

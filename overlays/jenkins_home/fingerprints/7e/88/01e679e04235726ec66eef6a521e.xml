@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-31 01:56:35.447 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88</name>
+    <number>3</number>
+  </original>
+  <md5sum>7e8801e679e04235726ec66eef6a521e</md5sum>
+  <fileName>tnrescue.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

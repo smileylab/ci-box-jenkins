@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-03 17:41:20.768 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>97</number>
+  </original>
+  <md5sum>9f5ea699c82f94194863ad444063ad4b</md5sum>
+  <fileName>imx7d-tep1.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

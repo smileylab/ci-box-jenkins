@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-11-24 13:00:50.583 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>9</number>
+  </original>
+  <md5sum>d45e64267c5ea8b91509cac1f2453e3e</md5sum>
+  <fileName>pico-8m-lcdif-sn65dsi84-hj070na.dtb</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>15</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

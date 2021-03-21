@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-31 13:50:47.201 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>39</number>
+  </original>
+  <md5sum>ec0cdc1a20cc7c1c69ff35bfc8830a1f</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>rescue-buildroot-2018.05.x-edm</string>
+      <ranges>66</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

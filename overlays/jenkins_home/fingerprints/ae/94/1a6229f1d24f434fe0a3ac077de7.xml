@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-15 09:16:06.481 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>103</number>
+  </original>
+  <md5sum>ae941a6229f1d24f434fe0a3ac077de7</md5sum>
+  <fileName>pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_20200113.img.txt</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>80</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

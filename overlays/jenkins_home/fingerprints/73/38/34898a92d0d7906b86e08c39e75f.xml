@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-07 05:09:49.520 UTC</timestamp>
+  <original>
+    <name>rescue-loader-scripts-test64</name>
+    <number>8</number>
+  </original>
+  <md5sum>733834898a92d0d7906b86e08c39e75f</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-loader-scripts-test64</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

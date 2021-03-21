@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-15 07:32:41.916 UTC</timestamp>
+  <original>
+    <name>gen_imx-ddrhdmi-8.0</name>
+    <number>9</number>
+  </original>
+  <md5sum>05cb507915b424568b9f7550c194f5e1</md5sum>
+  <fileName>signed_hdmi_imx8m.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx-ddrhdmi-8.0</string>
+      <ranges>9,12</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

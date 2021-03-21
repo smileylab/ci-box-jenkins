@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:26:02.385 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next</name>
+    <number>27</number>
+  </original>
+  <md5sum>587597972635ca1f4e0550f81d483248</md5sum>
+  <fileName>u-boot-spl.bin-pico-imx8mq-2018.03-r0-sd-2018.03-r0</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next</string>
+      <ranges>27</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

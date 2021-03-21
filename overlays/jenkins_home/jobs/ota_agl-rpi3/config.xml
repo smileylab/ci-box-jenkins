@@ -1,0 +1,85 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build AGL for RPI3</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+      <projectUrl>https://github.com/toradex/toradex-torizon-manifest/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>data/${JOB_NAME}</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+OUTDIR=/home/jenkins/build/agl
+CACHEDIR=/home/jenkins/data/src/agl/cache
+DLDIR=/home/jenkins/data/src/agl/downloads
+SSTATEDIR=/home/jenkins/data/src/agl/sstate-cache
+
+[ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
+[ -d ${DLDIR} ] || mkdir -p ${DLDIR}
+
+repo init -b eel -m default.xml -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo.git
+repo sync -f -j16
+# for Building a RaspberryPi / Qemux86-64
+#repo init -u https://github.com/advancedtelematic/updater-repo.git
+#repo sync -f -j16
+
+source meta-agl/scripts/aglsetup.sh -m raspberrypi3 agl-demo agl-appfw-smack agl-sota
+# for Building a RaspberryPi / Qemux86-64
+#source meta-updater/scripts/envsetup.sh raspberrypi3
+
+#echo &quot;SOTA_CLIENT_PROV = \&quot;aktualizr-implicit-prov\&quot;&quot; &gt;&gt; conf/local.conf
+echo &quot;SOTA_PACKED_CREDENTIALS = \&quot;/home/jenkins/data/src/credentials.zip\&quot;&quot; &gt;&gt; conf/local.conf
+echo &quot;SSTATE_DIR = \&quot;${SSTATEDIR}\&quot;&quot; &gt;&gt; conf/local.conf
+echo &quot;DL_DIR = \&quot;${DLDIR}\&quot;&quot; &gt;&gt; conf/local.conf
+#echo &quot;IMAGE_INSTALL_append = \&quot; vim \&quot;&quot; &gt;&gt; conf/local.conf
+
+bitbake agl-demo-platform-crosssdk
+# for Building a RaspberryPi / Qemux86-64
+#bitbake rpi-basic-image
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build/tmp/deploy/images/raspberrypi*/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

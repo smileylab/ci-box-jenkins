@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-10 05:32:14.393 UTC</timestamp>
+  <md5sum>abecabda368546d919b6fe36614ffa3a</md5sum>
+  <fileName>bcm2710-rpi-3-b.dtb</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>6-7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

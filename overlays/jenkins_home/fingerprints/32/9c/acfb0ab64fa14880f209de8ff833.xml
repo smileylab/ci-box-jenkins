@@ -1,0 +1,37 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-09-18 14:09:53.301 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>86</number>
+  </original>
+  <md5sum>329cacfb0ab64fa14880f209de8ff833</md5sum>
+  <fileName>changelog-kernel</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-xore</string>
+      <ranges>98</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>194-203</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>90-92</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq-edm</string>
+      <ranges>180</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm</string>
+      <ranges>184-194</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mm-flex</string>
+      <ranges>182-191</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-09-20 21:51:06.550 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98</name>
+    <number>19</number>
+  </original>
+  <md5sum>6d98d80590c5b1ee82a5cbabc349e5b6</md5sum>
+  <fileName>imx7d-pico-pi-qca-voicehat.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>33-42</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

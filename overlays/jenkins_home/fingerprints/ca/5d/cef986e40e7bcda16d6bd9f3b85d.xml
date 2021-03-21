@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-08 09:41:09.29 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>17</number>
+  </original>
+  <md5sum>ca5dcef986e40e7bcda16d6bd9f3b85d</md5sum>
+  <fileName>pico-8m-m4.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88-imx8m</string>
+      <ranges>70-71</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>17</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

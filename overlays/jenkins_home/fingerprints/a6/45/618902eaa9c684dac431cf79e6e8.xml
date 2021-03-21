@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-11-09 04:03:32.834 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>92</number>
+  </original>
+  <md5sum>a645618902eaa9c684dac431cf79e6e8</md5sum>
+  <fileName>fitImage-its-tn-image-rescue-initramfs-edm-imx8mq-4.14.98-r1-20201109014524.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>95,108,111,118,122,125-126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

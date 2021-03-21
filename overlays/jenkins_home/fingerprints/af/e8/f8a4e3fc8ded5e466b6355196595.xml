@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 06:46:35.140 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>61</number>
+  </original>
+  <md5sum>afe8f8a4e3fc8ded5e466b6355196595</md5sum>
+  <fileName>Image</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>61</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

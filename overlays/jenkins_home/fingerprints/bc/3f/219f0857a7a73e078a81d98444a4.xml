@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-08-13 02:00:11.784 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>5</number>
+  </original>
+  <md5sum>bc3f219f0857a7a73e078a81d98444a4</md5sum>
+  <fileName>wand-pi-8m.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88-imx8m</string>
+      <ranges>62-69</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>15-16</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

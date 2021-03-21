@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-25 02:15:36.821 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next-package-release</name>
+    <number>29</number>
+  </original>
+  <md5sum>065cf806f733c1faf07246b4e954324b</md5sum>
+  <fileName>tep1-imx7_yocto-2.5-qt5_ath-pci_lcd-800x600_20200825.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>29</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

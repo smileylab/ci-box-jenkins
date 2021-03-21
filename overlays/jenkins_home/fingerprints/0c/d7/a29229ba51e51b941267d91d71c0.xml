@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-10-16 14:10:20.283 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>92</number>
+  </original>
+  <md5sum>0cd7a29229ba51e51b941267d91d71c0</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>rescue-buildroot-install-modules64-4.14.98</string>
+      <ranges>96</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>92</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

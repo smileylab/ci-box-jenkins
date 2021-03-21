@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-20 09:51:52.870 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>4</number>
+  </original>
+  <md5sum>449e7110c0ae894524975a68517e6b59</md5sum>
+  <fileName>initramfs-ostree-torizon-image-colibri-imx7-20190420080932.rootfs.cpio.gz</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

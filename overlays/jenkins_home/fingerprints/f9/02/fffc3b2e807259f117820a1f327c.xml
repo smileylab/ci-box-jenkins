@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-02 10:54:34.588 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88_internal</name>
+    <number>1</number>
+  </original>
+  <md5sum>f902fffc3b2e807259f117820a1f327c</md5sum>
+  <fileName>SPL</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

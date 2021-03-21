@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-02 05:07:45.662 UTC</timestamp>
+  <md5sum>8459e80b996c0499e8532c53c5ec62bd</md5sum>
+  <fileName>fitImage-tn-image-rescue-initramfs-pico-imx6ul-4.14.98-r1-20210201141754.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>128</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

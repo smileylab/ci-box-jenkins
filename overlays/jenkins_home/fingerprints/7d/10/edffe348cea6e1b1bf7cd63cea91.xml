@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-03 05:51:32.537 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88</name>
+    <number>69</number>
+  </original>
+  <md5sum>7d10edffe348cea6e1b1bf7cd63cea91</md5sum>
+  <fileName>u-boot-spl.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88</string>
+      <ranges>69</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

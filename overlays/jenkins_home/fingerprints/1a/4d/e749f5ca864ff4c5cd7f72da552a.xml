@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-14 07:53:50.97 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88-lvds-dual-channel-patch</name>
+    <number>5</number>
+  </original>
+  <md5sum>1a4de749f5ca864ff4c5cd7f72da552a</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88-lvds-dual-channel-patch</string>
+      <ranges>5</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

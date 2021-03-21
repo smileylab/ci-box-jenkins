@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-15 09:13:26.869 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>103</number>
+  </original>
+  <md5sum>2c6f88c1296f24bc2a19e47a397f6913</md5sum>
+  <fileName>pico-imx6_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_20200114.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>80</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

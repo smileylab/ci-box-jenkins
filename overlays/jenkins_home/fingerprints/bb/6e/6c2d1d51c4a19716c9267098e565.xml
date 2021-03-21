@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-16 04:14:10.322 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx8m</name>
+    <number>34</number>
+  </original>
+  <md5sum>bb6e6c2d1d51c4a19716c9267098e565</md5sum>
+  <fileName>imx-boot-pico-imx8m-sd.bin</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx8m</string>
+      <ranges>34,37</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

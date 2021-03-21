@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:57:09.471 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>24</number>
+  </original>
+  <md5sum>a4b9f2233e63cd092e9d86c989bbb404</md5sum>
+  <fileName>emmc_burn_loader.clst</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>24,27,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

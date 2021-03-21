@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 04:17:45.259 UTC</timestamp>
+  <md5sum>7dae19a4ab0f297a02f2fd43410df7b3</md5sum>
+  <fileName>fitImage-tn-image-rescue-initramfs-edm-imx6-4.14.98-r1-20210203091636.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>130</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

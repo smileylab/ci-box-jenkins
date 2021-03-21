@@ -21,7 +21,7 @@
   <scm class="hudson.scm.NullSCM"/>
   <assignedNode>docker-slave/ubuntu</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -60,7 +60,7 @@
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
       <project>github_tn-kernel-4.14.98-arm64</project>
-      <filter>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*.dtb,changelog*</filter>
+      <filter>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*.dtb,arch/arm64/boot/dts/freescale/overlays/*.dtbo,changelog*</filter>
       <target></target>
       <excludes></excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
@@ -94,7 +94,7 @@
 BLDDIR=/home/jenkins/build/rescue-images
 FORMS=(&quot;edm&quot;)
 CONFIGS=(&quot;edm-imx8mq&quot;)
-BOARDS=(&quot;pi&quot;)
+BOARDS=(&quot;wizard&quot;)
 
 # clear and make /home/jenkins/build/images/ directory to store disk images
 [ -d ${BLDDIR} ] &amp;&amp; rm -fr ${BLDDIR}/*{imx8}*.xz || mkdir -p ${BLDDIR}
@@ -111,13 +111,14 @@ set_uenv_display() {
   echo &quot;has_m4=0&quot; &gt;&gt; ./fat/uEnv.txt
   case $1 in
     hobbit)
-      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800×480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
+      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800x480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
       ;;
     pi)
+      DISP=dsi720x1280
+      echo &quot;mmcrootdev=/dev/mmcblk0&quot; &gt;&gt; ./fat/uEnv.txt
       echo &quot;dispif=dcss&quot; &gt;&gt; ./fat/uEnv.txt
       echo &quot;panel=ili9881c&quot; &gt;&gt; ./fat/uEnv.txt
-      echo &quot;displayinfo=video=mxcfb0:dev=lcd,800×480@60,if=RGB24&quot; &gt;&gt; ./fat/uEnv.txt
-      DISP=dsi720x1280
+      echo &quot;displayinfo=video=card0-DSI-1:128x720-24@60&quot; &gt;&gt; ./fat/uEnv.txt
       ;;
     nymph)
       echo &quot;displayinfo=video=mxcfb0:dev=hdmi,1280x720@60,if=RGB24 fbmem=28M&quot; &gt;&gt; ./fat/uEnv.txt
@@ -127,6 +128,10 @@ set_uenv_display() {
       ;;
     tc1000)
       echo &quot;displayinfo=video=mxcfb0:dev=ldb,1280x800@60,if=RGB24,bpp=32&quot; &gt;&gt; ./fat/uEnv.txt
+      ;;
+    wizard)
+      echo &quot;dispif=dcss&quot; &gt;&gt; ./fat/uEnv.txt
+      echo &quot;panel=hdmi&quot; &gt;&gt; ./fat/uEnv.txt
       ;;
   	*)
       ;;
@@ -185,6 +190,7 @@ for CONF in ${CONFIGS[@]}; do
   cp rescue64/images/rootfs.cpio.xz ./fit
   cp arch/arm64/boot/Image ./fit
   cp arch/arm64/boot/dts/freescale/*.dtb ./fit/dtb
+  cp arch/arm64/boot/dts/freescale/overlays/*.dtbo ./fit/dtb
   cp board/technexion/${CONF}/tnrescue.its ./fit
   mkimage -f ./fit/tnrescue.its ./fat/tnrescue.itb
   rm -fr ./fit
@@ -253,6 +259,19 @@ rm -fr ./fat
         <hostConfigurationAccess class="jenkins.plugins.publish_over_ftp.BapFtpPublisherPlugin" reference="../.."/>
       </delegate>
     </jenkins.plugins.publish__over__ftp.BapFtpPublisherPlugin>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

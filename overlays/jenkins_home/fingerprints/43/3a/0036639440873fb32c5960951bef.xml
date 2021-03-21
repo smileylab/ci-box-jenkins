@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:57:02.558 UTC</timestamp>
+  <md5sum>433a0036639440873fb32c5960951bef</md5sum>
+  <fileName>u-boot-spl.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125-126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

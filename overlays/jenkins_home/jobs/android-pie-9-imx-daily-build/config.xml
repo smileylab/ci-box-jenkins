@@ -1,0 +1,609 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Android 9 (pie) daily build for imx8, imx7, imx6</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-9</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * 7</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -e
+
+EXT_OUTPUT_DIR=/home/jenkins/output
+EXT_BUILD_DIR=/home/jenkins/build
+SSD_WORKSPACE_DIR=/home/jenkins/workspace
+SSD_SRC_DIR=${SSD_WORKSPACE_DIR}/src/android9
+
+cd ${EXT_OUTPUT_DIR}
+if [ ! -d Documents ]; then
+	git clone -b android-9 --depth=1 https://github.com/technexion-android/Documents.git
+fi
+# NOTE: &quot;cd -&quot; goes back to ${WORKSPACE}, which is equals to ${SSD_WORKSPACE_DIR}/${JOB_NAME}
+cd -
+
+git config --global user.email &quot;you@example.com&quot;
+git config --global user.name &quot;Your Name&quot;
+
+if [ -d ${SSD_SRC_DIR}/.repo ]; then
+	ln -s ${SSD_WORKSPACE_DIR}/src/android9/.repo .repo
+else
+	cd ${SSD_SRC_DIR}
+	repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_2.0.1_8m-ga --depth 1
+    cd -
+    ln -s ${SSD_SRC_DIR}/.repo .repo
+fi
+if [ -d .repo ]; then
+	repo sync --force-sync -j16
+fi
+
+###########################################################
+#														  #
+# PICO-IMX8M                                              #
+#														  #
+###########################################################
+
+# hdmi
+sed -i &apos;s/DRAM_SIZE_1G=false/DRAM_SIZE_1G=true/&apos; cookers/env.bash
+source cookers/env.bash.imx8.pico-imx8m.pi.hdmi
+merge_restricted_extras
+
+## WIFI ENABLED
+cp ${SSD_SRC_DIR}/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/pico_imx8m/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx8m/pico_imx8m/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv ${SSD_SRC_DIR}/nvm_tlv_3.2.bin device/fsl/imx8m/pico_imx8m/bluetooth/
+cp -rv ${SSD_SRC_DIR}/rampatch_tlv_3.2.tlv device/fsl/imx8m/pico_imx8m/bluetooth/
+
+# hdmi
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+zip -R -9 pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/*
+cp pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/
+
+# ili9881 image
+
+source cookers/env.bash.imx8.pico-imx8m.pi.mipi-dsi_ili9881c
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+zip -R -9 pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;/*
+cp pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+
+sync
+
+
+# ili9881 with voice-hat image
+
+source cookers/env.bash.imx8.pico-imx8m.pi.mipi-dsi_ili9881c-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+zip -R -9 pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;/*
+cp pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+
+sync
+
+# hdmi with voice-hat image
+
+source cookers/env.bash.imx8.pico-imx8m.pi.hdmi-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;
+zip -R -9 pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;.zip pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;/*
+cp pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8m_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;
+
+sync
+
+
+
+# PICO-WIZARD
+# hdmi
+
+source cookers/env.bash.imx8.pico-imx8m.wizard.hdmi
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8m_pico-wizard-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+zip -R -9 pico-imx8m_pico-wizard-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip pico-imx8m_pico-wizard-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/*
+cp pico-imx8m_pico-wizard-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8m_pico-wizard-imx8m_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+
+sync
+
+
+###########################################################
+#														  #
+# PICO-IMX8MM                                             #
+#														  #
+###########################################################
+
+# mipi panel
+sed -i &apos;s/DRAM_SIZE_1G=false/DRAM_SIZE_1G=true/&apos; cookers/env.bash
+source cookers/env.bash.imx8.pico-imx8m-mini.pi.mipi-dsi_ili9881c
+
+## WIFI ENABLED
+cp ${SSD_SRC_DIR}/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/pico_imx8mm/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx8m/pico_imx8mm/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv ${SSD_SRC_DIR}/nvm_tlv_3.2.bin device/fsl/imx8m/pico_imx8mm/bluetooth/
+cp -rv ${SSD_SRC_DIR}/rampatch_tlv_3.2.tlv device/fsl/imx8m/pico_imx8mm/bluetooth/
+
+# ili8991c
+throw
+cook -j8
+
+
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+zip -R -9 pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;/*
+cp pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+
+# ili98811c with voicehat
+source cookers/env.bash.imx8.pico-imx8m-mini.pi.mipi-dsi_ili9881c-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+zip -R -9 pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;/*
+cp pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8mm_pico-pi-imx8m_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+
+
+# PICO-WIZARD
+# ili9881c
+
+throw
+source cookers/env.bash.imx8.pico-imx8m-mini.wizard.mipi-dsi_ili9881c
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test pico-imx8mm_pico-wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+zip -R -9 pico-imx8mm_pico-wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip pico-imx8mm_pico-wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;/*
+cp pico-imx8mm_pico-wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf pico-imx8mm_pico-wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+
+
+###########################################################
+#														  #
+# FLEX-IMX8MM                                             #
+#														  #
+###########################################################
+
+# mipi panel
+sed -i &apos;s/DRAM_SIZE_1G=false/DRAM_SIZE_1G=true/&apos; cookers/env.bash
+source cookers/env.bash.imx8.flex-imx8m-mini.pi.mipi-dsi_ili9881c
+
+## WIFI ENABLED
+cp ${SSD_SRC_DIR}/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/flex_imx8mm/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx8m/flex_imx8mm/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv ${SSD_SRC_DIR}/nvm_tlv_3.2.bin device/fsl/imx8m/flex_imx8mm/bluetooth/
+cp -rv ${SSD_SRC_DIR}/rampatch_tlv_3.2.tlv device/fsl/imx8m/flex_imx8mm/bluetooth/
+
+# ili8991c
+throw
+cook -j8
+
+
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+zip -R -9 flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;/*
+cp flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+
+# ili8991c with voicehat
+source cookers/env.bash.imx8.flex-imx8m-mini.pi.mipi-dsi_ili9881c-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+zip -R -9 flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;/*
+cp flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+
+
+
+
+###########################################################
+#														  #
+# EDM-IMX8M                                               #
+#														  #
+###########################################################
+
+# mipi panel
+sed -i &apos;s/DRAM_SIZE_1G=false/DRAM_SIZE_1G=true/&apos; cookers/env.bash
+source cookers/env.bash.imx8.edm-imx8m.wizard.hdmi
+
+## WIFI ENABLED
+cp ${SSD_SRC_DIR}/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/edm_imx8m/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx8m/edm_imx8m/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv ${SSD_SRC_DIR}/nvm_tlv_3.2.bin device/fsl/imx8m/edm_imx8m/bluetooth/
+cp -rv ${SSD_SRC_DIR}/rampatch_tlv_3.2.tlv device/fsl/imx8m/edm_imx8m/bluetooth/
+
+# hdmi
+throw
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+
+
+# hdmi with voice-hat
+source cookers/env.bash.imx8.edm-imx8m.wizard.hdmi-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_voice-hat_&quot;$release_date&quot;
+sync
+
+
+# ili9881c
+source cookers/env.bash.imx8.edm-imx8m.wizard.mipi-dsi_ili9881c
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_&quot;$release_date&quot;
+
+
+
+# ili9881c with voice-hat
+source cookers/env.bash.imx8.edm-imx8m.wizard.mipi-dsi_ili9881c-voicehat
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_&quot;$release_date&quot;
+
+# g080uan01
+source cookers/env.bash.imx8.edm-imx8m.wizard.mipi-g080uan01
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g080uan01-1920x1200_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g080uan01-1920x1200_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g080uan01-1920x1200_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g080uan01-1920x1200_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g080uan01-1920x1200_&quot;$release_date&quot;
+
+# g101uan02
+source cookers/env.bash.imx8.edm-imx8m.wizard.mipi-g101uan02
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g101uan02-1920x1200_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g101uan02-1920x1200_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g101uan02-1920x1200_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g101uan02-1920x1200_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-g101uan02-1920x1200_&quot;$release_date&quot;
+
+# dual hdmi
+source cookers/env.bash.imx8.edm-imx8m.wizard.dual-hdmi
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_dual-hdmi-1920x1080_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_dual-hdmi-1920x1080_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_dual-hdmi-1920x1080_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_dual-hdmi-1920x1080_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_dual-hdmi-1920x1080_&quot;$release_date&quot;
+
+
+# hdmi with wm8960
+source cookers/env.bash.imx8.edm-imx8m.wizard.hdmi-wm8960
+cook -j8
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${EXT_OUTPUT_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${EXT_OUTPUT_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_wm8960-audio_&quot;$release_date&quot;
+zip -R -9 edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_wm8960-audio_&quot;$release_date&quot;.zip edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_wm8960-audio_&quot;$release_date&quot;/*
+cp edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_wm8960-audio_&quot;$release_date&quot;.zip ${EXT_OUTPUT_DIR}
+rm -rf edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_hdmi-1920x1080_wm8960-audio_&quot;$release_date&quot;
+
+
+
+sync
+rm -rf /home/jenkins/output/Documents
+
+
+
+#su jenkins
+#git config --global user.email &quot;you@example.com&quot;
+#git config --global user.name &quot;Your Name&quot;
+#cd ../
+#mkdir technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#cd technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_1.0.0_8m-ga
+#repo sync --force-sync -j12
+#rm -rf .repo/project-objects/*.git
+#cd -
+#tar Jcvf technexion-imx8_android-8.1.0_fullsource_20180919.tar.xz technexion-imx8_android-9.0.0-1.0.0_fullsource_20190401
+#sync
+
+#mv technexion-imx8_android-8.1.0_fullsource_20180919.tar.xz /home/jenkins/output/
+
+#source cookers/env.bash.imx8.pico-8m.pi.lcd
+#cook -j4
+
+#gen_mp_images
+#zip -r &quot;$release_date&quot;_auto_images_lcd.zip auto_test
+#mv &quot;$release_date&quot;_auto_images_lcd.zip /home/jenkins/output/
+#rm -rf auto_test
+
+#dd if=/dev/zero of=&quot;$release_date&quot;_emmc_16G_lcd.img bs=13M count=1024
+#kpartx -av &quot;$release_date&quot;_emmc_16G_lcd.img
+
+#loop_dev=$(losetup | grep &quot;emmc_16G_lcd.img&quot; | awk  &apos;{print $1}&apos;)
+
+#echo &quot;mounted ${loop_dev}&quot;
+
+#(echo n; echo p; echo 1; echo; echo; echo w;) | fdisk ${loop_dev}
+#sync
+#flashcard ${loop_dev}
+#sync
+#kpartx -d ${loop_dev}
+#losetup -d ${loop_dev}
+#sync
+#mv &quot;$release_date&quot;_emmc_16G_lcd.img /home/jenkins/output/
+#sync
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng&lt;po.cheng@technexion.com&gt; Wig Cheng&lt;wig.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

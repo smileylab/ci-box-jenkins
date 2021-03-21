@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-15 09:13:25.797 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>103</number>
+  </original>
+  <md5sum>6a50ef698f4118e4f48c50afd0dca44f</md5sum>
+  <fileName>flex-imx8mm_flex-pi-imx8mm_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_20200114.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>80</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

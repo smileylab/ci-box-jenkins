@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-19 10:22:02.386 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88</name>
+    <number>8</number>
+  </original>
+  <md5sum>7629f0c9c1e6f3557e69d73b35bd378f</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>99,102</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>3,7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

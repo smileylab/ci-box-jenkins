@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-01-09 01:52:11.993 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>16</number>
+  </original>
+  <md5sum>476be6a7a99f5557e5c18ece57061cd5</md5sum>
+  <fileName>changelog</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88-imx8m</string>
+      <ranges>62-69</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-arm64</string>
+      <ranges>16</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 10:41:27.293 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_5.4.70_GA-next-internal</name>
+    <number>8</number>
+  </original>
+  <md5sum>cfe42a599b81bdb3fdc4b2c90df761c9</md5sum>
+  <fileName>fitImage-linux.bin--5.4-r0-edm-g-imx8mp-20210217100514.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_5.4.70_GA-next-internal</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,517 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build Rescue Images using Yocto Sumo layers for all machine configs</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
+      <projectNameList>
+        <string>*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>tn/builder3</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+cat &gt; site.conf &lt;&lt;EOF
+BB_GIT_SHALLOW ?= &quot;1&quot;
+BB_GIT_SHALLOW_DEPTH ?= &quot;1&quot;
+# Usage in a recipe with multiple named uris or multiple named branches
+BB_GIT_SHALLOW_DEPTH_doc = &quot;&quot;
+
+# u-boot-edm.bb
+#SRCSERVER_pn-u-boot-edm = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCBRANCH_pn-u-boot-edm = &quot;tn-imx_v2018.03_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-u-boot-edm = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-u-boot-edm = &quot;\${AUTOREV}&quot;
+#SRC_URI_pn-u-boot-edm = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# u-boot-script.bb
+#SRCSERVER_pn-u-boot-script = &quot;git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git&quot;
+#SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
+
+# linux-firmware-brcm-tn.bb
+SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
+SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-brcm-tn = &quot;317394ca84258e4f11a138014820eebf0c43db1e&quot;
+SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-firmware-qca-tn.bb
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
+SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;efa5726f00863a2a9e5dbf5708a5c116ec4b6092&quot;
+SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
+
+# linux-tn-imx.bb
+#SRCSERVER_pn-linux-tn-imx = &quot;git://10.20.30.20/volume1/internal_git/edm/tn-kernel.git&quot;
+#SRCBRANCH_pn-linux-tn-imx = &quot;tn-imx_4.14.98_2.0.0_ga-wip&quot;
+#SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-linux-tn-imx = &quot;\${AUTOREV}&quot;
+#SRC_URI_pn-linux-tn-imx = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+# Remove the upstream history from our kernel repo, keeping our own
+#BB_GIT_SHALLOW_REVS_pn-linux-tn-imx = &quot;\${AUTOREV}&quot;
+#BB_GIT_SHALLOW_DEPTH_pn-linux-tn-imx = &quot;&quot;
+# Keep the branches in linux-tn-imx repositories
+#BB_GIT_SHALLOW_TRIM_REFS_pn-linux-tn-imx = &quot;0&quot;
+
+# rescue-loader.bb
+#SRCSERVER_pn-rescue-loader = &quot;git://10.20.30.20/volume1/internal_git/tools/installer_files.git&quot;
+#SRCBRANCH_pn-rescue-loader = &quot;rel_rescue_v2020.09.30&quot;
+#SRCOPTIONS_pn-rescue-loader = &quot;;protocol=ssh;user=rdsw&quot;
+#SRCREV_pn-rescue-loader = &quot;\${AUTOREV}&quot;
+#SRC_URI_pn-rescue-loader = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+EOF
+
+
+
+cat &gt; local_manifest.xml &lt;&lt;EOF
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;manifest&gt;
+  &lt;remote name=&quot;internal&quot; fetch=&quot;ssh://rdsw@10.20.30.20/volume1/internal_git/edm&quot; /&gt;
+
+  &lt;remove-project name=&quot;meta-tn-imx-bsp&quot; /&gt;
+  &lt;project name=&quot;meta-tn-imx-bsp&quot; remote=&quot;internal&quot; path=&quot;sources/meta-tn-imx-bsp&quot; revision=&quot;sumo_4.14.98-2.0.0_GA-next&quot;&gt;
+     &lt;linkfile src=&quot;tools/edm-setup-release.sh&quot; dest=&quot;edm-setup-release.sh&quot;/&gt;
+     &lt;linkfile src=&quot;tools/setup-environment.sh&quot; dest=&quot;setup-environment&quot;/&gt;
+     &lt;linkfile src=&quot;README&quot; dest=&quot;README-TechNexion-BSP&quot;/&gt;
+  &lt;/project&gt;
+&lt;/manifest&gt;
+EOF</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+set -e
+
+MANUSCRIPT=imx-4.14.98-2.0.1_patch.xml
+GITSERVER=&quot;10.20.30.20&quot;
+MIRRORSERVER=&quot;10.88.88.8&quot;
+chmod 0600 ~/.ssh/id_rsa
+ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+ssh-keyscan ${MIRRORSERVER} &gt;&gt; ~/.ssh/known_hosts
+
+# initialize technexion github yocto repository
+echo ===== Repo init yocto from TechNexion github =====
+#sshpass -p &apos;123456&apos; ${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo-4.14.y_GA -m $MANUSCRIPT
+${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b sumo_4.14.y_GA-next -m $MANUSCRIPT
+
+# new way for fetching from different repository
+#mkdir -p .repo/local_manifests/
+#cp local_manifest.xml .repo/local_manifests/
+
+echo ===== Repo sync yocto from TechNexion github =====
+rm -fR sources/meta-tn-imx-bsp
+${HOME}/bin/repo sync --force-sync
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+DATE=$(date +%Y%m%d)
+CACHEDIR=/home/jenkins/workspace/src/yocto2.5/ccache
+DLDIR=/home/jenkins/workspace/src/yocto2.5/downloads
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.5/sstate-cache
+
+# the following settings has to be build.
+MACHINEs=(&quot;pico-imx8mq&quot; &quot;pico-imx8mm&quot; &quot;edm-imx8mq&quot; &quot;flex-imx8mm&quot; &quot;xore-imx8mm&quot; &quot;axon-imx8mm&quot; &quot;pico-imx7&quot; &quot;pico-imx6&quot; &quot;pico-imx6-nymph&quot; &quot;pico-imx6ul&quot; &quot;pico-imx6ul-hobbit&quot; &quot;edm-imx6&quot; &quot;edm-imx7&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;axon-imx6&quot; &quot;tep5-imx6-10inch&quot; &quot;tep5-imx6-15inch&quot; &quot;tc0700&quot; &quot;tc1000&quot;)
+TGTIMGTYPEs=(&quot;tn-image-rescue-fitimage&quot;)
+
+setup_patch () {
+	ls sources
+
+	# modify kernel-fitimage.bbclass from source/poky/meta/class
+    # and replace the lines below
+    # compression = &quot;${ramdisk_ctype}&quot;; =&gt; compression = &quot;none&quot;;
+    # DTB=$(echo &quot;${DTB}&quot; | tr &apos;/&apos; &apos;_&apos;) =&gt; DTB=$(echo &quot;${DTB##*/}&quot; | tr &apos;/&apos; &apos;_&apos;)
+    # kernel_line=&quot;kernel = \&quot;kernel@${2}\&quot;; =&gt; if [ -n ${2} ]; then kernel_line=&quot;kernel = \&quot;kernel@${2}\&quot;; else kernel_line=&quot;&quot;; fi
+    # fitimage_emit_section_config ${1} &quot;${kernelcount}&quot; &quot;${DTB}&quot; &quot;${ramdiskcount}&quot; &quot;${setupcount}&quot; &quot;`expr ${i} = ${dtbcount}`&quot; =&gt;
+    #   dtb_ext=${DTB##*.}
+    #   if [ &quot;${dtb_ext}&quot; = &quot;dtbo&quot; ]; then
+    #     fitimage_emit_section_config ${1} &quot;&quot; &quot;${DTB}&quot; &quot;&quot; &quot;&quot; &quot;`expr ${i} = ${dtbcount}`&quot;
+    #   else
+    #     fitimage_emit_section_config ${1} &quot;${kernelcount}&quot; &quot;${DTB}&quot; &quot;${ramdiskcount}&quot; &quot;${setupcount}&quot; &quot;`expr ${i} = ${dtbcount}`&quot;
+    #   fi
+    #
+    # dtb_csum=&quot;sha1&quot; =&gt; 
+    # 	case $2 in
+	#     *.dtbo)
+	#       fdt_loadaddr=&quot;load = &lt;${UBOOT_FDTOV_LOADADDRESS}&gt;;&quot;
+	#       ;;
+	#     *.dtb)
+	#        fdt_loadaddr=&quot;load = &lt;${UBOOT_FDT_LOADADDRESS}&gt;;&quot;
+	#       ;;
+	#     default)
+	#       fdt_loadaddr=&quot;&quot;
+	#       ;;
+	#     esac
+    if [ -e sources/poky/meta/classes/kernel-fitimage.bbclass ]; then
+        sed -e &quot;s,dtb_csum=\&quot;sha1\&quot;,dtb_csum=\&quot;sha1\&quot;\n\tcase \$2 in *.dtbo) fdt_loadaddr=\&quot;load = &lt;\${UBOOT_FDTOV_LOADADDRESS}&gt;;\&quot;;; *.dtb) fdt_loadaddr=\&quot;load = &lt;\${UBOOT_FDT_LOADADDRESS}&gt;;\&quot;;; default) fdt_loadaddr=\&quot;\&quot;;; esac\n,g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+        sed -e &quot;s,type = \&quot;flat_dt\&quot;;,type = \&quot;flat_dt\&quot;;\n\t\t\t\${fdt_loadaddr},g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+    	sed -e &quot;s,compression = \&quot;\${ramdisk_ctype}\&quot;;,compression = \&quot;none\&quot;;,g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+        sed -e &quot;s,DTB=\$(echo \&quot;\${DTB}\&quot; | tr &apos;/&apos; &apos;_&apos;),DTB=\$(echo \&quot;\${DTB##*/}\&quot; | tr &apos;/&apos; &apos;_&apos;),g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+        sed -e &quot;s,kernel_line=\&quot;kernel.*\$,if [ -n \&quot;\${2}\&quot; ]; then kernel_line=\&quot;kernel = \\\\\&quot;kernel@\${2}\\\\\&quot;;\&quot;; else kernel_line=\&quot;\&quot;; fi;,g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+        sed -e &quot;s,fitimage_emit_section_config \${1}.*\$,dtb_ext=\${DTB##*.}\n\t\t\tif [ \&quot;\${dtb_ext}\&quot; = \&quot;dtbo\&quot; ]; then\n\t\t\t\tfitimage_emit_section_config \${1} \&quot;\&quot; \&quot;\${DTB}\&quot; \&quot;\&quot; \&quot;\&quot; \&quot;\`expr \${i} = \${dtbcount}\`\&quot;\n\t\t\telse\n\t\t\t\tfitimage_emit_section_config \${1} \&quot;\${kernelcount}\&quot; \&quot;\${DTB}\&quot; \&quot;\${ramdiskcount}\&quot; \&quot;\${setupcount}\&quot; \&quot;\`expr \${i} = \${dtbcount}\`\&quot;\n\t\t\tfi\n,g&quot; -i sources/poky/meta/classes/kernel-fitimage.bbclass
+        echo &quot;===== patched file: sources/poky/meta/classes/kernel-fitimage.bbclass =====&quot;
+        cat sources/poky/meta/classes/kernel-fitimage.bbclass
+    fi
+}
+
+# setup default env variables for building various machine confs
+setup_env_vars () {
+  case $1 in
+    pico-imx8mq)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      nfc=&quot;nfc&quot;
+      ;;
+    pico-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;ili9881c&quot;
+      distro=&quot;xwayland&quot;
+      nfc=&quot;nfc&quot;
+      ;;
+    edm-imx8mq)
+      board=&quot;wizard&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    flex-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    axon-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    xore-imx8mm)
+      board=&quot;pi&quot;
+      disp=&quot;mipi5&quot;
+      wlan=&quot;qca&quot;
+      pan=&quot;&quot;
+      distro=&quot;xwayland&quot;
+      ;;
+    pico-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx6-nymph)
+      board=&quot;nymph&quot;
+      disp=&quot;hdmi&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx7)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx6ul)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    pico-imx6ul-hobbit)
+      board=&quot;hobbit&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    edm-imx6)
+      board=&quot;fairy&quot;
+      disp=&quot;lvds7&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    axon-imx6)
+      board=&quot;pi&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    edm-imx7)
+      board=&quot;gnome&quot;
+      disp=&quot;lcd&quot;
+      wlan=&quot;qca brcm&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tep1-imx7)
+      disp=&quot;lcd&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tek-imx6)
+      board=&quot;tek3&quot;
+      disp=&quot;&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    # non machine conf
+    tep5-imx6-10inch)
+      board=&quot;tep5&quot;
+      disp=&quot;lvds10 hdmi&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+	tep5-imx6-15inch)
+      board=&quot;tep5&quot;
+      disp=&quot;lvds15 hdmi&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+	tc0700)
+      board=&quot;tc0700&quot;
+      disp=&quot;lvds7 hdmi&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+    tc1000)
+      board=&quot;tc1000&quot;
+      disp=&quot;lvds10 hdmi&quot;
+      wlan=&quot;ath-pci&quot;
+      pan=&quot;&quot;
+      distro=&quot;x11&quot;
+      ;;
+  	*)
+      ;;
+  esac
+}
+
+# update ./conf/local.conf setting
+setup_local_conf () {
+	CURDIR=.
+
+    if grep &quot;^DL_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+		sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+		echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^SSTATE_DIR.*&quot; $CURDIR/conf/local.conf &gt; /dev/null ; then
+		sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+	else
+		echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+	fi
+
+	# for technexion rescue
+    echo &quot;INITRAMFS_IMAGE = \&quot;tn-image-rescue-initramfs\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+
+	# add openssh/evtest to source/meta-tn
+    #sed -e &apos;s|connman|connman openssh evtest|g&apos; -i $CURDIR/../sources/meta-tn-imx-bsp/recipes-tn/images/tn-image-rescue-initramfs.bb
+    
+	echo ===== ./conf/local.conf =====
+	unset CURDIR
+}
+
+# update ./conf/bblayer.conf setting
+setup_bblayer_conf () {
+	CURDIR=.
+
+	# Support integrating community meta-freescale instead of meta-fsl-arm
+	if [ -d ../sources/meta-freescale ]; then
+		echo meta-freescale directory found
+		# Change settings according to environment
+		sed -e &quot;s,meta-fsl-arm\s,meta-freescale ,g&quot; -i $CURDIR/conf/bblayers.conf
+		sed -e &quot;s,\$.BSPDIR./sources/meta-fsl-arm-extra\s,,g&quot; -i $CURDIR/conf/bblayers.conf
+	fi
+	echo ===== ./conf/bblayers.conf =====
+	unset CURDIR
+}
+
+# build the yocto image
+build_yocto () {
+	# building the yocto with preset config params
+	echo ===== Building SOM:$1 TARGET:$2 =====
+
+	# additional configs
+	setup_env_vars $1
+	echo ===== Building DISTRO:$distro BOARD:$board WLAN:$wlan DISPLAY:$disp PANEL:$pan =====
+
+	# go to workspace for next build
+	cd ${WORKSPACE}
+
+	# Set up the basic yocto environment
+    case $1 in
+    pico-imx6-nymph)
+        MACHINE=pico-imx6 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+        ;;
+    pico-imx6ul-hobbit)
+        MACHINE=pico-imx6ul DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+        ;;
+    tc0700)
+    	MACHINE=edm-imx6 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+    	;;
+    tc1000)
+    	MACHINE=edm-imx6 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+    	;;
+    tep5-imx6-10inch)
+    	MACHINE=tek-imx6 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+        ;;
+	tep5-imx6-15inch)
+    	MACHINE=tek-imx6 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+        ;;
+	*)
+    	MACHINE=$1 DISTRO=fsl-imx-$distro source ./setup-environment build-$1
+        ;;
+    esac
+
+	# setup ./conf/local.conf
+	if [ ! -e ./conf/local.conf ]; then
+		echo -e &quot;\n ERROR - No local.conf, Run the &apos;setup-environment&apos; script again\n&quot;
+		return 1
+    else
+		setup_local_conf
+	fi
+
+	# setup ./conf/bblayers.conf
+    if [ ! -e ./conf/bblayers.conf ]; then
+		echo -e &quot;\n ERROR - No bblayers.conf, Run the &apos;setup-environment&apos; script again\n&quot;
+		return 1
+    else
+    	setup_bblayer_conf
+    fi
+
+    # setup uEnv.txt parameters via BB_ENV_EXTRAWHITE
+    unset BASE_BOARD RF_FIRMWARES DISPLAY_INFO DISPLAY_PANEL
+    export BASE_BOARD=$board
+    export DISPLAY_INFO=$disp
+    export DISPLAY_PANEL=$pan
+    export RF_FIRMWARES=$wlan
+    if ! grep -q &quot;BASE_BOARD&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE BASE_BOARD&quot;
+    fi
+    if ! grep -q &quot;DISPLAY_INFO&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE DISPLAY_INFO&quot;
+    fi
+    if ! grep -q &quot;DISPLAY_PANEL&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE DISPLAY_PANEL&quot;
+    fi
+    if ! grep -q &quot;RF_FIRMWARES&quot; &lt;&lt;&lt; $BB_ENV_EXTRAWHITE; then
+        export BB_ENV_EXTRAWHITE=&quot;$BB_ENV_EXTRAWHITE RF_FIRMWARES&quot;
+    fi
+    echo &quot;$(pwd)&quot;
+
+	# copy the site.conf to get qca firmware from internal git
+	cp ${WORKSPACE}/site.conf ./conf/site.conf
+
+    # export of the conf and bitbake environment settings
+    cat ./conf/site.conf
+    cat ./conf/local.conf
+    cat ./conf/bblayers.conf
+    export
+    bitbake $2 -e | grep ^OVERRIDES
+
+	# Build using bitbake
+#    bitbake rescue-loader -c cleansstate
+#    bitbake u-boot-edm -c cleansstate
+#    bitbake linux-tn-imx -c cleansstate
+	bitbake $2
+}
+
+# loop targets
+loop_targets () {
+	for target in ${TGTIMGTYPEs[*]}; do
+    	build_yocto $1 $target
+    done
+}
+
+# ----- entry point-----
+# apply additional patches to other repositories
+setup_patch
+
+# build loops to build all necessary combinations
+for som in ${MACHINEs[*]}; do
+	loop_targets $som
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build*/tmp/deploy/images/*/*</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng &lt;po.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

@@ -7,9 +7,9 @@
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
         <daysToKeep>-1</daysToKeep>
-        <numToKeep>5</numToKeep>
+        <numToKeep>3</numToKeep>
         <artifactDaysToKeep>-1</artifactDaysToKeep>
-        <artifactNumToKeep>5</artifactNumToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
@@ -23,7 +23,7 @@
     </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>docker-slave/yocto-develop</assignedNode>
+  <assignedNode>docker-slave/yocto-builder</assignedNode>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -34,7 +34,6 @@
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>data/${JOB_NAME}</customWorkspace>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
       <project>gen_qca_firmware</project>
@@ -85,11 +84,11 @@ cp sources/meta-fsl-bsp-release/imx/EULA.txt sources/meta-freescale/EULA</comman
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
 
-DLDIR=/home/jenkins/data/src/yocto2.4/download
-SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
+DLDIR=/home/jenkins/workspace/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.4/sstat
 
 SOMs=(&quot;pico-imx7&quot;) # &quot;edm-imx6&quot; &quot;pico-imx6&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;pico-imx8m&quot;) # &quot;pico-imx8m&quot;
-DISTROs=(&quot;xwayland&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
+DISTROs=(&quot;xwayland&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot; &quot;xwayland&quot;
 TGTIMGTYPEs=(&quot;fsl-image-validation-imx&quot; &quot;fsl-image-qt5-validation-imx&quot;) # &quot;core-image-minimal&quot; &quot;core-image-base&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot;
 
 # setup environment variables for building
@@ -208,6 +207,19 @@ done
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers/>
 </project>

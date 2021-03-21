@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-10-21 12:09:01.302 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>82</number>
+  </original>
+  <md5sum>dedfb6c8b899cff98fc8f22c381ddac9</md5sum>
+  <fileName>edm-imx8m_wizard_android-9.0.0-2.0.1_QCA9377_mipi-dsi-ili9881c-1280x720_voice-hat_20191018.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>60</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-06 03:00:38.418 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>126</number>
+  </original>
+  <md5sum>e4653c37a45031163398fac65358be28</md5sum>
+  <fileName>fitImage-linux.bin-4.14.98-r1-axon-imx6-20210106023927.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

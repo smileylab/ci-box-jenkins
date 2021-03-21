@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-17 16:47:26.291 UTC</timestamp>
+  <md5sum>2af623ed5941c419f67f4a48c098bbe2</md5sum>
+  <fileName>imx-boot-edm-imx8mq-sd.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>118</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

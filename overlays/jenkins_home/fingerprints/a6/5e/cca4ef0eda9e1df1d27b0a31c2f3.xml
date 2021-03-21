@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-24 08:27:14.658 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-lvds-dual-channel-patch</name>
+    <number>1</number>
+  </original>
+  <md5sum>a65ecca4ef0eda9e1df1d27b0a31c2f3</md5sum>
+  <fileName>imx6q-dmo-edmqmx6.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>99</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>1-2</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88</string>
+      <ranges>31-32</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>3</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>6-8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

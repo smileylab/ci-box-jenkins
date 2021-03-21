@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-19 10:48:45.226 UTC</timestamp>
+  <md5sum>2af2ad54c7d1d46e556d5eb6a4374379</md5sum>
+  <fileName>vpu_fw_imx8_enc.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx-ddrhdmi-8.0</string>
+      <ranges>12</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

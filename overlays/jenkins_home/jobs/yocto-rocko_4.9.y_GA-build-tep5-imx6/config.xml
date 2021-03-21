@@ -8,9 +8,9 @@ For tep5-imx6 with 21.5 inch dual-channel lvds display panel</description>
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
         <daysToKeep>-1</daysToKeep>
-        <numToKeep>5</numToKeep>
+        <numToKeep>3</numToKeep>
         <artifactDaysToKeep>-1</artifactDaysToKeep>
-        <artifactNumToKeep>5</artifactNumToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
@@ -21,14 +21,10 @@ For tep5-imx6 with 21.5 inch dual-channel lvds display panel</description>
   <scm class="hudson.scm.NullSCM"/>
   <assignedNode>docker-slave/yocto-builder</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>H 23 * * 4</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
@@ -36,11 +32,15 @@ For tep5-imx6 with 21.5 inch dual-channel lvds display panel</description>
 
 MANUSCRIPT=imx-4.9.88-2.0.0_ga.xml
 
+rm -rf sources/
+
 # initialize technexion github yocto repository
 echo &quot;===== Repo init yocto from TechNexion github =====&quot;
-${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+#${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
+${HOME}/bin/repo init -u ssh://rdsw@${GITSERVER}/volume1/internal_git/edm/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
 echo &quot;===== Repo sync yocto from TechNexion github =====&quot;
-${HOME}/bin/repo sync -j16 --force-sync
+rm -fR sources/meta-edm-bsp-release
+${HOME}/bin/repo sync --force-sync
 
 # Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
 echo &quot;===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====&quot;
@@ -93,8 +93,8 @@ EOF
 
 set -e
 
-DLDIR=/home/jenkins/data/src/yocto2.4/download
-SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
+DLDIR=/home/jenkins/workspace/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.4/sstat
 
 SOMs=(&quot;tek-imx6&quot;)
 DISTROs=(&quot;x11&quot;)
@@ -193,11 +193,13 @@ for som in ${SOMs[*]}; do
         cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
         cat $BUILD_DIR/conf/site.conf
 
+        bitbake u-boot-edm -c cleanall
+        bitbake linux-tn-imx -c cleanall
         for target in ${TGTIMGTYPEs[*]}; do
 			# building the yocto with preset config params
             echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
-
             # Compile using bitbake
+        	bitbake $target -c cleanall
             bitbake $target
         done
     done
@@ -218,6 +220,19 @@ done</command>
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

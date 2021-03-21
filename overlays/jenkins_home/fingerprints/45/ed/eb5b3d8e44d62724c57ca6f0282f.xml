@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-24 07:04:06.301 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.98</name>
+    <number>69</number>
+  </original>
+  <md5sum>45edeb5b3d8e44d62724c57ca6f0282f</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>5</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

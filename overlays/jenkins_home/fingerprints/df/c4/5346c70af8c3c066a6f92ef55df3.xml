@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-09-15 11:43:42.119 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>27</number>
+  </original>
+  <md5sum>dfc45346c70af8c3c066a6f92ef55df3</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mq-pico-wizard-20200915112402.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>79,84,90,95,108,111,118,122</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

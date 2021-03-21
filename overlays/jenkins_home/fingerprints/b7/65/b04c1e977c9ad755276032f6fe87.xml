@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-29 15:23:07.589 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.98_arm64</name>
+    <number>115</number>
+  </original>
+  <md5sum>b765b04c1e977c9ad755276032f6fe87</md5sum>
+  <fileName>u-boot-spl.bin</fileName>
+  <usages>
+    <entry>
+      <string>github_uboot-v2018.03_4.14.98_arm64</string>
+      <ranges>115</ranges>
+    </entry>
+    <entry>
+      <string>gen_imx8mq-uboot-with-firmware_uboot-v2018.03-4.14.98</string>
+      <ranges>114</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

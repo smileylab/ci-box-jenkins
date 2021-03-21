@@ -1,6 +1,6 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.29">
-  <hudsonUrl>http://10.88.88.8:8083/</hudsonUrl>
+<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.20">
+  <hudsonUrl>http://10.88.88.8:8080/</hudsonUrl>
   <smtpAuthUsername>technexion.sw@gmail.com</smtpAuthUsername>
   <smtpAuthPassword>{AQAAABAAAAAQVZvZqEl6a+9Dsp7S+25lUAzQE5MXQD2R9h2gGVtvHlM=}</smtpAuthPassword>
   <smtpHost>smtp.gmail.com</smtpHost>

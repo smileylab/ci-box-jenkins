@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-31 05:06:58.514 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88-arm64</name>
+    <number>1</number>
+  </original>
+  <md5sum>e7f7e77adefc5a3f7db83b31a7c24b91</md5sum>
+  <fileName>mkimage</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx8m-uboot-with-firmware_uboot-v2017.03-4.9.88</string>
+      <ranges>38</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88-arm64</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

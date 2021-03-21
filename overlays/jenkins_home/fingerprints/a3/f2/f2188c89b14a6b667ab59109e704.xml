@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-17 16:47:53.440 UTC</timestamp>
+  <md5sum>a3f2f2188c89b14a6b667ab59109e704</md5sum>
+  <fileName>u-boot-pico-imx8mq.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>118</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

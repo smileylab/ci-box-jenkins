@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-14 02:58:48.955 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>46</number>
+  </original>
+  <md5sum>27f464a0f3adbb88531cb293e132972d</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx8mm-20200514024201.rootfs.sdcard.md5sum</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>46</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

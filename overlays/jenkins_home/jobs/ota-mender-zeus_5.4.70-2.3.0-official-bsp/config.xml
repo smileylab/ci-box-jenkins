@@ -1,0 +1,136 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Mender OTA from official mender hub&#xd;
+https://hub.mender.io/t/technexion-pico-pi-imx8m-mini/2689</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>tn/builder3</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+
+
+MANUSCRIPT=imx-5.4.70-2.3.0.xml
+
+repo init -u https://github.com/TechNexion/tn-imx-yocto-manifest.git -b zeus_5.4.y-next -m ${MANUSCRIPT}
+
+# pull-request
+#wget --directory-prefix .repo/local_manifests https://github.com/mendersoftware/meta-mender-community/raw/76827f7b05d63b9f8edb154b279dd959651c9c77/meta-mender-tn-imx-bsp/scripts/imx-5.4.24-2.1.0_demo_mender.xml
+
+# github repository (mender-technexion.xml as a local_manifest)
+#wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/mendersoftware/meta-mender-community/zeus/meta-mender-tn-imx-bsp/scripts/imx-5.4.24-2.1.0_demo_mender.xml
+wget --directory-prefix .repo/local_manifests https://github.com/mendersoftware/meta-mender-community/raw/zeus/meta-mender-tn-imx-bsp/scripts/mender-technexion.xml
+cat .repo/local_manifests/mender-technexion.xml
+
+# github technexion-customization repository (mender-tn-demo.xml as a local_manifest)
+wget --directory-prefix .repo/local_manifests https://raw.githubusercontent.com/TechNexion-customization/meta-tn-mender-demos/zeus/scripts/mender-tn-demo.xml
+cat .repo/local_manifests/mender-tn-demo.xml
+
+repo sync
+
+# checking out pull-request
+cd sources/meta-mender-community
+git fetch mender pull/216/head:pullrequest
+git checkout pullrequest
+cd -
+
+# Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
+echo ===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====
+sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -e -x
+
+DLDIR=/home/jenkins/workspace/src/yocto3.0/downloads
+SSTATEDIR=/home/jenkins/workspace/src/yocto3.0/sstate-cache
+
+
+# update ./conf/local.conf setting
+setup_local_conf () {
+    CURDIR=.
+
+    # setup conf/local.conf
+    if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+    if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+        sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    else
+        echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    fi
+
+#    if [ &quot;$1&quot; = &quot;flex-imx8mm&quot; -o &quot;$1&quot; = &quot;pico-imx8mm&quot; ]; then
+#        echo &quot;IMAGE_INSTALL_append = \&quot; pt2-usb57x4\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+#    fi
+
+	sed -e &apos;s|SOUNDCARD.*$|SOUNDCARD ?= &quot;&quot;|g&apos; -i $CURDIR/conf/local.conf
+    echo &quot;MACHINE_FEATURES_remove = \&quot;nxp8987\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+    echo &quot;INHERIT += \&quot;rm_work\&quot;&quot; &gt;&gt; $CURDIR/conf/local.conf
+
+    unset CURDIR
+}
+
+DISTRO=fsl-imx-xwayland MACHINE=pico-imx8mm source tn-setup-mender-demo.sh -b build-xwayland-imx8mm || :
+
+# local.conf
+setup_local_conf
+
+cat conf/local.conf
+
+bitbake pseudo-native
+bitbake core-image-base
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-*/tmp/deploy/images/*/*</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

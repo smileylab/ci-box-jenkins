@@ -29,7 +29,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/sumo-tn-boot2qt-5.12.5-wip</name>
+        <name>*/sumo-tn-boot2qt-5.12.5-next</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -42,16 +42,11 @@
   </scm>
   <assignedNode>docker-slave/yocto-builder</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>H H * * 7</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>data/${JOB_NAME}</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
@@ -68,7 +63,7 @@ cat &gt; site.conf &lt;&lt;EOF
 #SRCOPTIONS_pn-u-boot-script = &quot;;protocol=ssh;user=rdsw&quot;
 
 # linux-firmware-brcm-tn.bb
-SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/brcm_firmware.git&quot;
+SRCSERVER_pn-linux-firmware-brcm-tn = &quot;git://10.88.88.8/volume1/internal_git/edm/brcm_firmware.git&quot;
 SRCBRANCH_pn-linux-firmware-brcm-tn = &quot;master&quot;
 SRCOPTIONS_pn-linux-firmware-brcm-tn = &quot;;protocol=ssh;user=rdsw&quot;
 SRCREV_pn-linux-firmware-brcm-tn = &quot;317394ca84258e4f11a138014820eebf0c43db1e&quot;
@@ -76,10 +71,10 @@ SRC_URI_pn-linux-firmware-brcm-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${S
 S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
 
 # linux-firmware-qca-tn.bb
-SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
+SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.88.88.8/volume1/internal_git/edm/qca_firmware.git&quot;
 SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
 SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
-SRCREV_pn-linux-firmware-qca-tn = &quot;8faa87a6e6bbb0a5c16591e8b0adf0514cb33444&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;efa5726f00863a2a9e5dbf5708a5c116ec4b6092&quot;
 SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
 S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
 
@@ -89,6 +84,13 @@ S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
 #SRCOPTIONS_pn-linux-tn-imx = &quot;;protocol=ssh;user=rdsw&quot;
 #SRCREV_pn-linux-tn-imx = &quot;5b97eae48fd356d280815cb6088eff79570735f9&quot;
 #SRC_URI_pn-linux-tn-imx = &quot;\${KERNEL_SRC};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
+
+# afloader.bb
+SRCREV_pn-afloader = &quot;87814f59c55002ec388d5a508d10300bf5b8d140&quot;
+
+# axonfabric-firmware.bb
+SRCREV_pn-axonfabric-firmware = &quot;409677369d4ccd764fde5dc7ac0f7569251e87c7&quot;
+
 EOF
 </command>
     </hudson.tasks.Shell>
@@ -98,9 +100,9 @@ EOF
 set -e
 
 OUTDIR=/home/jenkins/build/boot2qt-images
-CACHEDIR=/home/jenkins/data/src/boot2qt/cache
-DLDIR=/home/jenkins/data/src/boot2qt/downloads
-SSTATEDIR=/home/jenkins/data/src/boot2qt/sstate-cache
+CACHEDIR=/home/jenkins/workspace/src/yocto2.5/cache
+DLDIR=/home/jenkins/workspace/src/yocto2.5/download
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.5/sstate
 
 # clear and make download/sstate-cache/ccache folder on external volume
 [ -L cache ] &amp;&amp; rm -f cache
@@ -112,8 +114,10 @@ SSTATEDIR=/home/jenkins/data/src/boot2qt/sstate-cache
 [ -d ${WORKSPACE}/sources/meta-edm-bsp-release ] &amp;&amp; rm -fR ${WORKSPACE}/sources/meta-edm-bsp-release
 
 GITSERVER=&quot;10.20.30.20&quot;
+MIRRORSERVER=&quot;10.88.88.8&quot;
 chmod 0600 ~/.ssh/id_rsa
 ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
+ssh-keyscan ${MIRRORSERVER} &gt;&gt; ~/.ssh/known_hosts
 ./B2QT/b2qt-init-build-env init --device pico-imx7
 
 export MACHINE=pico-imx7
@@ -134,6 +138,15 @@ cat ./conf/site.conf
 echo ===== Copy EULA =====
 cp ../sources/meta-fsl-bsp-release/imx/EULA.txt ../sources/meta-freescale/EULA
 
+# filter out thermal-imx-test
+sed -e &apos;s|thermal-imx-test|${@bb.utils.contains(&quot;DISTRO&quot;, &quot;b2qt&quot;, &quot;&quot;, &quot;thermal-imx-test&quot;, d)}|g&apos; -i ${WORKSPACE}/sources/meta-tn-imx-bsp/recipes-core/packagegroups/packagegroup-tn-tools.bb
+cat ${WORKSPACE}/sources/meta-tn-imx-bsp/recipes-core/packagegroups/packagegroup-tn-tools.bb
+#echo &quot;RDPENDS_packagegroup-tn-tools_remove = \&quot;\${@bb.utils.contains(\&quot;DISTRO\&quot;, \&quot;b2qt\&quot;, \&quot;thermal-imx-test\&quot;, \&quot;\&quot;,d)}\&quot;&quot; &gt;&gt; ${WORKSPACE}/sources/meta-tn-imx-bsp/conf/machine/tn-base.inc
+#cat  ${WORKSPACE}/sources/meta-tn-imx-bsp/conf/machine/tn-base.inc
+
+bitbake u-boot-edm -c cleanall
+bitbake linux-tn-imx -c cleanall
+bitbake meta-b2qt-embedded-qbsp -c cleanall
 #bitbake b2qt-embedded-qt5-image
 SDKMACHINE=i686-mingw32 bitbake meta-toolchain-b2qt-embedded-qt5-sdk
 SDKMACHINE=i686-mingw32 bitbake meta-b2qt-embedded-qbsp
@@ -141,8 +154,8 @@ SDKMACHINE=i686-mingw32 bitbake meta-b2qt-embedded-qbsp
 cp -r ./tmp/deploy/images/* ${OUTDIR}
 
 # for rescue server
-mkdir -p $WORKSPACE/$MACHINE/$BASE_BOARD-lcd800x480/
-cp ./tmp/deploy/images/$MACHINE/b2qt-embedded-qt5-image-$MACHINE.sdcard.xz $WORKSPACE/$MACHINE/$BASE_BOARD-lcd800x480/boot2qt-5.12.xz
+#mkdir -p $WORKSPACE/$MACHINE/$BASE_BOARD-lcd800x480/
+#cp ./tmp/deploy/images/$MACHINE/b2qt-embedded-qt5-image-$MACHINE.sdcard.xz $WORKSPACE/$MACHINE/$BASE_BOARD-lcd800x480/boot2qt-5.12.xz
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -160,6 +173,19 @@ cp ./tmp/deploy/images/$MACHINE/b2qt-embedded-qt5-image-$MACHINE.sdcard.xz $WORK
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

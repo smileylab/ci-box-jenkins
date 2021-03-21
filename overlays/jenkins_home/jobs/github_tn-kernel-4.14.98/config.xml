@@ -27,13 +27,13 @@ configurations: imx6/7 pico/edm/tep/tek</description>
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/TechNexion/linux.git</url>
+        <url>https://github.com/TechNexion/linux-tn-imx.git</url>
         <credentialsId>tn-jenkins</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/tn-imx_4.14.98_2.0.0_ga-wip</name>
+        <name>*/tn-imx_4.14.98_2.0.0_ga-stable</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -51,7 +51,7 @@ configurations: imx6/7 pico/edm/tep/tek</description>
   </scm>
   <assignedNode>docker-slave/kernel</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -82,6 +82,11 @@ else
   fi
 fi
 cp ./${CHANGELOG} ${OUT_PATH}/
+
+# patch imx8mq-pico.dtsi/imx8mq-edm.dtsi for 1G RAM (suppose to be for 1G RAM, but for the sack of uniformity, all dts are affected)
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00400000&gt;;|g&apos; ./arch/arm/boot/dts/imx7d.dtsi
+cat ./arch/arm/boot/dts/imx7d.dtsi
+
 
 # build 32bit imx6/7 soc
 . buildenv.sh 32

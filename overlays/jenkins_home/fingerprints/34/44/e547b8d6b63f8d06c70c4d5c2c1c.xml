@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-02-21 14:03:01.250 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.98-arm64</name>
+    <number>52</number>
+  </original>
+  <md5sum>3444e547b8d6b63f8d06c70c4d5c2c1c</md5sum>
+  <fileName>.imx8mm-flex-pi-voicehat.dtb.cmd</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.14.98-arm64</string>
+      <ranges>78,90-94</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

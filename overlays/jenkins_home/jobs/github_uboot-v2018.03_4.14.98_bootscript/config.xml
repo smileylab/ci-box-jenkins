@@ -22,8 +22,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/TechNexion/u-boot-edm.git</url>
-        <credentialsId>tn-jenkins</credentialsId>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -37,7 +37,7 @@
   </scm>
   <assignedNode>docker-slave/ubuntu</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>

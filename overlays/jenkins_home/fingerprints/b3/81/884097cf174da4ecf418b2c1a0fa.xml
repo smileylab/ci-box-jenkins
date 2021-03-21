@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-11 05:37:04.27 UTC</timestamp>
+  <md5sum>b381884097cf174da4ecf418b2c1a0fa</md5sum>
+  <fileName>uEnv-nd-2016.11+gitAUTOINC+07edca0bb8-r0.txt</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>2,4-5,7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

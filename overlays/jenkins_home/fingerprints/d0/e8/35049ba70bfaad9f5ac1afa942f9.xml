@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-04-17 15:22:56.379 UTC</timestamp>
+  <original>
+    <name>gen_imx8mq-uboot-with-firmware_uboot-v2018.03-4.14.98</name>
+    <number>63</number>
+  </original>
+  <md5sum>d0e835049ba70bfaad9f5ac1afa942f9</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98-imx8mq</string>
+      <ranges>138-139</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

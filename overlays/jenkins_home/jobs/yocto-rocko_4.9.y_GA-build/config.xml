@@ -25,17 +25,11 @@
   <scm class="hudson.scm.NullSCM"/>
   <assignedNode>docker-slave/yocto-builder</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>H H(12-13) * * 5
-</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>data/${JOB_NAME}</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash -x -e
@@ -64,7 +58,8 @@ S_pn-linux-firmware-brcm-tn = &quot;\${WORKDIR}/git&quot;
 SRCSERVER_pn-linux-firmware-qca-tn = &quot;git://10.20.30.20/volume1/internal_git/edm/qca_firmware.git&quot;
 SRCBRANCH_pn-linux-firmware-qca-tn = &quot;caf-wlan/CNSS.LEA.NRT_3.0&quot;
 SRCOPTIONS_pn-linux-firmware-qca-tn = &quot;;protocol=ssh;user=rdsw&quot;
-SRCREV_pn-linux-firmware-qca-tn = &quot;8faa87a6e6bbb0a5c16591e8b0adf0514cb33444&quot;
+SRCREV_pn-linux-firmware-qca-tn = &quot;efa5726f00863a2a9e5dbf5708a5c116ec4b6092&quot;
+# &quot;8faa87a6e6bbb0a5c16591e8b0adf0514cb33444&quot;
 SRC_URI_pn-linux-firmware-qca-tn = &quot;\${SRCSERVER};branch=\${SRCBRANCH}\${SRCOPTIONS}&quot;
 S_pn-linux-firmware-qca-tn = &quot;\${WORKDIR}/git&quot;
 
@@ -86,22 +81,26 @@ ssh-keyscan ${GITSERVER} &gt;&gt; ~/.ssh/known_hosts
 
 MANUSCRIPT=imx-4.9.88-2.0.0_ga.xml
 
+rm -rf sources/*
+
 # initialize technexion github yocto repository
 echo &quot;===== Repo init yocto from TechNexion github =====&quot;
 ${HOME}/bin/repo init -u https://github.com/TechNexion/edm-yocto-bsp.git -b rocko_4.9.y_GA -m $MANUSCRIPT
 echo &quot;===== Repo sync yocto from TechNexion github =====&quot;
-${HOME}/bin/repo sync -j16 --force-sync
+rm -fR sources/meta-edm-bsp-release
+${HOME}/bin/repo sync --force-sync
+cp sources/meta-edm-bsp-release/recipes-bsp/u-boot/u-boot-edm/0001-tek-imx6-Set-split-mode-for-lvds-dual-ch-panel.patch ${WORKSPACE}
+cp sources/meta-edm-bsp-release/recipes-kernel/linux/linux-tn-imx/tep5_dual_channel_15_18_21_inch_1920x1080.patch ${WORKSPACE}
+
 
 # Update EULA Agreement Acceptance Config and Create the setup-envronment scripts
 echo &quot;===== Update EULA Agreement Acceptance Config and Create the setup-envronment scripts =====&quot;
 sed -i &apos;:a;N;$!ba;s/EULA_ACCEPTED=\n/echo &quot;ACCEPT_FSL_EULA = \\&quot;1\\&quot;&quot; &gt;&gt; conf\/local.conf\n/&apos; sources/base/setup-environment
 
+DLDIR=/home/jenkins/workspace/src/yocto2.4/download
+SSTATEDIR=/home/jenkins/workspace/src/yocto2.4/sstat
 
-
-DLDIR=/home/jenkins/data/src/yocto2.4/download
-SSTATEDIR=/home/jenkins/data/src/yocto2.4/sstat
-
-SOMs=(&quot;edm-imx6&quot; &quot;pico-imx6&quot; &quot;pico-imx7&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot; &quot;pico-imx8m&quot;)
+SOMs=(&quot;pico-imx8m&quot; &quot;edm-imx6&quot; &quot;pico-imx6&quot; &quot;pico-imx7&quot; &quot;tek3-imx6ul&quot; &quot;tep1-imx6ul&quot; &quot;edm-imx7&quot; &quot;pico-imx6ul&quot; &quot;tek-imx6&quot; &quot;tep1-imx7&quot;)
 DISTROs=(&quot;xwayland&quot;) # &quot;x11&quot; &quot;fb&quot; &quot;wayland&quot;
 TGTIMGTYPEs=(&quot;fsl-image-qt5-validation-imx&quot;) # &quot;core-image-minimal&quot; &quot;core-image-base&quot; &quot;core-image-sato&quot; &quot;fsl-image-machine-test&quot; &quot;fsl-image-validation-imx&quot;
 
@@ -115,44 +114,53 @@ setup_env_vars () {
       board=&quot;pi&quot;
       disp=&quot;mipi5&quot;
       wlan=&quot;qca&quot;
+      distro=&quot;xwayland&quot;
       ;;
     pico-imx6)
       board=&quot;pi&quot;
       disp=&quot;lcd&quot;
       wlan=&quot;qca&quot;
+      distro=&quot;x11&quot;
       ;;
     pico-imx7)
       board=&quot;pi&quot;
       disp=&quot;lcd&quot;
       wlan=&quot;qca&quot;
-      distro=&quot;fb&quot;
+      distro=&quot;x11&quot;
       ;;
     pico-imx6ul)
       board=&quot;pi&quot;
       disp=&quot;lcd&quot;
       wlan=&quot;qca&quot;
+      distro=&quot;x11&quot;
       ;;
     edm-imx6)
       board=&quot;fairy&quot;
       disp=&quot;lvds7&quot;
       wlan=&quot;qca&quot;
+      distro=&quot;x11&quot;
       ;;
     edm-imx7)
       board=&quot;gnome&quot;
       wlan=&quot;qca&quot;
+      distro=&quot;x11&quot;
       ;;
     tep1-imx7)
       wlan=&quot;ath-pci&quot;
+      distro=&quot;x11&quot;
       ;;
     tep1-imx6ul)
       wlan=&quot;ath-pci&quot;
+      distro=&quot;x11&quot;
       ;;
     tek-imx6)
       disp=&quot;lvds10&quot;
       wlan=&quot;ath-pci&quot;
+      distro=&quot;x11&quot;
       ;;
     tek3-imx6ul)
       wlan=&quot;qca&quot;
+      distro=&quot;x11&quot;
       ;;
   	*)
       ;;
@@ -161,55 +169,55 @@ setup_env_vars () {
 
 # Loop each som distro image_type and configs
 for som in ${SOMs[*]}; do
-    for distro in ${DISTROs[*]}; do
 
-        # go to workspace for next build
-        cd ${WORKSPACE}
+    # go to workspace for next build
+    cd ${WORKSPACE}
 
-        # Set up the build environment variables
-        setup_env_vars $som
+    # Set up the build environment variables
+    setup_env_vars $som
 
-        # setup yocto build environment
-        MACHINE=$som DISTRO=fsl-imx-$distro WIFI_FIRMWARE=y WIFI_MODULE=$wlan DISPLAY=$disp BASEBOARD=$board source edm-setup-release.sh -b build-$som
+    # setup yocto build environment
+    MACHINE=$som DISTRO=fsl-imx-$distro WIFI_FIRMWARE=y WIFI_MODULE=$wlan DISPLAY=$disp BASEBOARD=$board source edm-setup-release.sh -b build-$som
 
-        # get current build dir and check if local.conf exists
-        BUILD_DIR=.
-        if [ ! -e $BUILD_DIR/conf/local.conf ]; then
-            echo -e &quot;\n ERROR - No build directory is set yet. Run the &apos;setup-environment&apos; script before running this script to create &quot; $BUILD_DIR
-            echo -e &quot;\n&quot;
-            return 1
+    # get current build dir and check if local.conf exists
+    BUILD_DIR=.
+    if [ ! -e $BUILD_DIR/conf/local.conf ]; then
+        echo -e &quot;\n ERROR - No build directory is set yet. Run the &apos;setup-environment&apos; script before running this script to create &quot; $BUILD_DIR
+        echo -e &quot;\n&quot;
+        return 1
+    else
+        # set the download directory
+        [ -d ${DLDIR} ] || mkdir -p ${DLDIR}
+        [ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
+        # setup conf/local.conf
+        echo &quot;BB_NUMBER_THREADS ?= \&quot;12\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+        if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+            sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
         else
-            # set the download directory
-            [ -d ${DLDIR} ] || mkdir -p ${DLDIR}
-            [ -d ${SSTATEDIR} ] || mkdir -p ${SSTATEDIR}
-            # setup conf/local.conf
-            echo &quot;BB_NUMBER_THREADS ?= \&quot;12\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
-            if grep &quot;^DL_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
-		      sed -e &apos;s|^DL_DIR.*|DL_DIR = &quot;&apos;$DLDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
-            else
-		      echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
-            fi
-            if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
-		      sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
-	        else
-		      echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
-	        fi
+            echo &quot;DL_DIR = \&quot;$DLDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
         fi
+        if grep &quot;^SSTATE_DIR.*&quot; $BUILD_DIR/conf/local.conf &gt; /dev/null ; then
+            sed -e &apos;s|^SSTATE_DIR.*|SSTATE_DIR = &quot;&apos;$SSTATEDIR&apos;&quot;|g&apos; -i $BUILD_DIR/conf/local.conf
+        else
+            echo &quot;SSTATE_DIR = \&quot;$SSTATEDIR\&quot;&quot; &gt;&gt; $BUILD_DIR/conf/local.conf
+        fi
+    fi
         
-        # copy the site.conf from ${workspace} for internal git fetch
-        cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
-        cat $BUILD_DIR/conf/local.conf
-        cat $BUILD_DIR/conf/bblayers.conf
-        cat $BUILD_DIR/conf/site.conf
-        export
+    # copy the site.conf from ${workspace} for internal git fetch
+    cp $WORKSPACE/site.conf $BUILD_DIR/conf/site.conf
+    cat $BUILD_DIR/conf/local.conf
+    cat $BUILD_DIR/conf/bblayers.conf
+    cat $BUILD_DIR/conf/site.conf
+    export
 
-        for target in ${TGTIMGTYPEs[*]}; do
-			# building the yocto with preset config params
-            echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
-
-            # Compile using bitbake
-            bitbake $target
-        done
+    bitbake u-boot-edm -c cleanall
+    bitbake linux-tn-imx -c cleanall
+    for target in ${TGTIMGTYPEs[*]}; do
+        # building the yocto with preset config params
+        echo &quot;===== Building SOM:$som DISTRO:fsl-imx-$distro TARGET:$target =====&quot;
+        # Compile using bitbake
+        bitbake $target -c cleanall
+        bitbake $target
     done
 done
 </command>
@@ -217,7 +225,7 @@ done
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>build-*/tmp/deploy/images/*/*.bz2</artifacts>
+      <artifacts>build-*/tmp/deploy/images/*/*.bz2,*.patch</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>true</fingerprint>
@@ -229,6 +237,19 @@ done
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

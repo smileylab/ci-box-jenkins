@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-15 15:23:56.541 UTC</timestamp>
+  <original>
+    <name>gen_imx8mq-uboot-with-firmware_uboot-v2018.03-4.14.98</name>
+    <number>112</number>
+  </original>
+  <md5sum>7cd7a21c7dc2fc2d7e3479c9effc4a15</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx8mq-uboot-with-firmware_uboot-v2018.03-4.14.98</string>
+      <ranges>112</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:56:45.624 UTC</timestamp>
+  <md5sum>0d2ce2a5a0e3b1dab3d7694d0776681d</md5sum>
+  <fileName>fitImage-tn-image-rescue-initramfs-axon-imx6-4.14.98-r1-20201229090809.bin</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-03 03:08:09.554 UTC</timestamp>
+  <original>
+    <name>rescue-uboot-4.9.88</name>
+    <number>68</number>
+  </original>
+  <md5sum>c6d0b9d4142c4cd7c5094a3beb57ea6b</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>rescue-uboot-4.9.88</string>
+      <ranges>68</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

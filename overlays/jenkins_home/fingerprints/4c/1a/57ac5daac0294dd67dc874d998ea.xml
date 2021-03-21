@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-10-13 07:54:08.455 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>84</number>
+  </original>
+  <md5sum>4c1a57ac5daac0294dd67dc874d998ea</md5sum>
+  <fileName>tn-image-rescue-initramfs-pico-imx8mq-20201013062514.rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>84</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

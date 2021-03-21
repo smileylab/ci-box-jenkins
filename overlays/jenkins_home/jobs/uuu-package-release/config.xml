@@ -1,0 +1,248 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Packaging uuu/mfg tool for release</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/ubuntu</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>uuu</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>uuu</project>
+      <filter>uuu/*,uuu/*/*,README.md</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>yocto-sumo_4.14.y_GA-build-next</project>
+      <filter>build-*/tmp/deploy/images/*/SPL*,build-*/tmp/deploy/images/*/u-boot*,build-*/tmp/deploy/images/*/imx-boot*</filter>
+      <target>sumo/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.SavedBuildSelector"/>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>yocto-zeus_5.4.70_GA-internal-nightly-build</project>
+      <filter>build-*/tmp/deploy/images/*/SPL*,build-*/tmp/deploy/images/*/u-boot*,build-*/tmp/deploy/images/*/imx-boot*</filter>
+      <target>zeus/</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.SavedBuildSelector"/>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+#
+# package uboot and uuu into imx-mfg-uuu-tool.zip
+#
+
+mkdir -p ./releases/
+
+RELEASEDATE=$(date +&apos;%Y%m%d&apos;)
+CONFIGS=(&quot;axon-imx6&quot; &quot;pico-imx6&quot; &quot;pico-imx7&quot; &quot;pico-imx6ul&quot; &quot;edm-imx6&quot; &quot;edm-imx7&quot; &quot;tek-imx6&quot; &quot;tek-imx6ul&quot; &quot;tep-imx6ul&quot; &quot;tep1-imx7&quot; \
+&quot;pico-imx8mm&quot; &quot;pico-imx8mq&quot; &quot;edm-imx8mq&quot; &quot;flex-imx8mm&quot; &quot;axon-imx8mm&quot; &quot;xore-imx8mm&quot; \
+&quot;axon-imx8mp&quot; &quot;edm-g-imx8mp&quot; &quot;edm-g-imx8mm&quot; &quot;edm-g-imx8mn&quot;)
+
+setup_dir () {
+  case &quot;$1&quot; in
+    pico-imx8mq)
+      disp=&quot;mipi5&quot;
+      ;;
+    pico-imx8mm)
+      disp=&quot;mipi5&quot;
+      ;;
+    edm-imx8mq)
+      disp=&quot;mipi5&quot;
+      ;;
+    edm-g-imx8mp)
+      disp=&quot;hdmi&quot;
+      ;;
+    flex-imx8mm)
+      disp=&quot;mipi5&quot;
+      ;;
+    axon-imx8mm)
+      disp=&quot;mipi5&quot;
+      ;;
+    axon-imx8mp)
+      disp=&quot;mipi5&quot;
+      ;;
+    xore-imx8mm)
+      disp=&quot;mipi5&quot;
+      ;;
+    pico-imx6)
+      disp=&quot;lcd&quot;
+      ;;
+    pico-imx7)
+      disp=&quot;lcd&quot;
+      ;;
+    pico-imx6ul)
+      disp=&quot;lcd&quot;
+      ;;
+    edm-imx6)
+      disp=&quot;lvds7&quot;
+      ;;
+    axon-imx6)
+      disp=&quot;hdmi&quot;
+      ;;
+    edm-imx7)
+      disp=&quot;lcd&quot;
+      ;;
+    tep1-imx7)
+      disp=&quot;lcd&quot;
+      ;;
+    tep1-imx6ul)
+      disp=&quot;lcd&quot;
+      ;;
+    tek-imx6)
+      disp=&quot;lvds10&quot;
+      # &quot;lvds15&quot;
+      ;;
+    tek3-imx6ul)
+      disp=&quot;lvds10&quot;
+      ;;
+  *)
+    ;;
+  esac
+  SOMDIR=&quot;imx${1#*imx}&quot;
+  SUBDIR=&quot;${1}&quot;
+  BUILDDIR=&quot;imx-mfg-uuu-tool&quot;
+}
+
+pack_uboot () {
+  mkdir -p $BUILDDIR/$SOMDIR
+  mkdir -p $BUILDDIR/$SOMDIR/$SUBDIR
+
+  if [ -d &quot;$2/build-$1-$disp/tmp/deploy/images/$1/&quot; ]; then
+    ls &quot;$2/build-$1-$disp/tmp/deploy/images/$1/&quot;
+    case &quot;$1&quot; in
+    *imx6ul*|*imx6*|*imx7*)
+      for spl in $2/build-$1-$disp/tmp/deploy/images/$1/SPL*; do
+        if [ -e &quot;$spl&quot; ]; then
+          echo &quot;copy $spl&quot;
+          cp $spl $BUILDDIR/$SOMDIR/$SUBDIR/$SOMDIR-SPL
+          break
+        fi
+      done
+      for uboot in $2/build-$1-$disp/tmp/deploy/images/$1/u-boot*.img; do
+        if [ -e &quot;$uboot&quot; ]; then
+          echo &quot;copy $uboot&quot;
+          cp $uboot $BUILDDIR/$SOMDIR/$SUBDIR/$SOMDIR-u-boot.img
+          break
+        fi
+      done
+      ;;
+    *imx8*)
+      for flashbin in $2/build-$1-$disp/tmp/deploy/images/$1/imx-boot*; do
+        if [ -e &quot;$flashbin&quot; ]; then
+          echo &quot;copy $flashbin&quot;
+      	  cp $flashbin $BUILDDIR/$SOMDIR/$SUBDIR/$SUBDIR-flash.bin
+          break
+        fi
+      done
+      ;;
+    *)
+      ;;
+    esac
+  fi
+}
+
+pack_uuu () {
+  mkdir -p $BUILDDIR/uuu/linux64
+  mkdir -p $BUILDDIR/uuu/windows64
+  mkdir -p $BUILDDIR/multiboard
+
+  ls uuu/*
+  if [ -e uuu/uuu ]; then
+    cp uuu/uuu $BUILDDIR/uuu/linux64/
+  fi
+  if [ -e uuu/uuu.exe ]; then
+    cp uuu/uuu.exe $BUILDDIR/uuu/windows64/
+  fi
+  if [ -d uuu/multiboard/ ]; then
+    cp uuu/multiboard/* $BUILDDIR/multiboard/
+  fi
+  if [ -e README.md ]; then
+    cp README.md $BUILDDIR/README.md
+  fi
+}
+
+zip_tool () {
+  zip -r $BUILDDIR-$RELEASEDATE.zip $BUILDDIR/*
+  mv $BUILDDIR-$RELEASEDATE.zip ./releases/
+}
+
+# ===== MAIN ENTRY POINT =====
+for dist in sumo zeus; do
+  for conf in ${CONFIGS[@]}; do
+    setup_dir $conf
+    pack_uboot $conf $dist
+  done
+done
+pack_uuu
+zip_tool
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>releases/*</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

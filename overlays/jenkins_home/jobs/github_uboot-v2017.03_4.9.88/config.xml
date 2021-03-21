@@ -1,8 +1,7 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>build github uboot 4.9.88 for imx8mq&#xd;
-it needs to run install_uboot_imx8mq.sh to include im8m ARM Truested, hdmi, DDR firmwares</description>
+  <description>build github uboot 4.9.88 for imx6 and imx7s</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -22,8 +21,8 @@ it needs to run install_uboot_imx8mq.sh to include im8m ARM Truested, hdmi, DDR 
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/TechNexion/u-boot-edm.git</url>
-        <credentialsId>tn-jenkins</credentialsId>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -45,7 +44,7 @@ it needs to run install_uboot_imx8mq.sh to include im8m ARM Truested, hdmi, DDR 
   </scm>
   <assignedNode>docker-slave/kernel</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
@@ -58,7 +57,8 @@ CHANGELOG=changelog-uboot
 OUT_PATH=/home/jenkins/build/uboot-${JOB_NAME}
 
 # CONFIGS=(&quot;pico-imx6s&quot; &quot;pico-imx6dl&quot; &quot;pico-imx6q&quot; &quot;pico-imx7d&quot; &quot;pico-imx6ul&quot; &quot;edm-cf-imx6&quot;
-CONFIGS=(&quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot; &quot;pico-imx6ul_spl&quot; &quot;edm-cf-imx6_spl&quot; &quot;edm1-imx7d_spl&quot; &quot;tek3-imx6ul_spl&quot; &quot;tek-imx6_spl&quot; &quot;tep1-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot;) # &quot;edm1-imx6ul-nand_spl&quot;
+# &quot;edm1-imx6ul-nand_spl&quot;
+CONFIGS=(&quot;pico-imx6_spl&quot; &quot;pico-imx7d_spl&quot; &quot;pico-imx6ul_spl&quot; &quot;edm-cf-imx6_spl&quot; &quot;edm1-imx7d_spl&quot; &quot;tek3-imx6ul_spl&quot; &quot;tek-imx6_spl&quot; &quot;tep1-imx6ul_spl&quot; &quot;tep1-imx7d_spl&quot;)
 
 get_board_dir() {
   case &quot;$1&quot; in
@@ -103,6 +103,7 @@ get_board_dir() {
       ;;
     *)
       BRDDIR=&quot;$1&quot;
+      ;;
   esac
 }
 
@@ -123,7 +124,7 @@ build_uboot() {
     cp ./$1/u-boot.img ${OUT_PATH}/$1/
   else
     cp ./$1/u-boot.bin ${OUT_PATH}/$1/
-    cp ./$1/board/technexion/${BRD}/*.cfg.cfgtmp ${OUT_PATH}/$1/
+    cp ./$1/board/technexion/${BRDDIR}/*.cfg.cfgtmp ${OUT_PATH}/$1/
   fi
   cp ./$1/u-boot-nodtb.bin ${OUT_PATH}/$1/ || :
   cp ./$1/arch/arm/dts/*.dtb ${OUT_PATH}/$1/ || :
@@ -164,6 +165,24 @@ done
       <defaultExcludes>true</defaultExcludes>
       <caseSensitive>true</caseSensitive>
     </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>po.cheng@technexion.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

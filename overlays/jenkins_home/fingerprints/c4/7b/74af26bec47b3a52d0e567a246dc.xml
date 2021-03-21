@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:57:16.327 UTC</timestamp>
+  <md5sum>c47b74af26bec47b3a52d0e567a246dc</md5sum>
+  <fileName>modules--4.14.98-r1-pico-imx6ul-20201229071041.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-17 12:43:13.508 UTC</timestamp>
+  <original>
+    <name>ota_agl-rpi3</name>
+    <number>8</number>
+  </original>
+  <md5sum>55d846402c6b97a14eba51d101067be9</md5sum>
+  <fileName>uImage-1-4.9.50+git0+46e2d4d1bd-r0-hifiberry-amp-20190617063701.dtbo</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

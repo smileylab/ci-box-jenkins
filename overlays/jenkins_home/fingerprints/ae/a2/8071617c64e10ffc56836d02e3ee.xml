@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-07 02:55:27.884 UTC</timestamp>
+  <original>
+    <name>rescue-loader-scripts-test32</name>
+    <number>6</number>
+  </original>
+  <md5sum>aea28071617c64e10ffc56836d02e3ee</md5sum>
+  <fileName>rootfs.cpio.uboot</fileName>
+  <usages>
+    <entry>
+      <string>rescue-loader-scripts-test32</string>
+      <ranges>6</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

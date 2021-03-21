@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-08-28 09:24:40.297 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.1.15</name>
+    <number>3</number>
+  </original>
+  <md5sum>e7d14507bb6bd214d9b32b665580ca44</md5sum>
+  <fileName>imx6ul-edm1-nand_gnome.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.1.15</string>
+      <ranges>55-59</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.1.15</string>
+      <ranges>5-7</ranges>
+    </entry>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32-36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

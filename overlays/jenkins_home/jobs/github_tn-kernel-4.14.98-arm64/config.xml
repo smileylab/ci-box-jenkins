@@ -14,7 +14,7 @@ configurations: pico-imx8mq / pico-imx8mm</description>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
-      <projectUrl>https://github.com/TechNexion/linux/</projectUrl>
+      <projectUrl>https://github.com/TechNexion/linux-tn-imx.git/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.39.1">
@@ -27,8 +27,8 @@ configurations: pico-imx8mq / pico-imx8mm</description>
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/TechNexion/linux.git</url>
-        <credentialsId>tn-jenkins</credentialsId>
+        <url>ssh://rdsw@10.20.30.20/volume1/internal_git/edm/tn-kernel.git</url>
+        <credentialsId>bd96efab-dc86-4bd8-9e2f-f3ba1be2f1c9</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -51,7 +51,7 @@ configurations: pico-imx8mq / pico-imx8mm</description>
   </scm>
   <assignedNode>docker-slave/kernel</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -84,8 +84,12 @@ fi
 cp ./${CHANGELOG} ${OUT_PATH64}/
 
 # patch imx8mq-pico.dtsi/imx8mq-edm.dtsi for 1G RAM (suppose to be for 1G RAM, but for the sack of uniformity, all dts are affected)
-sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x10000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
-sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x10000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+sed -i &apos;s|size = &lt;0 0x3c000000&gt;;|size = &lt;0 0x06000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/fsl-imx8mq.dtsi
+sed -i &apos;s|size = &lt;0 0x28000000&gt;;|size = &lt;0 0x06000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/fsl-imx8mm.dtsi
+sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x06000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
+sed -i &apos;s|size = &lt;0 0x30000000&gt;;|size = &lt;0 0x06000000&gt;;|g&apos; ./arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+cat ./arch/arm64/boot/dts/freescale/fsl-imx8mq.dtsi
+cat ./arch/arm64/boot/dts/freescale/fsl-imx8mm.dtsi
 cat ./arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
 cat ./arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
 
@@ -98,14 +102,14 @@ make modules_install INSTALL_MOD_PATH=./modules
 tar cvf modules.tar ./modules
 
 cp ./arch/arm64/boot/Image ${OUT_PATH64}/
-cp ./arch/arm64/boot/dts/freescale/*{imx8m,pico,wand}*.dtb ${OUT_PATH64}/ || :
+cp ./arch/arm64/boot/dts/freescale/*{imx8m,pico,wand}*.dtb* ${OUT_PATH64}/ || :
 cp modules.tar ${OUT_PATH64}/
 </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*pico*.dtb,arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*flex*.dtb,arch/arm64/boot/Image,arch/arm64/boot/dts/freescale/*edm*.dtb,arch/arm64/boot/dts/freescale/*wand*.dtb,modules.tar,changelog*</artifacts>
+      <artifacts>arch/arm64/boot/Image,modules.tar,changelog*,arch/arm64/boot/dts/freescale/*flex*,arch/arm64/boot/dts/freescale/*pico*.dtb,arch/arm64/boot/dts/freescale/*edm*.dtb,arch/arm64/boot/dts/freescale/*xore*.dtb,arch/arm64/boot/dts/freescale/overlays/*.dtbo</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>true</fingerprint>

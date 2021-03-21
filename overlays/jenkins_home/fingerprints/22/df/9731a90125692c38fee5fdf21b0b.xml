@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-24 09:26:00.470 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next</name>
+    <number>15</number>
+  </original>
+  <md5sum>22df9731a90125692c38fee5fdf21b0b</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-flex-imx8mm-20200824080911.rootfs.sdcard.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next</string>
+      <ranges>15</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>29-30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

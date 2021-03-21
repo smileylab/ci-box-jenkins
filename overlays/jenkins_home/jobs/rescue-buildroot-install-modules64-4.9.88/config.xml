@@ -69,7 +69,7 @@
 
 set -e
 
-SOURCE64DIR=/home/jenkins/data/src/rescue64
+SOURCE64DIR=/home/jenkins/workspace/src/rescue64
 TGTDIR=/home/jenkins/build/rootfs-rescue64
 
 # set the 64bits build env

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-24 08:27:21.662 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88-lvds-dual-channel-patch</name>
+    <number>3</number>
+  </original>
+  <md5sum>a2db0c65d0c5258c255f9d7a9a98fe71</md5sum>
+  <fileName>u-boot.img</fileName>
+  <usages>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88-lvds-dual-channel-patch</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

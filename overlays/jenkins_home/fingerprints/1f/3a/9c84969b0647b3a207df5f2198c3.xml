@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-04 08:36:14.627 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>24</number>
+  </original>
+  <md5sum>1f3a9c84969b0647b3a207df5f2198c3</md5sum>
+  <fileName>uuu.cpp</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>24</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

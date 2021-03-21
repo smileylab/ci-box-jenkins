@@ -1,0 +1,37 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-30 10:47:35.733 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2017.03_4.9.88</name>
+    <number>2</number>
+  </original>
+  <md5sum>4370922a20a2373c3c176087e9205a8a</md5sum>
+  <fileName>tnrescue.its</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>99,102</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88-lvds-dual-channel-patch</string>
+      <ranges>3-4</ranges>
+    </entry>
+    <entry>
+      <string>github_uboot-v2017.03_4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>3,7</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-lvds-dual-channel-patch</string>
+      <ranges>6-7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

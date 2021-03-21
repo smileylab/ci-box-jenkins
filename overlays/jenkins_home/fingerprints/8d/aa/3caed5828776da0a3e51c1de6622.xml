@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-02-18 06:50:58.116 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>22</number>
+  </original>
+  <md5sum>8daa3caed5828776da0a3e51c1de6622</md5sum>
+  <fileName>imx6dl-tep5_15inch.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>99</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88_internal</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.9.88</string>
+      <ranges>31-32</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-no-tslib</string>
+      <ranges>3</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

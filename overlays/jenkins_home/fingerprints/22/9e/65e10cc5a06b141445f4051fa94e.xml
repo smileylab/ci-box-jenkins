@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-31 05:07:07.114 UTC</timestamp>
+  <original>
+    <name>gen_imx8m-uboot-with-firmware_uboot-v2017.03-4.9.88</name>
+    <number>38</number>
+  </original>
+  <md5sum>229e65e10cc5a06b141445f4051fa94e</md5sum>
+  <fileName>flash.bin</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx8m-uboot-with-firmware_uboot-v2017.03-4.9.88</string>
+      <ranges>38</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.9.88-imx8m</string>
+      <ranges>71</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

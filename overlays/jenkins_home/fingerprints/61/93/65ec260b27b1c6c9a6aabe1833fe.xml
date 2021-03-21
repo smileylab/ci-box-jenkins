@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-10 08:27:16.814 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build</name>
+    <number>101</number>
+  </original>
+  <md5sum>619365ec260b27b1c6c9a6aabe1833fe</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx6ul-20200810065954.rootfs.tar.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build</string>
+      <ranges>101</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

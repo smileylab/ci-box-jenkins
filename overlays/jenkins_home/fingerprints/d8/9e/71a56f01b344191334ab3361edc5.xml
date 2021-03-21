@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-06 03:01:08.292 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>126</number>
+  </original>
+  <md5sum>d89e71a56f01b344191334ab3361edc5</md5sum>
+  <fileName>tn-image-rescue-fitimage-pico-imx6ul-20210106022558.rootfs.wic</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

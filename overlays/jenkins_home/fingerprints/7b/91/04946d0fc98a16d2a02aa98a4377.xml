@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-02 04:42:50.255 UTC</timestamp>
+  <original>
+    <name>gen_qca_firmware</name>
+    <number>15</number>
+  </original>
+  <md5sum>7b9104946d0fc98a16d2a02aa98a4377</md5sum>
+  <fileName>notice.txt</fileName>
+  <usages>
+    <entry>
+      <string>gen_qca_firmware</string>
+      <ranges>15</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

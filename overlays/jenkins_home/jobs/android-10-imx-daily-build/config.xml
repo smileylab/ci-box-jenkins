@@ -1,0 +1,105 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Android 9 (pie) daily build for imx8</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>docker-slave/android-10</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -e
+
+SSD_SRC_DIR=/home/jenkins/output
+
+cd ${SSD_SRC_DIR}
+if [ ! -d Documents ]; then
+	git clone -b android-10 --depth=1 https://github.com/technexion-android/Documents.git
+fi
+cd -
+
+git config --global user.email &quot;wig.cheng@technexion.com&quot;
+git config --global user.name &quot;Wig Cheng&quot;
+
+cd ${HOME}
+mkdir -p test
+cd test
+echo&quot;&quot; | repo init -u https://github.com/technexion-android/manifest -b tn-android-10.0.0-2.6.0_8m-next --depth 1
+repo sync --force-sync -j12
+
+###########################################################
+#														  #
+# EDM-G-IMX8MP                                            #
+#														  #
+###########################################################
+
+# hdmi
+source cookers/env.bash.imx8.edm-g-imx8mp.wandboard.hdmi
+echo &apos;yes&apos; | merge_restricted_extras
+
+## WIFI ENABLED
+cp ${SSD_SRC_DIR}/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx8m/edm_g_imx8mp/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 qca9377-3_firmware_20180927-1/qca9377
+mv qca9377-3_firmware_20180927-1/qca9377 device/fsl/imx8m/edm_g_imx8mp/wifi-firmware/
+mkdir -p device/fsl/imx8m/edm_g_imx8mp/wifi-firmware/qca9377/wlan/qca9377/
+mv device/fsl/imx8m/edm_g_imx8mp/wifi-firmware/qca9377/wlan/qcom_cfg.ini device/fsl/imx8m/edm_g_imx8mp/wifi-firmware/qca9377/wlan/qca9377/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+mkdir -p device/fsl/imx8m/edm_g_imx8mp/bluetooth/qca/
+cp -rv ${SSD_SRC_DIR}/nvm_tlv_3.2.bin device/fsl/imx8m/edm_g_imx8mp/bluetooth/qca/
+cp -rv ${SSD_SRC_DIR}/rampatch_tlv_3.2.tlv device/fsl/imx8m/edm_g_imx8mp/bluetooth/qca/
+
+# hdmi
+cook -j20
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv ${SSD_SRC_DIR}/Documents/txt/README.txt auto_test/
+cp -rv ${SSD_SRC_DIR}/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv ${SSD_SRC_DIR}/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv ${SSD_SRC_DIR}/uuu_tools/libusb-1.0.dll auto_test/
+cp -rv ${SSD_SRC_DIR}/uuu_tools/uuu auto_test/
+cp -rv ${SSD_SRC_DIR}/uuu_tools/uuu.exe auto_test/
+cp -rv ${SSD_SRC_DIR}/uuu_tools/UUU.pdf auto_test/
+cp -rv ${SSD_SRC_DIR}/uuu_tools/zadig-2.4.exe auto_test/
+mv auto_test edm-g-imx8mp_wandboard_android-10.0.0-2.6.0_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;
+zip -R -9 edm-g-imx8mp_wandboard_android-10.0.0-2.6.0_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip edm-g-imx8mp_wandboard_android-10.0.0-2.6.0_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/*
+cp edm-g-imx8mp_wandboard_android-10.0.0-2.6.0_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;.zip ${SSD_SRC_DIR}
+rm -rf edm-g-imx8mp_wandboard_android-10.0.0-2.6.0_QCA9377_hdmi-1920x1080_&quot;$release_date&quot;/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.20">
+      <recipients>Po Cheng&lt;po.cheng@technexion.com&gt; Wig Cheng&lt;wig.cheng@technexion.com&gt;</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

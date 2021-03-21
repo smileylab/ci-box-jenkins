@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-12-13 07:41:26.559 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx6</name>
+    <number>102</number>
+  </original>
+  <md5sum>4cb8f84f7ecb1a069870dbb9ff0733f1</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx6-20191213070111.rootfs.ext4</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx6</string>
+      <ranges>102</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

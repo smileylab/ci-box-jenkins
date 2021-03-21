@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-15 06:02:14.600 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx6</name>
+    <number>82</number>
+  </original>
+  <md5sum>36df6d9fff4c1e37881331063d174f68</md5sum>
+  <fileName>uEnv.txt</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx7d</string>
+      <ranges>34-35</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

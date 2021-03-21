@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-15 11:02:42.832 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx7d</name>
+    <number>34</number>
+  </original>
+  <md5sum>928815627afd9a379525d1bcb4ab234a</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx7-20190715101218.rootfs.ext4</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx7d</string>
+      <ranges>34-35</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

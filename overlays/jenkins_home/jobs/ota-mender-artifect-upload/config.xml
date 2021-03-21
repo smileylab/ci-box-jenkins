@@ -1,0 +1,91 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Copy .mender archived artifact files from ready OTA mender built jobs, and upload to mender server using mender-artifact and mender-client utilities</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>3</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>tn/mender-util</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.39.1">
+      <project>ota-mender-sumo_4.14.y_GA-internal-build</project>
+      <filter>deploy/images/*/*.mender</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x -e
+
+MENDER_SERVER_IP=&quot;10.88.88.93&quot;
+MENDER_SERVER=&quot;mender.technexion.net&quot;
+MENDER_USERNAME=&quot;admin@technexion.com&quot;
+MENDER_PASSWORD=&quot;password=TN&quot;
+
+echo &quot;$MENDER_SERVER_IP     $MENDER_SERVER&quot; &gt;&gt; /etc/hosts
+
+mv ${WORKSPACE}/deploy/images/*/*.mender ./
+
+# find the name of the disk image to flash via ums
+# e.g. fsl-image-qt5-validation-imx-pico-imx7-20200228211014.rootfs.sdcard.bz2
+ARTIFACTLIST=$(ls *.mender)
+ARTIFACTFILES=( $ARTIFACTLIST )
+UPLOADFILES=()
+
+echo &quot;First: ${ARTIFACTFILES[0]}&quot;
+echo &quot;Second: ${ARTIFACTFILES[1]}&quot;
+
+for ((i=0; i&lt;${#ARTIFACTFILES[@]}; i+=2)); do
+
+if [ ${#ARTIFACTFILES[i]} -gt ${#ARTIFACTFILES[i+1]} ]; then
+    rm -f ${ARTIFACTFILES[i+1]}
+    UPLOADFILES+=( &quot;${ARTIFACTFILES[i]}&quot; )
+    #echo &quot;${ARTIFACTFILES[i]%.mender}&quot; &gt;&gt; ./MENDER_ARTIFACT_NAME
+elif [ ${#ARTIFACTFILES[i+1]} -gt ${#ARTIFACTFILES[i]} ]; then
+    rm -f ${ARTIFACTFILES[i]}
+    UPLOADFILES+=( &quot;${ARTIFACTFILES[i+1]}&quot; )
+    #echo &quot;${ARTIFACTFILES[i+1]%.mender}&quot; &gt;&gt; ./MENDER_ARTIFACT_NAME
+fi
+done
+
+#cat ./MENDER_ARTIFACT_NAME
+echo &quot;${UPLOADFILES[@]}&quot;
+
+# -k to skip certificate check
+mender-cli -k login --server https://$MENDER_SERVER --username $MENDER_USERNAME --password $MENDER_PASSWORD
+
+for ul in ${UPLOADFILES[@]}; do
+echo &quot;upload $ul to $MENDER_SERVER&quot;
+# -k to skip certificate check
+mender-cli -k artifacts --server https://$MENDER_SERVER upload $ul
+sleep 30
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-15 11:02:44.151 UTC</timestamp>
+  <original>
+    <name>yocto-rocko_4.9.y_GA-build_pico-imx7d</name>
+    <number>34</number>
+  </original>
+  <md5sum>a865f52b8c30594599cf042d194f62ea</md5sum>
+  <fileName>modules--4.9.88-r0-pico-imx7-20190715083451.tgz</fileName>
+  <usages>
+    <entry>
+      <string>yocto-rocko_4.9.y_GA-build_pico-imx7d</string>
+      <ranges>34-35</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

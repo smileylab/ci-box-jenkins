@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-22 06:04:37.883 UTC</timestamp>
+  <md5sum>4347bcda7cad9fbcee0df3df97b9c4df</md5sum>
+  <fileName>mx8qx-ahab-container.img</fileName>
+  <usages>
+    <entry>
+      <string>gen_imx-ddrhdmi-8.1</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

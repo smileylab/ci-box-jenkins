@@ -5,6 +5,14 @@
 branch tn-imx_v2016.03_4.1.15_2.0.0_ga</description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
       <projectUrl>https://github.com/TechNexion/u-boot-edm/</projectUrl>
       <displayName></displayName>
@@ -114,7 +122,7 @@ build_uboot() {
     cp ./$1/u-boot.img ${OUT_PATH}/$1/
   else
     cp ./$1/u-boot.bin ${OUT_PATH}/$1/
-    cp ./$1/board/technexion/${BRD}/*.cfg.cfgtmp ${OUT_PATH}/$1/
+    #cp ./$1/board/technexion/${BRDDIR}/*.cfg.cfgtmp ${OUT_PATH}/$1/
   fi
   cp ./$1/u-boot-nodtb.bin ${OUT_PATH}/$1/ || :
   cp ./$1/arch/arm/dts/*.dtb ${OUT_PATH}/$1/ || :
@@ -148,7 +156,7 @@ done
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>SPL,u-boot.img</artifacts>
+      <artifacts>*/SPL,*/spl/u-boot-spl.bin,*/u-boot.bin,*/u-boot.img,*/u-boot-nodtb.bin,*/tools/mkimage,board/technexion/*/*.its,changelog*</artifacts>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
@@ -157,9 +165,22 @@ done
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.Mailer plugin="mailer@1.20">
       <recipients>po.cheng@technexion.com</recipients>
-      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

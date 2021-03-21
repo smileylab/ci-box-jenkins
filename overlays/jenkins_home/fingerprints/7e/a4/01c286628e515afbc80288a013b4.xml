@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-10-25 21:55:41.34 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.98</name>
+    <number>24</number>
+  </original>
+  <md5sum>7ea401c286628e515afbc80288a013b4</md5sum>
+  <fileName>SPL</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-06 02:57:50.135 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>7</number>
+  </original>
+  <md5sum>75ab015278e65c87977bbb9b9dde1b8d</md5sum>
+  <fileName>image-rawnand.json</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

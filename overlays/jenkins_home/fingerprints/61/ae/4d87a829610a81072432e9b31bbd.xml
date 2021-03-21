@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-12-06 07:51:29.847 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88-arm64</name>
+    <number>14</number>
+  </original>
+  <md5sum>61ae4d87a829610a81072432e9b31bbd</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>rescue-loader-scripts-test64</string>
+      <ranges>7-8</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

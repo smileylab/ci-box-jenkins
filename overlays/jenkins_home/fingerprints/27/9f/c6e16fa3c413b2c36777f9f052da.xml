@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-26 06:23:53.128 UTC</timestamp>
+  <original>
+    <name>android-pie_9_image-build-scripts</name>
+    <number>121</number>
+  </original>
+  <md5sum>279fc6e16fa3c413b2c36777f9f052da</md5sum>
+  <fileName>pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_20200825.img.xz</fileName>
+  <usages>
+    <entry>
+      <string>android-pie_9_image-build-scripts</string>
+      <ranges>121</ranges>
+    </entry>
+    <entry>
+      <string>android-pie_9_upload_image</string>
+      <ranges>98</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

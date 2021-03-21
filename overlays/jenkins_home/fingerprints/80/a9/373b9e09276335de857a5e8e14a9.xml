@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-05-06 02:57:49.993 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>7</number>
+  </original>
+  <md5sum>80a9373b9e09276335de857a5e8e14a9</md5sum>
+  <fileName>image-emmc.json</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

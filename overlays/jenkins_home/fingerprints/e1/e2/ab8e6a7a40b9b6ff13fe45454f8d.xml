@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-08-21 09:41:43.933 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>11</number>
+  </original>
+  <md5sum>e1e2ab8e6a7a40b9b6ff13fe45454f8d</md5sum>
+  <fileName>nand_burn_loader.lst</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>14,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>5,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

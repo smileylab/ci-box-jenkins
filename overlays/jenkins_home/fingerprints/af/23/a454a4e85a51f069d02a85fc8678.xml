@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-29 14:56:54.248 UTC</timestamp>
+  <md5sum>af23a454a4e85a51f069d02a85fc8678</md5sum>
+  <fileName>modules--4.14.98-r1-edm-imx6-20201229074715.tgz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>125-126</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

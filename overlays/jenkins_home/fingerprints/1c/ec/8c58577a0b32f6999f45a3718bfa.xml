@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-29 03:56:18.656 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.78-arm64</name>
+    <number>3</number>
+  </original>
+  <md5sum>1cec8c58577a0b32f6999f45a3718bfa</md5sum>
+  <fileName>imx8mq-pico-pi-lcdif-sn65dsi84-hj070na.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mq</string>
+      <ranges>6-10</ranges>
+    </entry>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>11-14</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

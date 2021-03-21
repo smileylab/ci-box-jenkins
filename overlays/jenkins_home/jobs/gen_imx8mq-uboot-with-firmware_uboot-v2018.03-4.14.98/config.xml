@@ -122,5 +122,5 @@ pipeline {
   </definition>
   <triggers/>
   <quietPeriod>240</quietPeriod>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
 </flow-definition>

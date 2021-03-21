@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-04-10 07:34:38.246 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.98_GA-virtualization-internal</name>
+    <number>19</number>
+  </original>
+  <md5sum>e4e0597c0efa5680edfdd4c6b5a41a5d</md5sum>
+  <fileName>imx-boot-pico-imx8mm-sd.bin</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.98_GA-virtualization-internal</string>
+      <ranges>19,23,31</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

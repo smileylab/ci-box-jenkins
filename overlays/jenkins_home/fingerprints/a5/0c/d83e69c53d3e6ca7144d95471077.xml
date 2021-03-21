@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:26:09.452 UTC</timestamp>
+  <original>
+    <name>yocto-zeus_5.4.70_GA-internal-nightly-build</name>
+    <number>92</number>
+  </original>
+  <md5sum>a50cd83e69c53d3e6ca7144d95471077</md5sum>
+  <fileName>SPL-pico-imx6-2020.04-r0</fileName>
+  <usages>
+    <entry>
+      <string>yocto-zeus_5.4.70_GA-internal-nightly-build</string>
+      <ranges>92</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

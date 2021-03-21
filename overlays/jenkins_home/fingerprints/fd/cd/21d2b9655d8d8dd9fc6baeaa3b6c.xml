@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-07 05:54:10.848 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.9.88</name>
+    <number>33</number>
+  </original>
+  <md5sum>fdcd21d2b9655d8d8dd9fc6baeaa3b6c</md5sum>
+  <fileName>modules.tar</fileName>
+  <usages>
+    <entry>
+      <string>github_tn-kernel-4.9.88</string>
+      <ranges>33</ranges>
+    </entry>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.9.88-no-tslib</string>
+      <ranges>5,7,13-15</ranges>
+    </entry>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.9.88</string>
+      <ranges>24-26</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

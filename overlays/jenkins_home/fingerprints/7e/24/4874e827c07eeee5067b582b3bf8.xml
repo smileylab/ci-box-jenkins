@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-08-28 09:24:39.996 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.1.15</name>
+    <number>3</number>
+  </original>
+  <md5sum>7e244874e827c07eeee5067b582b3bf8</md5sum>
+  <fileName>imx6dl-tek3.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.1.15</string>
+      <ranges>55-59</ranges>
+    </entry>
+    <entry>
+      <string>github_tn-kernel-4.1.15</string>
+      <ranges>5-7</ranges>
+    </entry>
+    <entry>
+      <string>rescue-imximage-4.1.15</string>
+      <ranges>32-36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

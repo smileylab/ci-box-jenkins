@@ -53,7 +53,7 @@
 
 set -e
 
-SOURCE32DIR=/home/jenkins/data/src/rescue32
+SOURCE32DIR=/home/jenkins/workspace/src/rescue32
 TGTDIR=/home/jenkins/build/rootfs-rescue32
 
 # set the 32bits build env

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-01-21 09:58:45.48 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-install-modules32-4.9.88</name>
+    <number>26</number>
+  </original>
+  <md5sum>51049b2810f91b74c0a58b9381828cd9</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.9.88</string>
+      <ranges>129</ranges>
+    </entry>
+    <entry>
+      <string>rescue-buildroot-install-modules32-4.9.88</string>
+      <ranges>26</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

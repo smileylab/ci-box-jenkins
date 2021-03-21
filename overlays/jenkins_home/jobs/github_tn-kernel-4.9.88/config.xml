@@ -53,7 +53,7 @@ configurations: pico-imx6/6ul/7&#xd;
   </scm>
   <assignedNode>docker-slave/kernel</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
@@ -81,6 +81,18 @@ else
 fi
 cp ./${CHANGELOG} ${OUT_PATH}/
 
+# patch imx8mq-pico.dtsi/imx8mq-edm.dtsi for 1G RAM (suppose to be for 1G RAM, but for the sack of uniformity, all dts are affected)
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00010000&gt;;|g&apos; ./arch/arm/boot/dts/imx7d.dtsi
+cat ./arch/arm/boot/dts/imx7d.dtsi
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00010000&gt;;|g&apos; ./arch/arm/boot/dts/imx6dl.dtsi
+cat ./arch/arm/boot/dts/imx6dl.dtsi
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00010000&gt;;|g&apos; ./arch/arm/boot/dts/imx6q.dtsi
+cat ./arch/arm/boot/dts/imx6q.dtsi
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00010000&gt;;|g&apos; ./arch/arm/boot/dts/imx6sl.dtsi
+cat ./arch/arm/boot/dts/imx6sl.dtsi
+sed -i &apos;s|size = &lt;0x14000000&gt;;|size = &lt;0x00010000&gt;;|g&apos; ./arch/arm/boot/dts/imx6sx.dtsi
+cat ./arch/arm/boot/dts/imx6sx.dtsi
+
 # build 32bit imx6/7 soc
 . buildenv.sh 32
 make distclean
@@ -97,7 +109,7 @@ cp ./modules.tar ${OUT_PATH}/
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>arch/arm/boot/zImage,arch/arm/boot/dts/*edm1*.dtb,arch/arm/boot/dts/*pico*.dtb,arch/arm/boot/dts/*tep*.dtb,arch/arm/boot/dts/*tek*.dtb,modules.tar,changelog</artifacts>
+      <artifacts>arch/arm/boot/zImage,arch/arm/boot/dts/*edm*.dtb,arch/arm/boot/dts/*pico*.dtb,arch/arm/boot/dts/*tep*.dtb,arch/arm/boot/dts/*tek*.dtb,modules.tar,changelog</artifacts>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>

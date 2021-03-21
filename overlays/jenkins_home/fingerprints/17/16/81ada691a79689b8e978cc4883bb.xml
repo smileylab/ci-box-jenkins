@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-08 02:57:10.418 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>24</number>
+  </original>
+  <md5sum>171681ada691a79689b8e978cc4883bb</md5sum>
+  <fileName>sd_burn_all.clst</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>24,27,33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

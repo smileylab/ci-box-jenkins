@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-10-25 21:55:33.629 UTC</timestamp>
+  <original>
+    <name>rescue-buildroot-install-modules32-4.14.98</name>
+    <number>23</number>
+  </original>
+  <md5sum>ddad871f26b263d6ec47d7cfe4f1d31e</md5sum>
+  <fileName>rootfs.cpio.xz</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.98</string>
+      <ranges>36</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

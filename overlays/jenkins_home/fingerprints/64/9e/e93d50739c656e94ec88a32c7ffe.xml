@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-26 09:39:13.282 UTC</timestamp>
+  <original>
+    <name>uuu</name>
+    <number>33</number>
+  </original>
+  <md5sum>649ee93d50739c656e94ec88a32c7ffe</md5sum>
+  <fileName>progress.marks</fileName>
+  <usages>
+    <entry>
+      <string>uuu</string>
+      <ranges>33</ranges>
+    </entry>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>32-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

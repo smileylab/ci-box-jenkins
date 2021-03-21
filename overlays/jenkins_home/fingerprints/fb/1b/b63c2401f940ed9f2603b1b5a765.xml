@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 06:29:58.248 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next-package-release</name>
+    <number>30</number>
+  </original>
+  <md5sum>fb1bb63c2401f940ed9f2603b1b5a765</md5sum>
+  <fileName>xore-imx8mm_xore-wizard-imx8mm_yocto-2.5-qt5_qca9377_mipi5-1280x720_20210217.zip</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>30</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

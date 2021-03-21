@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-12-03 17:41:01.676 UTC</timestamp>
+  <original>
+    <name>rescue-sumo_4.14.98_GA-next-internal</name>
+    <number>97</number>
+  </original>
+  <md5sum>5a83c504e4e1a7fdbd6193ea0f733952</md5sum>
+  <fileName>Image--4.14.98-r1-imx8mq-pico-pi-dcss-ili9881c-20201203063349.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-sumo_4.14.98_GA-next-internal</string>
+      <ranges>108,111,118,122,125-126,128,130,132</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

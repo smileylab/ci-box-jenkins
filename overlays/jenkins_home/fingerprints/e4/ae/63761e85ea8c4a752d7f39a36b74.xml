@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-03-04 08:54:32.3 UTC</timestamp>
+  <original>
+    <name>yocto-sumo_4.14.y_GA-build-next</name>
+    <number>28</number>
+  </original>
+  <md5sum>e4ae63761e85ea8c4a752d7f39a36b74</md5sum>
+  <fileName>fsl-image-qt5-validation-imx-pico-imx6-20210225090235.rootfs.sdcard.bz2</fileName>
+  <usages>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next</string>
+      <ranges>28</ranges>
+    </entry>
+    <entry>
+      <string>yocto-sumo_4.14.y_GA-build-next-package-release</string>
+      <ranges>31-33</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

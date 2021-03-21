@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-10 05:32:14.621 UTC</timestamp>
+  <md5sum>d84ba087c850741703f5f6f6026acd72</md5sum>
+  <fileName>fitImage</fileName>
+  <usages>
+    <entry>
+      <string>ota_agl-rpi3</string>
+      <ranges>6-7</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

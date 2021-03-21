@@ -63,6 +63,16 @@ do
     	CARD_SIZE=3
     	OUTPUT_DL_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/imx6/imx6dl/g&apos;)
     	OUTPUT_Q_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/imx6/imx6q/g&apos;)
+    elif [ $(echo $ZIPFILE | grep &quot;tep1010&quot;) ];then
+    	PLATFORM=&quot;imx6&quot;
+    	CARD_SIZE=3
+    	OUTPUT_DL_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/tep1010/tep1010-imx6dl/g&apos;)
+    	OUTPUT_Q_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/tep1010/tep1010-imx6q/g&apos;)
+    elif [ $(echo $ZIPFILE | grep &quot;tep1560&quot;) ];then
+    	PLATFORM=&quot;imx6&quot;
+    	CARD_SIZE=3
+    	OUTPUT_DL_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/tep1560/tep1560-imx6dl/g&apos;)
+    	OUTPUT_Q_FILE=$(echo $OUTPUT_FILE | sed -e &apos;s/tep1560/tep1560-imx6q/g&apos;)
     fi
 
 	echo &quot;zipfile is $ZIPFILE&quot;
@@ -192,7 +202,7 @@ do
 		echo $CHECKSUM &gt; &quot;${TARGET_FOLDER}.zip&quot;.txt
 	fi
 	sync
-	xz -9 &quot;$OUTPUT_FILE&quot;
+	xz &quot;$OUTPUT_FILE&quot;
 	sync
 done</command>
     </hudson.tasks.Shell>
@@ -211,6 +221,19 @@ done</command>
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

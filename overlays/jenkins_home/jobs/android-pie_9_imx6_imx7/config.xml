@@ -32,18 +32,20 @@ cd -
 cd ${HOME}
 mkdir -p test
 cd test
-repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_2.2.0-ga_tn1.0 --depth 1
+repo init -u https://github.com/technexion-android/manifest -b tn-p9.0.0_2.2.0-ga --depth 1
 repo sync --force-sync -j12
 
 ###########################################################
 #														  #
-# PICO-IMX6 DWARF             #
+# PICO-IMX6 NYMPH             #
 #														  #
 ###########################################################
 
 # hdmi
-source cookers/env.bash.imx6q.pico-imx6.dwarf.hdmi
+source cookers/env.bash.imx6q.pico-imx6.nymph.hdmi
+
 merge_restricted_extras
+
 
 ## WIFI ENABLED
 cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
@@ -58,48 +60,6 @@ rm -rf qca9377-3_firmware_20180927.zip
 cp -rv /home/jenkins/output/nvm_tlv_3.2.bin device/fsl/imx6dq/pico_imx6/bluetooth/
 cp -rv /home/jenkins/output/rampatch_tlv_3.2.tlv device/fsl/imx6dq/pico_imx6/bluetooth/
 
-# hdmi
-cook -j12
-
-release_date=$(date &quot;+%Y%m%d&quot;)
-gen_mp_images
-cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
-cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
-mv auto_test pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;
-zip -r pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;.zip pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;/
-cp pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;.zip /home/jenkins/output/
-rm -rf pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;
-
-# 7&quot; lvds image
-source cookers/env.bash.imx6dl.pico-imx6.dwarf.lvds-7-inch
-cook -j12
-
-release_date=$(date &quot;+%Y%m%d&quot;)
-gen_mp_images
-cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
-cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
-
-mv auto_test pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;
-zip -r pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;.zip pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;/
-cp pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;.zip /home/jenkins/output/
-rm -rf pico-imx6_dwarf_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;
-
-sync
-
-###########################################################
-#														  #
-# PICO-IMX6 NYMPH             #
-#														  #
-###########################################################
-
-# hdmi
-source cookers/env.bash.imx6q.pico-imx6.nymph.hdmi
 cook -j12
 
 release_date=$(date &quot;+%Y%m%d&quot;)
@@ -132,33 +92,10 @@ rm -rf pico-imx6_nymph_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_
 
 sync
 
-###########################################################
-#														  #
-# PICO-IMX6 HOBBIT            #
-#														  #
-###########################################################
-
-# lcd-5-inch
-source cookers/env.bash.imx6q.pico-imx6.hobbit.lcd-5-inch
-cook -j12
-
-release_date=$(date &quot;+%Y%m%d&quot;)
-gen_mp_images
-cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
-cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
-mv auto_test pico-imx6_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-zip -r pico-imx6_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip pico-imx6_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;/
-cp pico-imx6_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
-rm -rf pico-imx6_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-
-sync
 
 ###########################################################
 #														  #
-# PICO-IMX6 PI                #
+# PICO-IMX6 PI                                            #
 #														  #
 ###########################################################
 
@@ -180,15 +117,169 @@ rm -rf pico-imx6_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&
 
 sync
 
+throw
+
 ###########################################################
 #														  #
-# PICO-IMX7 DWARF             #
+# EDM-IMX6 FAIRY                                          #
 #														  #
 ###########################################################
 
-# 5&quot; lcd image
-source cookers/env.bash.imx7d.pico-imx7.dwarf.lcd-5-inch
+# hdmi
+source cookers/env.bash.imx6q.edm1-imx6.fairy.hdmi
+
+## WIFI ENABLED
+cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
+unzip qca9377-3_firmware_20180927.zip
+mkdir -p device/fsl/imx6dq/edm1_imx6/wifi-firmware
+mv qca9377-3_firmware_20180927-1/QCA9377 device/fsl/imx6dq/edm1_imx6/wifi-firmware/
+
+rm -rf qca9377-3_firmware_20180927-1/
+rm -rf qca9377-3_firmware_20180927.zip
+
+## BT ENABLED
+cp -rv /home/jenkins/output/nvm_tlv_3.2.bin device/fsl/imx6dq/edm1_imx6/bluetooth/
+cp -rv /home/jenkins/output/rampatch_tlv_3.2.tlv device/fsl/imx6dq/edm1_imx6/bluetooth/
+
+
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;
+zip -r edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;.zip edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;/
+cp edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_hdmi-1280x720_&quot;$release_date&quot;
+
+sync
+
+# 5&quot; lcd
+source cookers/env.bash.imx6q.edm1-imx6.fairy.lcd-5-inch
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
+zip -r edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;/
+cp edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf edm1-cf-imx6_fairy_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
+
+sync
+
+
+###########################################################
+#														  #
+# EDM-IMX6 TC0700                                         #
+#														  #
+###########################################################
+source cookers/env.bash.imx6q.edm1-imx6.fairy.tc0700
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test tc0700_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;
+zip -r tc0700_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;.zip tc0700_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;/
+cp tc0700_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf tc0700_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1024x600_&quot;$release_date&quot;
+
+sync
+
+
+###########################################################
+#														  #
+# EDM-IMX6 TC1000                                         #
+#														  #
+###########################################################
+source cookers/env.bash.imx6q.edm1-imx6.fairy.tc1000
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test tc1000_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;
+zip -r tc1000_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;.zip tc1000_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;/
+cp tc1000_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf tc1000_edm1-cf-imx6_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;
+
+sync
+
 throw
+
+###########################################################
+#														  #
+# TEP5-IMX6                                               #
+#														  #
+###########################################################
+
+# 10.1&quot;
+
+source cookers/env.bash.imx6q.hmi.tep5-imx6.lvds-10-inch
+
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test tep1010_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;
+zip -r tep1010_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;.zip tep1010_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;/
+cp tep1010_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf tep1010_android-9.0.0-2.2.0_QCA9377_lvds-1280x800_&quot;$release_date&quot;
+
+
+# 15.6&quot;
+source cookers/env.bash.imx6q.hmi.tep5-imx6.lvds-15-inch
+
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test tep1560_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_&quot;$release_date&quot;
+zip -r tep1560_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_&quot;$release_date&quot;.zip tep1560_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_&quot;$release_date&quot;/
+cp tep1560_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf tep1560_android-9.0.0-2.2.0_QCA9377_lvds-1366x768_&quot;$release_date&quot;
+
+
+
+sync
+
+throw
+
+###########################################################
+#														  #
+# PICO-IMX7 NYMPH             #
+#														  #
+###########################################################
+
+# vga 1024x768 image
+source cookers/env.bash.imx7d.pico-imx7.nymph.vga
 
 ## WIFI ENABLED
 cp /home/jenkins/output/qca9377-3_firmware_20180927.zip .
@@ -203,31 +294,6 @@ rm -rf qca9377-3_firmware_20180927.zip
 cp -rv /home/jenkins/output/nvm_tlv_3.2.bin device/fsl/imx7d/pico_imx7/bluetooth/
 cp -rv /home/jenkins/output/rampatch_tlv_3.2.tlv device/fsl/imx7d/pico_imx7/bluetooth/
 
-# 5&quot; lcd image
-cook -j12
-
-release_date=$(date &quot;+%Y%m%d&quot;)
-gen_mp_images
-cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
-cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
-mv auto_test pico-imx7_dwarf_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-zip -r pico-imx7_dwarf_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip pico-imx7_dwarf_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;/
-cp pico-imx7_dwarf_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
-rm -rf pico-imx7_dwarf_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-
-sync
-
-###########################################################
-#														  #
-# PICO-IMX7 NYMPH             #
-#														  #
-###########################################################
-
-# vga 1024x768 image
-source cookers/env.bash.imx7d.pico-imx7.nymph.vga
 cook -j12
 
 release_date=$(date &quot;+%Y%m%d&quot;)
@@ -244,29 +310,6 @@ rm -rf pico-imx7_nymph_android-9.0.0-2.2.0_QCA9377_vga-640x480_&quot;$release_da
 
 sync
 
-###########################################################
-#														  #
-# PICO-IMX7 HOBBIT            #
-#														  #
-###########################################################
-
-# 5&quot; lcd image
-source cookers/env.bash.imx7d.pico-imx7.hobbit.lcd-5-inch
-cook -j12
-
-release_date=$(date &quot;+%Y%m%d&quot;)
-gen_mp_images
-cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
-cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
-cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
-mv auto_test pico-imx7_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-zip -r pico-imx7_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip pico-imx7_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;/
-cp pico-imx7_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
-rm -rf pico-imx7_hobbit_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
-
-sync
 
 ###########################################################
 #														  #
@@ -290,7 +333,65 @@ zip -r pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&
 cp pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
 rm -rf pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
 
+
+# 5&quot; lcd with voice-hat image
+source cookers/env.bash.imx7d.pico-imx7.pi.lcd-5-inch-voicehat
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_&quot;$release_date&quot;
+zip -r pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_&quot;$release_date&quot;.zip pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_&quot;$release_date&quot;/
+cp pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf pico-imx7_pi_android-9.0.0-2.2.0_QCA9377_lcd-800x480_voicehat_&quot;$release_date&quot;
+
 sync
+
+throw
+
+###########################################################
+#														  #
+# TEP1-IMX7                                               #
+#														  #
+###########################################################
+
+# 5&quot; lcd image
+source cookers/env.bash.imx7d.hmi.tep1-imx7.lcd-5-inch
+
+## WIFI ENABLED
+cp /home/jenkins/output/ath10k_firmware.tar.gz .
+tar zxvf ath10k_firmware.tar.gz
+mv qca9377-5_wifi_firmware device/fsl/imx7d/tep1_imx7/
+
+rm -rf ath10k_firmware.tar.gz
+
+## BT ENABLED
+cp -rv /home/jenkins/output/rampatch_usb_00000302.bin device/fsl/imx7d/tep1_imx7/bluetooth/
+cp -rv /home/jenkins/output/nvm_usb_00000302.bin device/fsl/imx7d/tep1_imx7/bluetooth/
+
+
+
+cook -j12
+
+release_date=$(date &quot;+%Y%m%d&quot;)
+gen_mp_images
+cp -rv /home/jenkins/output/Documents/txt/README.txt auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_Release-Note_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/Android-Pie_User-Manual_*.pdf auto_test/
+cp -rv /home/jenkins/output/Documents/pdf/PreBuilt_OS_Image_Installation_Guide_*.pdf auto_test/
+cp -rv /home/jenkins/output/uuu_tools/imx6_imx7_tools/Win32DiskImager-0.9.5-binary.zip auto_test/
+mv auto_test tep1-imx7_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
+zip -r tep1-imx7_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip tep1-imx7_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;/
+cp tep1-imx7_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;.zip /home/jenkins/output/
+rm -rf tep1-imx7_android-9.0.0-2.2.0_QCA9377_lcd-800x480_&quot;$release_date&quot;
+
+sync
+
 
 rm -rf /home/jenkins/output/Documents
 
@@ -299,7 +400,7 @@ rm -rf /home/jenkins/output/Documents
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>*.zip</artifacts>
+      <artifacts>/home/jenkins/output/*.zip</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
@@ -311,6 +412,19 @@ rm -rf /home/jenkins/output/Documents
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">

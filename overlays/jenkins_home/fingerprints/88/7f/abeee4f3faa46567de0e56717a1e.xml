@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-03-25 10:14:53.566 UTC</timestamp>
+  <original>
+    <name>github_tn-kernel-4.14.78-arm64</name>
+    <number>1</number>
+  </original>
+  <md5sum>887fabeee4f3faa46567de0e56717a1e</md5sum>
+  <fileName>pico-imx8m-dual-sn65dsi84.dtb</fileName>
+  <usages>
+    <entry>
+      <string>rescue-diskimage-4.14.78-imx8mm</string>
+      <ranges>4-5</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-11 05:37:01.773 UTC</timestamp>
+  <md5sum>ad895826ff2c6769624444c005e4148f</md5sum>
+  <fileName>imx7d-colibri-emmc-eval-v3--4.20.14+git0+8590c75f56_8ccc4bfd08-r0-colibri-imx7-20190411035630.dtb</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>2,4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

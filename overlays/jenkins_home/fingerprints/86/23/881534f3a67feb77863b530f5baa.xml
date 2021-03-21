@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-04-20 09:51:53.941 UTC</timestamp>
+  <original>
+    <name>ota_torizon</name>
+    <number>4</number>
+  </original>
+  <md5sum>8623881534f3a67feb77863b530f5baa</md5sum>
+  <fileName>u-boot-colibri-imx7.imx-sd</fileName>
+  <usages>
+    <entry>
+      <string>ota_torizon</string>
+      <ranges>4</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

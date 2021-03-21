@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-22 01:48:31.844 UTC</timestamp>
+  <original>
+    <name>yocto-zeus_5.4.70_GA-internal-nightly-build</name>
+    <number>102</number>
+  </original>
+  <md5sum>969cbc57e14f6648b46c870bbba7ce97</md5sum>
+  <fileName>u-boot-spl.bin-edm-imx8mq-2020.04-r0-sd-2020.04-r0</fileName>
+  <usages>
+    <entry>
+      <string>uuu-package-release</string>
+      <ranges>29-30,32-33</ranges>
+    </entry>
+    <entry>
+      <string>yocto-zeus_5.4.70_GA-internal-nightly-build</string>
+      <ranges>102</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

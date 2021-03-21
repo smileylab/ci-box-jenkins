@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-01-22 15:23:17.118 UTC</timestamp>
+  <original>
+    <name>github_uboot-v2018.03_4.14.98_arm64</name>
+    <number>114</number>
+  </original>
+  <md5sum>49ed6e0f32d43903c281956422316b8f</md5sum>
+  <fileName>u-boot-nodtb.bin</fileName>
+  <usages>
+    <entry>
+      <string>github_uboot-v2018.03_4.14.98_arm64</string>
+      <ranges>114</ranges>
+    </entry>
+    <entry>
+      <string>gen_imx8mq-uboot-with-firmware_uboot-v2018.03-4.14.98</string>
+      <ranges>113</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>
