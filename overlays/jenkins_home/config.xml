@@ -3,338 +3,90 @@
   <disabledAdministrativeMonitors>
     <string>hudson.diagnosis.TooManyJobsButNoView</string>
   </disabledAdministrativeMonitors>
-  <version>2.121.1</version>
-  <installStateName>RESTART</installStateName>
+  <version>2.277.1</version>
   <numExecutors>20</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:admin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:andy_lin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:Hank.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:jim_lee</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:leo_wang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:po.cheng</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:Ray.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:richard.hu</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:wig_cheng</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:Po.Cheng</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:admin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:andy_lin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:Hank.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:jim_lee</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:leo_wang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:po.cheng</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:Ray.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:richard.hu</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:wig_cheng</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:Po.Cheng</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:admin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:andy_lin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:Hank.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:jim_lee</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:leo_wang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:po.cheng</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:Ray.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:richard.hu</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:wig_cheng</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:Po.Cheng</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:admin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:andy_lin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:Hank.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:jim_lee</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:leo_wang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:po.cheng</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:Ray.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:richard.hu</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:wig_cheng</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:Po.Cheng</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:admin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:andy_lin</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:Hank.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:jim_lee</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:leo_wang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:po.cheng</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:Ray.Chang</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:richard.hu</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:wig_cheng</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:Po.Cheng</permission>
     <permission>hudson.model.Computer.Build:admin</permission>
-    <permission>hudson.model.Computer.Build:andy_lin</permission>
-    <permission>hudson.model.Computer.Build:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Build:jim_lee</permission>
-    <permission>hudson.model.Computer.Build:leo_wang</permission>
-    <permission>hudson.model.Computer.Build:po.cheng</permission>
-    <permission>hudson.model.Computer.Build:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Build:richard.hu</permission>
-    <permission>hudson.model.Computer.Build:wig_cheng</permission>
+    <permission>hudson.model.Computer.Build:Po.Cheng</permission>
     <permission>hudson.model.Computer.Configure:admin</permission>
-    <permission>hudson.model.Computer.Configure:andy_lin</permission>
-    <permission>hudson.model.Computer.Configure:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Configure:jim_lee</permission>
-    <permission>hudson.model.Computer.Configure:leo_wang</permission>
-    <permission>hudson.model.Computer.Configure:po.cheng</permission>
-    <permission>hudson.model.Computer.Configure:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Configure:richard.hu</permission>
-    <permission>hudson.model.Computer.Configure:wig_cheng</permission>
+    <permission>hudson.model.Computer.Configure:Po.Cheng</permission>
     <permission>hudson.model.Computer.Connect:admin</permission>
-    <permission>hudson.model.Computer.Connect:andy_lin</permission>
-    <permission>hudson.model.Computer.Connect:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Connect:jim_lee</permission>
-    <permission>hudson.model.Computer.Connect:leo_wang</permission>
-    <permission>hudson.model.Computer.Connect:po.cheng</permission>
-    <permission>hudson.model.Computer.Connect:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Connect:richard.hu</permission>
-    <permission>hudson.model.Computer.Connect:wig_cheng</permission>
+    <permission>hudson.model.Computer.Connect:Po.Cheng</permission>
     <permission>hudson.model.Computer.Create:admin</permission>
-    <permission>hudson.model.Computer.Create:andy_lin</permission>
-    <permission>hudson.model.Computer.Create:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Create:jim_lee</permission>
-    <permission>hudson.model.Computer.Create:leo_wang</permission>
-    <permission>hudson.model.Computer.Create:po.cheng</permission>
-    <permission>hudson.model.Computer.Create:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Create:richard.hu</permission>
-    <permission>hudson.model.Computer.Create:wig_cheng</permission>
+    <permission>hudson.model.Computer.Create:Po.Cheng</permission>
     <permission>hudson.model.Computer.Delete:admin</permission>
-    <permission>hudson.model.Computer.Delete:andy_lin</permission>
-    <permission>hudson.model.Computer.Delete:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Delete:jim_lee</permission>
-    <permission>hudson.model.Computer.Delete:leo_wang</permission>
-    <permission>hudson.model.Computer.Delete:po.cheng</permission>
-    <permission>hudson.model.Computer.Delete:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Delete:richard.hu</permission>
-    <permission>hudson.model.Computer.Delete:wig_cheng</permission>
+    <permission>hudson.model.Computer.Delete:Po.Cheng</permission>
     <permission>hudson.model.Computer.Disconnect:admin</permission>
-    <permission>hudson.model.Computer.Disconnect:andy_lin</permission>
-    <permission>hudson.model.Computer.Disconnect:Hank.Chang</permission>
-    <permission>hudson.model.Computer.Disconnect:jim_lee</permission>
-    <permission>hudson.model.Computer.Disconnect:leo_wang</permission>
-    <permission>hudson.model.Computer.Disconnect:po.cheng</permission>
-    <permission>hudson.model.Computer.Disconnect:Ray.Chang</permission>
-    <permission>hudson.model.Computer.Disconnect:richard.hu</permission>
-    <permission>hudson.model.Computer.Disconnect:wig_cheng</permission>
+    <permission>hudson.model.Computer.Disconnect:Po.Cheng</permission>
+    <permission>hudson.model.Computer.ExtendedRead:admin</permission>
+    <permission>hudson.model.Computer.ExtendedRead:Po.Cheng</permission>
     <permission>hudson.model.Hudson.Administer:admin</permission>
-    <permission>hudson.model.Hudson.Administer:po.cheng</permission>
+    <permission>hudson.model.Hudson.Administer:Po.Cheng</permission>
     <permission>hudson.model.Hudson.Read:admin</permission>
-    <permission>hudson.model.Hudson.Read:andy_lin</permission>
-    <permission>hudson.model.Hudson.Read:aurora_yang</permission>
     <permission>hudson.model.Hudson.Read:authenticated</permission>
-    <permission>hudson.model.Hudson.Read:gavin_chen</permission>
-    <permission>hudson.model.Hudson.Read:Hank.Chang</permission>
-    <permission>hudson.model.Hudson.Read:jim_lee</permission>
-    <permission>hudson.model.Hudson.Read:john_weber</permission>
-    <permission>hudson.model.Hudson.Read:lance_yen</permission>
-    <permission>hudson.model.Hudson.Read:Leo_Chen</permission>
-    <permission>hudson.model.Hudson.Read:leo_wang</permission>
-    <permission>hudson.model.Hudson.Read:marcel</permission>
-    <permission>hudson.model.Hudson.Read:po.cheng</permission>
-    <permission>hudson.model.Hudson.Read:Ray.Chang</permission>
-    <permission>hudson.model.Hudson.Read:richard.hu</permission>
-    <permission>hudson.model.Hudson.Read:voice_lee</permission>
-    <permission>hudson.model.Hudson.Read:wei_chuang</permission>
-    <permission>hudson.model.Hudson.Read:wig_cheng</permission>
+    <permission>hudson.model.Hudson.Read:Po.Cheng</permission>
+    <permission>hudson.model.Hudson.SystemRead:admin</permission>
+    <permission>hudson.model.Hudson.SystemRead:Po.Cheng</permission>
     <permission>hudson.model.Item.Build:admin</permission>
-    <permission>hudson.model.Item.Build:andy_lin</permission>
-    <permission>hudson.model.Item.Build:aurora_yang</permission>
     <permission>hudson.model.Item.Build:authenticated</permission>
-    <permission>hudson.model.Item.Build:gavin_chen</permission>
-    <permission>hudson.model.Item.Build:Hank.Chang</permission>
-    <permission>hudson.model.Item.Build:jim_lee</permission>
-    <permission>hudson.model.Item.Build:john_weber</permission>
-    <permission>hudson.model.Item.Build:lance_yen</permission>
-    <permission>hudson.model.Item.Build:Leo_Chen</permission>
-    <permission>hudson.model.Item.Build:leo_wang</permission>
-    <permission>hudson.model.Item.Build:marcel</permission>
-    <permission>hudson.model.Item.Build:po.cheng</permission>
-    <permission>hudson.model.Item.Build:Ray.Chang</permission>
-    <permission>hudson.model.Item.Build:richard.hu</permission>
-    <permission>hudson.model.Item.Build:voice_lee</permission>
-    <permission>hudson.model.Item.Build:wei_chuang</permission>
-    <permission>hudson.model.Item.Build:wig_cheng</permission>
+    <permission>hudson.model.Item.Build:Po.Cheng</permission>
     <permission>hudson.model.Item.Cancel:admin</permission>
-    <permission>hudson.model.Item.Cancel:andy_lin</permission>
-    <permission>hudson.model.Item.Cancel:aurora_yang</permission>
     <permission>hudson.model.Item.Cancel:authenticated</permission>
-    <permission>hudson.model.Item.Cancel:gavin_chen</permission>
-    <permission>hudson.model.Item.Cancel:Hank.Chang</permission>
-    <permission>hudson.model.Item.Cancel:jim_lee</permission>
-    <permission>hudson.model.Item.Cancel:john_weber</permission>
-    <permission>hudson.model.Item.Cancel:lance_yen</permission>
-    <permission>hudson.model.Item.Cancel:Leo_Chen</permission>
-    <permission>hudson.model.Item.Cancel:leo_wang</permission>
-    <permission>hudson.model.Item.Cancel:marcel</permission>
-    <permission>hudson.model.Item.Cancel:po.cheng</permission>
-    <permission>hudson.model.Item.Cancel:Ray.Chang</permission>
-    <permission>hudson.model.Item.Cancel:richard.hu</permission>
-    <permission>hudson.model.Item.Cancel:voice_lee</permission>
-    <permission>hudson.model.Item.Cancel:wei_chuang</permission>
-    <permission>hudson.model.Item.Cancel:wig_cheng</permission>
+    <permission>hudson.model.Item.Cancel:Po.Cheng</permission>
     <permission>hudson.model.Item.Configure:admin</permission>
-    <permission>hudson.model.Item.Configure:andy_lin</permission>
-    <permission>hudson.model.Item.Configure:aurora_yang</permission>
-    <permission>hudson.model.Item.Configure:gavin_chen</permission>
-    <permission>hudson.model.Item.Configure:Hank.Chang</permission>
-    <permission>hudson.model.Item.Configure:jim_lee</permission>
-    <permission>hudson.model.Item.Configure:john_weber</permission>
-    <permission>hudson.model.Item.Configure:lance_yen</permission>
-    <permission>hudson.model.Item.Configure:Leo_Chen</permission>
-    <permission>hudson.model.Item.Configure:leo_wang</permission>
-    <permission>hudson.model.Item.Configure:marcel</permission>
-    <permission>hudson.model.Item.Configure:po.cheng</permission>
-    <permission>hudson.model.Item.Configure:Ray.Chang</permission>
-    <permission>hudson.model.Item.Configure:richard.hu</permission>
-    <permission>hudson.model.Item.Configure:voice_lee</permission>
-    <permission>hudson.model.Item.Configure:wei_chuang</permission>
-    <permission>hudson.model.Item.Configure:wig_cheng</permission>
+    <permission>hudson.model.Item.Configure:Po.Cheng</permission>
     <permission>hudson.model.Item.Create:admin</permission>
-    <permission>hudson.model.Item.Create:andy_lin</permission>
     <permission>hudson.model.Item.Create:authenticated</permission>
-    <permission>hudson.model.Item.Create:Hank.Chang</permission>
-    <permission>hudson.model.Item.Create:jim_lee</permission>
-    <permission>hudson.model.Item.Create:leo_wang</permission>
-    <permission>hudson.model.Item.Create:po.cheng</permission>
-    <permission>hudson.model.Item.Create:Ray.Chang</permission>
-    <permission>hudson.model.Item.Create:richard.hu</permission>
-    <permission>hudson.model.Item.Create:wig_cheng</permission>
+    <permission>hudson.model.Item.Create:Po.Cheng</permission>
     <permission>hudson.model.Item.Delete:admin</permission>
-    <permission>hudson.model.Item.Delete:andy_lin</permission>
-    <permission>hudson.model.Item.Delete:Hank.Chang</permission>
-    <permission>hudson.model.Item.Delete:jim_lee</permission>
-    <permission>hudson.model.Item.Delete:leo_wang</permission>
-    <permission>hudson.model.Item.Delete:po.cheng</permission>
-    <permission>hudson.model.Item.Delete:Ray.Chang</permission>
-    <permission>hudson.model.Item.Delete:richard.hu</permission>
-    <permission>hudson.model.Item.Delete:wig_cheng</permission>
+    <permission>hudson.model.Item.Delete:Po.Cheng</permission>
     <permission>hudson.model.Item.Discover:admin</permission>
-    <permission>hudson.model.Item.Discover:andy_lin</permission>
-    <permission>hudson.model.Item.Discover:Hank.Chang</permission>
-    <permission>hudson.model.Item.Discover:jim_lee</permission>
-    <permission>hudson.model.Item.Discover:leo_wang</permission>
-    <permission>hudson.model.Item.Discover:po.cheng</permission>
-    <permission>hudson.model.Item.Discover:Ray.Chang</permission>
-    <permission>hudson.model.Item.Discover:richard.hu</permission>
-    <permission>hudson.model.Item.Discover:wig_cheng</permission>
+    <permission>hudson.model.Item.Discover:Po.Cheng</permission>
+    <permission>hudson.model.Item.ExtendedRead:admin</permission>
+    <permission>hudson.model.Item.ExtendedRead:Po.Cheng</permission>
     <permission>hudson.model.Item.Move:admin</permission>
-    <permission>hudson.model.Item.Move:andy_lin</permission>
-    <permission>hudson.model.Item.Move:Hank.Chang</permission>
-    <permission>hudson.model.Item.Move:jim_lee</permission>
-    <permission>hudson.model.Item.Move:leo_wang</permission>
-    <permission>hudson.model.Item.Move:po.cheng</permission>
-    <permission>hudson.model.Item.Move:Ray.Chang</permission>
-    <permission>hudson.model.Item.Move:richard.hu</permission>
-    <permission>hudson.model.Item.Move:wig_cheng</permission>
+    <permission>hudson.model.Item.Move:Po.Cheng</permission>
     <permission>hudson.model.Item.Read:admin</permission>
-    <permission>hudson.model.Item.Read:andy_lin</permission>
-    <permission>hudson.model.Item.Read:aurora_yang</permission>
     <permission>hudson.model.Item.Read:authenticated</permission>
-    <permission>hudson.model.Item.Read:gavin_chen</permission>
-    <permission>hudson.model.Item.Read:Hank.Chang</permission>
-    <permission>hudson.model.Item.Read:jim_lee</permission>
-    <permission>hudson.model.Item.Read:john_weber</permission>
-    <permission>hudson.model.Item.Read:lance_yen</permission>
-    <permission>hudson.model.Item.Read:Leo_Chen</permission>
-    <permission>hudson.model.Item.Read:leo_wang</permission>
-    <permission>hudson.model.Item.Read:marcel</permission>
-    <permission>hudson.model.Item.Read:po.cheng</permission>
-    <permission>hudson.model.Item.Read:Ray.Chang</permission>
-    <permission>hudson.model.Item.Read:richard.hu</permission>
-    <permission>hudson.model.Item.Read:voice_lee</permission>
-    <permission>hudson.model.Item.Read:wei_chuang</permission>
-    <permission>hudson.model.Item.Read:wig_cheng</permission>
+    <permission>hudson.model.Item.Read:Po.Cheng</permission>
     <permission>hudson.model.Item.Workspace:admin</permission>
-    <permission>hudson.model.Item.Workspace:andy_lin</permission>
-    <permission>hudson.model.Item.Workspace:aurora_yang</permission>
     <permission>hudson.model.Item.Workspace:authenticated</permission>
-    <permission>hudson.model.Item.Workspace:gavin_chen</permission>
-    <permission>hudson.model.Item.Workspace:Hank.Chang</permission>
-    <permission>hudson.model.Item.Workspace:jim_lee</permission>
-    <permission>hudson.model.Item.Workspace:john_weber</permission>
-    <permission>hudson.model.Item.Workspace:lance_yen</permission>
-    <permission>hudson.model.Item.Workspace:Leo_Chen</permission>
-    <permission>hudson.model.Item.Workspace:leo_wang</permission>
-    <permission>hudson.model.Item.Workspace:marcel</permission>
-    <permission>hudson.model.Item.Workspace:po.cheng</permission>
-    <permission>hudson.model.Item.Workspace:Ray.Chang</permission>
-    <permission>hudson.model.Item.Workspace:richard.hu</permission>
-    <permission>hudson.model.Item.Workspace:voice_lee</permission>
-    <permission>hudson.model.Item.Workspace:wei_chuang</permission>
-    <permission>hudson.model.Item.Workspace:wig_cheng</permission>
+    <permission>hudson.model.Item.Workspace:Po.Cheng</permission>
     <permission>hudson.model.Run.Delete:admin</permission>
-    <permission>hudson.model.Run.Delete:andy_lin</permission>
-    <permission>hudson.model.Run.Delete:Hank.Chang</permission>
-    <permission>hudson.model.Run.Delete:jim_lee</permission>
-    <permission>hudson.model.Run.Delete:leo_wang</permission>
-    <permission>hudson.model.Run.Delete:po.cheng</permission>
-    <permission>hudson.model.Run.Delete:Ray.Chang</permission>
-    <permission>hudson.model.Run.Delete:richard.hu</permission>
-    <permission>hudson.model.Run.Delete:wig_cheng</permission>
+    <permission>hudson.model.Run.Delete:Po.Cheng</permission>
     <permission>hudson.model.Run.Replay:admin</permission>
-    <permission>hudson.model.Run.Replay:andy_lin</permission>
-    <permission>hudson.model.Run.Replay:Hank.Chang</permission>
-    <permission>hudson.model.Run.Replay:jim_lee</permission>
-    <permission>hudson.model.Run.Replay:leo_wang</permission>
-    <permission>hudson.model.Run.Replay:po.cheng</permission>
-    <permission>hudson.model.Run.Replay:Ray.Chang</permission>
-    <permission>hudson.model.Run.Replay:richard.hu</permission>
-    <permission>hudson.model.Run.Replay:wig_cheng</permission>
+    <permission>hudson.model.Run.Replay:Po.Cheng</permission>
     <permission>hudson.model.Run.Update:admin</permission>
-    <permission>hudson.model.Run.Update:andy_lin</permission>
-    <permission>hudson.model.Run.Update:Hank.Chang</permission>
-    <permission>hudson.model.Run.Update:jim_lee</permission>
-    <permission>hudson.model.Run.Update:leo_wang</permission>
-    <permission>hudson.model.Run.Update:po.cheng</permission>
-    <permission>hudson.model.Run.Update:Ray.Chang</permission>
-    <permission>hudson.model.Run.Update:richard.hu</permission>
-    <permission>hudson.model.Run.Update:wig_cheng</permission>
+    <permission>hudson.model.Run.Update:Po.Cheng</permission>
     <permission>hudson.model.View.Configure:admin</permission>
-    <permission>hudson.model.View.Configure:andy_lin</permission>
-    <permission>hudson.model.View.Configure:Hank.Chang</permission>
-    <permission>hudson.model.View.Configure:jim_lee</permission>
-    <permission>hudson.model.View.Configure:leo_wang</permission>
-    <permission>hudson.model.View.Configure:po.cheng</permission>
-    <permission>hudson.model.View.Configure:Ray.Chang</permission>
-    <permission>hudson.model.View.Configure:richard.hu</permission>
-    <permission>hudson.model.View.Configure:wig_cheng</permission>
+    <permission>hudson.model.View.Configure:Po.Cheng</permission>
     <permission>hudson.model.View.Create:admin</permission>
-    <permission>hudson.model.View.Create:andy_lin</permission>
-    <permission>hudson.model.View.Create:Hank.Chang</permission>
-    <permission>hudson.model.View.Create:jim_lee</permission>
-    <permission>hudson.model.View.Create:leo_wang</permission>
-    <permission>hudson.model.View.Create:po.cheng</permission>
-    <permission>hudson.model.View.Create:Ray.Chang</permission>
-    <permission>hudson.model.View.Create:richard.hu</permission>
-    <permission>hudson.model.View.Create:wig_cheng</permission>
+    <permission>hudson.model.View.Create:Po.Cheng</permission>
     <permission>hudson.model.View.Delete:admin</permission>
-    <permission>hudson.model.View.Delete:andy_lin</permission>
-    <permission>hudson.model.View.Delete:Hank.Chang</permission>
-    <permission>hudson.model.View.Delete:jim_lee</permission>
-    <permission>hudson.model.View.Delete:leo_wang</permission>
-    <permission>hudson.model.View.Delete:po.cheng</permission>
-    <permission>hudson.model.View.Delete:Ray.Chang</permission>
-    <permission>hudson.model.View.Delete:richard.hu</permission>
-    <permission>hudson.model.View.Delete:wig_cheng</permission>
+    <permission>hudson.model.View.Delete:Po.Cheng</permission>
     <permission>hudson.model.View.Read:admin</permission>
-    <permission>hudson.model.View.Read:andy_lin</permission>
-    <permission>hudson.model.View.Read:aurora_yang</permission>
     <permission>hudson.model.View.Read:authenticated</permission>
-    <permission>hudson.model.View.Read:gavin_chen</permission>
-    <permission>hudson.model.View.Read:Hank.Chang</permission>
-    <permission>hudson.model.View.Read:jim_lee</permission>
-    <permission>hudson.model.View.Read:john_weber</permission>
-    <permission>hudson.model.View.Read:lance_yen</permission>
-    <permission>hudson.model.View.Read:Leo_Chen</permission>
-    <permission>hudson.model.View.Read:leo_wang</permission>
-    <permission>hudson.model.View.Read:marcel</permission>
-    <permission>hudson.model.View.Read:po.cheng</permission>
-    <permission>hudson.model.View.Read:Ray.Chang</permission>
-    <permission>hudson.model.View.Read:richard.hu</permission>
-    <permission>hudson.model.View.Read:voice_lee</permission>
-    <permission>hudson.model.View.Read:wei_chuang</permission>
-    <permission>hudson.model.View.Read:wig_cheng</permission>
+    <permission>hudson.model.View.Read:Po.Cheng</permission>
     <permission>hudson.scm.SCM.Tag:admin</permission>
-    <permission>hudson.scm.SCM.Tag:andy_lin</permission>
-    <permission>hudson.scm.SCM.Tag:Hank.Chang</permission>
-    <permission>hudson.scm.SCM.Tag:jim_lee</permission>
-    <permission>hudson.scm.SCM.Tag:leo_wang</permission>
-    <permission>hudson.scm.SCM.Tag:po.cheng</permission>
-    <permission>hudson.scm.SCM.Tag:Ray.Chang</permission>
-    <permission>hudson.scm.SCM.Tag:richard.hu</permission>
-    <permission>hudson.scm.SCM.Tag:wig_cheng</permission>
+    <permission>hudson.scm.SCM.Tag:Po.Cheng</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve:admin</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve:Po.Cheng</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock:admin</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock:Po.Cheng</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View:admin</permission>
+    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View:Po.Cheng</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>true</disableSignup>
@@ -349,7 +101,7 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds>
-    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.1.0-rc45">
+    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.2.0">
       <name>docker-slave</name>
       <provisionedImages/>
       <templates>
@@ -357,20 +109,20 @@
           <id>d2d5e23f-71ec-439b-b907-cdc5de5aa6d6</id>
           <labelString>docker-slave/yocto</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -447,20 +199,20 @@
           <id>8248210c-699a-4e9a-a303-650e6022cd47</id>
           <labelString>docker-slave/android-7</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -535,20 +287,20 @@
           <id>9f6910b4-51dd-4a32-9306-7f76d0048677</id>
           <labelString>docker-slave/buildroot</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -625,20 +377,20 @@
           <id>56d55eca-17e6-47a7-bb5b-4a4ceb294895</id>
           <labelString>docker-slave/qcgui_builder</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -715,20 +467,20 @@
           <id>84dc573e-7b2e-47c9-a82f-4e9da3682099</id>
           <labelString>docker-slave/kernel</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -816,7 +568,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -894,20 +646,20 @@
           <id>0aefd2b4-95c6-42de-8ca1-2d27bac4a557</id>
           <labelString>docker-slave/yocto-develop</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -995,7 +747,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1082,7 +834,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1170,7 +922,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1249,20 +1001,20 @@
           <id>7a10641f-a45d-4555-a253-1415402fb561</id>
           <labelString>docker-slave/yocto-builder</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1350,7 +1102,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1423,20 +1175,20 @@
           <id>e037d517-d647-4bd3-a866-c3c9f9674bd2</id>
           <labelString>tn/builder</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1516,20 +1268,20 @@
           <id>875d82fc-e1c8-4c45-8e5e-d8c59f398991</id>
           <labelString>tn/builder3</labelString>
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
-            <sshConnector plugin="ssh-slaves@1.22">
+            <sshConnector>
               <port>22</port>
               <credentialsId>4cc8a9d4-5177-42b6-a926-280893a9e614</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1620,7 +1372,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1706,7 +1458,7 @@
           <remoteFs>/home/jenkins</remoteFs>
           <mode>EXCLUSIVE</mode>
           <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
-            <idleMinutes>10</idleMinutes>
+            <idleMinutes>0</idleMinutes>
             <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
           </retentionStrategy>
           <numExecutors>1</numExecutors>
@@ -1799,7 +1551,7 @@
     </hudson.model.AllView>
   </views>
   <primaryView>all</primaryView>
-  <slaveAgentPort>50000</slaveAgentPort>
+  <slaveAgentPort>8084</slaveAgentPort>
   <label></label>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
     <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
