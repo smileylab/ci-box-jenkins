@@ -1,5 +1,0 @@
-<?xml version='1.1' encoding='UTF-8'?>
-<com.zanox.hudson.plugins.FTPPublisher_-DescriptorImpl plugin="ftppublisher@1.2">
-  <sites/>
-  <flattenFilesSelectedByDefault>false</flattenFilesSelectedByDefault>
-</com.zanox.hudson.plugins.FTPPublisher_-DescriptorImpl>
