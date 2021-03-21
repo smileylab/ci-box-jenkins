@@ -18,7 +18,6 @@ docker-workflow
 durable-task
 email-ext
 external-monitor-job
-ftppublisher
 git
 git-changelog
 git-client
@@ -28,7 +27,6 @@ github-branch-source
 git-server
 gradle
 handlebars
-icon-shim
 jackson2-api
 javadoc
 jdk-tool
@@ -42,7 +40,6 @@ mapdb-api
 matrix-auth
 matrix-project
 momentjs
-multiple-scms
 pam-auth
 pipeline-build-step
 pipeline-github-lib

@@ -18,7 +18,6 @@ docker-workflow	1.14	true
 durable-task	1.15	true
 email-ext	2.61	true
 external-monitor-job	1.7	true
-ftppublisher	1.2	true
 git	3.6.4	true
 git-changelog	2.2	true
 git-client	2.6.0	true
@@ -28,7 +27,6 @@ github-api	1.90	true
 github-branch-source	2.2.6	true
 gradle	1.28	true
 handlebars	1.1.1	true
-icon-shim	2.0.3	true
 jackson2-api	2.8.7.0	true
 javadoc	1.4	true
 jdk-tool	1.0	true
@@ -42,7 +40,6 @@ mapdb-api	1.0.9.0	true
 matrix-auth	2.1.1	true
 matrix-project	1.12	true
 momentjs	1.1.1	true
-multiple-scms	0.6	true
 pam-auth	1.3	true
 pipeline-build-step	2.5.1	true
 pipeline-github-lib	1.0	true
