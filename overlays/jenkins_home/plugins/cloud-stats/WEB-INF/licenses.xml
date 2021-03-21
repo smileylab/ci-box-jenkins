@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<l:dependencies xmlns:l='licenses' groupId='org.jenkins-ci.plugins' artifactId='cloud-stats' version='0.26'><l:dependency name='Cloud Statistics Plugin' groupId='org.jenkins-ci.plugins' artifactId='cloud-stats' version='0.26' url='https://github.com/jenkinsci/cloud-stats-plugin'><l:description>Report Jenkins dynamic provisioning activities and statistics</l:description><l:license name='The MIT license' url='https://opensource.org/licenses/MIT'/></l:dependency></l:dependencies>
