@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jacob
+Build-Jdk: 1.6.0_18
+Extension-Name: ftppublisher
+Specification-Title: Upload artifacts and other resources to an ftp se
+ rver.
+Implementation-Title: ftppublisher
+Implementation-Version: 1.2
+Short-Name: ftppublisher
+Long-Name: FTP publisher plugin
+Url: http://wiki.hudson-ci.org/display/HUDSON/FTP-Publisher+Plugin
+Compatible-Since-Version: 1.0
+Plugin-Version: 1.2
+Hudson-Version: 1.349
+

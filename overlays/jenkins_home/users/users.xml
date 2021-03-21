@@ -1,0 +1,50 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson.model.UserIdMapper>
+  <version>1</version>
+  <idToDirectoryNameMap class="concurrent-hash-map">
+    <entry>
+      <string>po.cheng</string>
+      <string>pocheng_625567931422803723</string>
+    </entry>
+    <entry>
+      <string>ray.chang</string>
+      <string>raychang_1292719654239472460</string>
+    </entry>
+    <entry>
+      <string>wig_cheng</string>
+      <string>wigcheng_2501237054981979988</string>
+    </entry>
+    <entry>
+      <string>jim_lee</string>
+      <string>jimlee_7186431919189725381</string>
+    </entry>
+    <entry>
+      <string>john_weber</string>
+      <string>johnweber_977754658271870723</string>
+    </entry>
+    <entry>
+      <string>richard.hu</string>
+      <string>richardhu_8868479918779825386</string>
+    </entry>
+    <entry>
+      <string>admin</string>
+      <string>admin_5488510983525557082</string>
+    </entry>
+    <entry>
+      <string>leo_wang</string>
+      <string>leowang_3892792246772257448</string>
+    </entry>
+    <entry>
+      <string>gavin_chen</string>
+      <string>gavinchen_6662714617595893659</string>
+    </entry>
+    <entry>
+      <string>andy_lin</string>
+      <string>andylin_9132330263365128746</string>
+    </entry>
+    <entry>
+      <string>hank.chang</string>
+      <string>hankchang_8748641313782730217</string>
+    </entry>
+  </idToDirectoryNameMap>
+</hudson.model.UserIdMapper>

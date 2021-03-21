@@ -1,186 +1,6 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<org.jenkinsci.plugins.cloudstats.CloudStatistics plugin="cloud-stats@0.15">
+<org.jenkinsci.plugins.cloudstats.CloudStatistics plugin="cloud-stats@0.26">
   <active class="java.util.concurrent.CopyOnWriteArrayList">
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/ubuntu</templateName>
-        <fingerprint>1028785073</fingerprint>
-      </id>
-      <name>docker-slave/ubuntu</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1525657734342</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/yocto</templateName>
-        <fingerprint>231787271</fingerprint>
-      </id>
-      <name>docker-slave-d72a2c48f657</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1525750560895</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/kernel</templateName>
-        <fingerprint>-1869554562</fingerprint>
-      </id>
-      <name>docker-slave/kernel</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1532998851789</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/uboot_kernel</templateName>
-        <fingerprint>-947747162</fingerprint>
-      </id>
-      <name>docker-slave/uboot_kernel</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1533000071709</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/uboot_kernel</templateName>
-        <fingerprint>-1283983953</fingerprint>
-      </id>
-      <name>docker-slave/uboot_kernel</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1533000321705</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-    <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <id>
-        <cloudName>docker-slave</cloudName>
-        <templateName>docker-slave/kernel</templateName>
-        <fingerprint>-7045826</fingerprint>
-      </id>
-      <name>docker-slave/kernel</name>
-      <progress class="linked-hash-map">
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-            <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <started>1533091772503</started>
-            <phase>PROVISIONING</phase>
-          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-        <entry>
-          <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
-        </entry>
-      </progress>
-    </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
     <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
       <id>
         <cloudName>docker-slave</cloudName>
@@ -207,7 +27,20 @@
         </entry>
         <entry>
           <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-          <null/>
+          <org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+              <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <status>WARN</status>
+                <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+              </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <status>OK</status>
+                <title>Provisioning interrupted by restart</title>
+              </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+            </attachments>
+            <started>1616306918547</started>
+            <phase>COMPLETED</phase>
+          </org.jenkinsci.plugins.cloudstats.PhaseExecution>
         </entry>
       </progress>
     </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
@@ -3199,82 +3032,84 @@
       <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
         <id>
           <cloudName>docker-slave</cloudName>
-          <templateName>docker-slave/kernel</templateName>
-          <fingerprint>150539839</fingerprint>
-        </id>
-        <name>docker-slave-3b195cfc5853</name>
-        <progress class="linked-hash-map">
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045469020</started>
-              <phase>PROVISIONING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045479166</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045481854</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045524068</started>
-              <phase>COMPLETED</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-        </progress>
-      </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-        <id>
-          <cloudName>docker-slave</cloudName>
           <templateName>docker-slave/ubuntu</templateName>
-          <fingerprint>978174705</fingerprint>
+          <fingerprint>1028785073</fingerprint>
         </id>
-        <name>docker-slave-f6a525009c52</name>
+        <name>docker-slave/ubuntu</name>
         <progress class="linked-hash-map">
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045529020</started>
+              <started>1525657734342</started>
               <phase>PROVISIONING</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045539145</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045541864</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918025</started>
+              <phase>COMPLETED</phase>
+            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+          </entry>
+        </progress>
+      </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
+      <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
+        <id>
+          <cloudName>docker-slave</cloudName>
+          <templateName>docker-slave/yocto</templateName>
+          <fingerprint>231787271</fingerprint>
+        </id>
+        <name>docker-slave-d72a2c48f657</name>
+        <progress class="linked-hash-map">
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045657759</started>
+              <started>1525750560895</started>
+              <phase>PROVISIONING</phase>
+            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <null/>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <null/>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918177</started>
               <phase>COMPLETED</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
@@ -3284,39 +3119,40 @@
         <id>
           <cloudName>docker-slave</cloudName>
           <templateName>docker-slave/kernel</templateName>
-          <fingerprint>1086839152</fingerprint>
+          <fingerprint>-1869554562</fingerprint>
         </id>
-        <name>docker-slave-81f608523ae8</name>
+        <name>docker-slave/kernel</name>
         <progress class="linked-hash-map">
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045579021</started>
+              <started>1532998851789</started>
               <phase>PROVISIONING</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045589091</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045591852</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045639802</started>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918255</started>
               <phase>COMPLETED</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
@@ -3325,40 +3161,84 @@
       <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
         <id>
           <cloudName>docker-slave</cloudName>
-          <templateName>docker-slave/ubuntu</templateName>
-          <fingerprint>508987525</fingerprint>
+          <templateName>docker-slave/uboot_kernel</templateName>
+          <fingerprint>-947747162</fingerprint>
         </id>
-        <name>docker-slave-b0740dee4caf</name>
+        <name>docker-slave/uboot_kernel</name>
         <progress class="linked-hash-map">
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045639022</started>
+              <started>1533000071709</started>
               <phase>PROVISIONING</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045649179</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045651905</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918334</started>
+              <phase>COMPLETED</phase>
+            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+          </entry>
+        </progress>
+      </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
+      <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
+        <id>
+          <cloudName>docker-slave</cloudName>
+          <templateName>docker-slave/uboot_kernel</templateName>
+          <fingerprint>-1283983953</fingerprint>
+        </id>
+        <name>docker-slave/uboot_kernel</name>
+        <progress class="linked-hash-map">
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045790257</started>
+              <started>1533000321705</started>
+              <phase>PROVISIONING</phase>
+            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <null/>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <null/>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
+            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918401</started>
               <phase>COMPLETED</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
@@ -3368,81 +3248,40 @@
         <id>
           <cloudName>docker-slave</cloudName>
           <templateName>docker-slave/kernel</templateName>
-          <fingerprint>1704022774</fingerprint>
+          <fingerprint>-7045826</fingerprint>
         </id>
-        <name>docker-slave-2048fa60d53a</name>
+        <name>docker-slave/kernel</name>
         <progress class="linked-hash-map">
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
               <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045699021</started>
+              <started>1533091772503</started>
               <phase>PROVISIONING</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045709129</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045712110</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
+            <null/>
           </entry>
           <entry>
             <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
             <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045775847</started>
-              <phase>COMPLETED</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-        </progress>
-      </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-      <org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
-        <id>
-          <cloudName>docker-slave</cloudName>
-          <templateName>docker-slave/kernel</templateName>
-          <fingerprint>2140071166</fingerprint>
-        </id>
-        <name>docker-slave-fcef496109bd</name>
-        <progress class="linked-hash-map">
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>PROVISIONING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045699031</started>
-              <phase>PROVISIONING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>LAUNCHING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045709455</started>
-              <phase>LAUNCHING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>OPERATING</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045712484</started>
-              <phase>OPERATING</phase>
-            </org.jenkinsci.plugins.cloudstats.PhaseExecution>
-          </entry>
-          <entry>
-            <org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>COMPLETED</org.jenkinsci.plugins.cloudstats.ProvisioningActivity_-Phase>
-            <org.jenkinsci.plugins.cloudstats.PhaseExecution>
-              <attachments class="java.util.concurrent.CopyOnWriteArrayList"/>
-              <started>1572045775782</started>
+              <attachments class="java.util.concurrent.CopyOnWriteArrayList">
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>WARN</status>
+                  <title>Provisioning activity was completed before reaching OPERATING phase without reporting a problem</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                <org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+                  <status>OK</status>
+                  <title>Provisioning interrupted by restart</title>
+                </org.jenkinsci.plugins.cloudstats.PhaseExecutionAttachment>
+              </attachments>
+              <started>1616306918468</started>
               <phase>COMPLETED</phase>
             </org.jenkinsci.plugins.cloudstats.PhaseExecution>
           </entry>
@@ -4415,7 +4254,7 @@
         </progress>
       </org.jenkinsci.plugins.cloudstats.ProvisioningActivity>
     </data>
-    <next>71</next>
+    <next>77</next>
     <size>100</size>
   </log>
 </org.jenkinsci.plugins.cloudstats.CloudStatistics>

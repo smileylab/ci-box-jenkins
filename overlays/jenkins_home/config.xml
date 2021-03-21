@@ -3,8 +3,7 @@
   <disabledAdministrativeMonitors>
     <string>hudson.diagnosis.TooManyJobsButNoView</string>
   </disabledAdministrativeMonitors>
-  <version>2.190.2</version>
-  <installStateName>RESTART</installStateName>
+  <version>2.277.1</version>
   <numExecutors>20</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -299,7 +298,7 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds>
-    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.1.5">
+    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.2.0">
       <name>docker-slave</name>
       <provisionedImages/>
       <templates>
@@ -314,7 +313,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -402,7 +401,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -490,7 +489,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -578,7 +577,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -666,7 +665,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -754,7 +753,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -842,7 +841,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
@@ -1188,7 +1187,7 @@
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
               <retryWaitTime>0</retryWaitTime>
-              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.0"/>
+              <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy" plugin="ssh-slaves@1.31.5"/>
             </sshConnector>
           </launcher>
           <remoteFs>/home/jenkins</remoteFs>
